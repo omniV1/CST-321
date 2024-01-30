@@ -64,13 +64,13 @@
 
 ---
 
-###Research POSIX Process Functions 
+### Research POSIX Process Functions 
 - ***What is POSIX?***
 
   - is a family of standards specified by the IEEE Computer Society for maintaining compatibility between operating systems. POSIX defines both the system and user-level application programming interfaces (APIs), along with command line shells and utility interfaces, for software compatibility (portability) with variants of Unix and other operating systems. POSIX is also a trademark of the IEEE. POSIX is intended to be used by both application and system developers.
 
 
-- ***What POSIX functions can be used to manage a process?***
+- **What POSIX functions can be used to manage a process?**
      
  1. fork(): Creates a new process. The new process is a copy of the calling process.
 
@@ -141,7 +141,7 @@
   | processes operate indepently | threads can write over other threads data |
 
   ---
-  ### What is Concurrency?
+  ## What is Concurrency?
 
 - Threads run in parallel (allowing concurrently running code)
 
@@ -205,12 +205,34 @@ int pthread_create(pthread_t*thread,const pthread_attr_t *attr,void*(*start_rout
 
 - servers for a website.
   
-      - requests for REST APIs.
+     - requests for REST APIs.
 
   
 ---
 
-### In class discussion 
+### In class discussion 1/25
 
-- ACTIVITY 2 Fork and processes completed
+- ACTIVITY 2 Fork and producer nd consumer completed
 
+
+### In class discussion 1/30
+
+- producer and consumer walkthrough
+
+|producer | consumer | 
+|-------------|--------|
+| writing / incrementing count   |   reading / decremeting count    | 
+| while (!full) put data in buffer   |  sleeps and wait if buffer has no data       |
+|signal consumer when full then sleep and wait | read data from buffer until all data is read | 
+|  will start writing into buffer until ful    | sends signal to continue  |
+
+
+
+
+- **circular buffer** 
+   - count, read, and write. 
+   - fork allows two processes to access shared memory
+   
+ - **signals**
+   -   
+  
