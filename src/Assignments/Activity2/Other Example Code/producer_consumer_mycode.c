@@ -44,24 +44,24 @@ struct CIRCULAR_BUFFER
 struct CIRCULAR_BUFFER *buffer = NULL;
 
 // This method will put the current Process to sleep until it is awoken by the WAKEUP signal
-void sleepAndWait() 
-{
-    // Define nSig 
-    int nSig;
-     // orepare to catch the wake up signal
-    sigemptyset(&sigSet);
-    sigaddset(&sigSet, WAKEUP);
-
+void sleepAndWait() {
+    int sig;
+    printf("Consumer/Producer is going to sleep...\n"); // Print a message before sleeping
     // Wait for the WAKEUP signal to be delivered
-    printf("Sleeping...\n"); 
     sigwait(&sigSet, &sig);
-    printf("Im awake!\n");
+    printf("Consumer/Producer is awake!\n"); // Print a message when awoken
 }
 
-// This method will signal the Other Process to WAKEUP
-void wakeupOther() {
-    // Send the WAKEUP signal to the other process
-    kill(otherPid, WAKEUP);
+// Function to put the process to sleep until a signal is received
+void sleepUntilWoken() {
+    int nSig;
+
+    printf("Consumer/Producer is going to sleep...\n"); // Print a message before sleeping
+
+    // Wait for a signal to wake up the process
+    sigwait(&sigSet, &nSig);
+
+    printf("Consumer/Producer is awake!\n"); // Print a message when awoken
 }
 /////////////////////////////////////////////////////////////////////////////////////
 
@@ -98,35 +98,31 @@ void consumer() {
     // Counter for the number of items consumed
     int consumedCount = 0;
 
-   // Give an expected count based on the amount of items the producer will add to the circular buffer 
-    int expectedCount = 30; 
+    // Give an expected count based on the amount of items the producer will add to the circular buffer
+    int expectedCount = 30;
 
     // Print a starting message for the consumer process
     printf("Running Consumer process...\n");
 
-    // adding sleep delay so producer process runs before consumer 
-      sleep(1);
-       
-     // Start a loop to consume 20 items
+    // Start a loop to consume items
     while (consumedCount < expectedCount) {
         // Check if the buffer is empty
         if (buffer->count == 0) {
             // Buffer is empty, wait for the producer to add items
-            sleepAndWait();
-        }  
-        else
-        {
+            sleepUntilWoken(); // Use sleepUntilWoken() to sleep and wait for a signal
+        } else {
             int value = getValue(buffer);
             printf("Consumer consumed: %d\n", value);
 
             if (buffer->count == MAX - 1) {
-                wakeupOther();
+                sleepUntilWoken();
             }
             consumedCount++;
         }
     }
     _exit(1);
 }
+
 
 // Producer process
 void producer() {
@@ -149,6 +145,8 @@ void producer() {
     while (producedCount < 30) {
         // Check if the buffer is full
         if (buffer->count == MAX) {
+         // Use sleepUntilWoken() to sleep and wait for a signal
+         sleepUntilWoken(); 
             // If buffer is full, print a message indicating the producer is sleeping
             sleepAndWait();
         }
