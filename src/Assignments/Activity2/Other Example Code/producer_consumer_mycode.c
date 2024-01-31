@@ -68,21 +68,35 @@ void sleepUntilWoken(const char* processName)
 // Gets a value from the shared buffer
 int getValue(struct CIRCULAR_BUFFER* buffer) 
 {
+    // Add debug statement to check values before getting
+    printf("Getting value... Start: %d, End: %d, Count: %d\n", buffer->start, buffer->end, buffer->count);
+    
     // Critical section to get a value from the buffer
     int value = buffer->buffer[buffer->start];
     buffer->start = (buffer->start + 1) % MAX;
     buffer->count--;
+    
+    // Add debug statement to check values after getting
+    printf("Got value: %d, New Start: %d, New Count: %d\n", value, buffer->start, buffer->count);
+
     return value;
 }
 
 // Puts a value in the shared buffer
 void putValue(struct CIRCULAR_BUFFER* buffer, int value) 
 {
+    // Add debug statement to check values before putting
+    printf("Putting value... Start: %d, End: %d, Count: %d\n", buffer->start, buffer->end, buffer->count);
+    
     // Critical section to put a value in the buffer
     buffer->buffer[buffer->end] = value;
     buffer->end = (buffer->end + 1) % MAX;
     buffer->count++;
+    
+    // Add debug statement to check values after putting
+    printf("Put value: %d, New End: %d, New Count: %d\n", value, buffer->end, buffer->count);
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -112,21 +126,29 @@ void consumer()
     // Start a loop to consume items
     while (consumedCount < expectedCount) 
     {
-        if (buffer->count == 0) {
-            // Buffer is empty, wait for the producer to add items
-            sleepUntilWoken("Consumer");
-        } else {
-            int value = getValue(buffer);
-            printf("Consumer ate: %d\n", value);
+      if (buffer->count == 0) 
+      {
+    // Buffer is empty, wait for the producer to add items
+    sleepAndWait("Consumer");
+      } 
+      else 
+      {
+    int value = getValue(buffer);
+    printf("Consumer ate: %d\n", value);
 
-            if (buffer->count == MAX - 1) 
-            {
-                // If the buffer was full, wake up the producer
-                sleepAndWait("Producer");
-            }
-            consumedCount++;
-        }
-    }
+    // If the buffer was full before consuming a value, wake up the producer
+   if (buffer->count == MAX - 1) 
+         {
+          
+    printf("Buffer was full, consumed: %d, waking up producer...\n", value);
+    kill(otherPid, WAKEUP); // Wake up the producer
+          
+         }
+       consumedCount++;
+      }
+
+   }
+ exit(0); 
 }
 
 // Producer process
@@ -155,26 +177,22 @@ void producer()
             // If buffer is full, print a message indicating the producer is sleeping
             sleepUntilWoken("Producer");
         } 
-        else 
+       else 
         {
-            putValue(buffer, producedCount); // Fix: Put the current value in the circular buffer
-            printf("Producer created: %d\n", producedCount);
-            producedCount++;
+    putValue(buffer, producedCount);
+    printf("Producer created: %d\n", producedCount);
+    producedCount++;
 
-            if (buffer->count == 1) 
-            {
-                // If the buffer was empty and items have been produced, wake up the consumer
-                sleepAndWait("Consumer");
-            }
-        }
-    }
-
-
-
-
-
-
-
+    // If the buffer was empty before putting a value, wake up the consumer
+   if (buffer->count == 1) 
+      {
+    printf("Buffer was empty, produced: %d, waking up consumer...\n", producedCount);
+    kill(otherPid, WAKEUP); // Wake up the consumer
+      }
+   }
+ }
+ exit(0); 
+}
 //////////////////////////////////////////////////////////////////////////////
 /**
  * Main application entry point to demonstrate forking off a child process that will run concurrently with this process.
