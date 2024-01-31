@@ -95,13 +95,16 @@ void consumer() {
     // Block the WAKEUP signal until it's explicitly waited on using sigwait
     sigprocmask(SIG_BLOCK, &sigSet, NULL);
 
-    // Print a starting message for the consumer process
-    printf("Running Consumer process...\n");
-
     // Counter for the number of items consumed
     int consumedCount = 0;
 
-    // Start a loop to consume 20 items
+    // Print a starting message for the consumer process
+    printf("Running Consumer process...\n");
+
+    // adding sleep delay so producer process runs before consumer 
+      sleep(1);
+       
+     // Start a loop to consume 20 items
     while (consumedCount < 20) {
         // Check if the buffer is empty
         if (buffer->count == 0) {
