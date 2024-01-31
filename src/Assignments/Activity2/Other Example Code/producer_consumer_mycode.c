@@ -157,10 +157,8 @@ void producer()
         } 
         else 
         {
-            putValue(buffer, producedCount);
-         
+            putValue(buffer, producedCount); // Fix: Put the current value in the circular buffer
             printf("Producer created: %d\n", producedCount);
-         
             producedCount++;
 
             if (buffer->count == 1) 
@@ -170,7 +168,9 @@ void producer()
             }
         }
     }
-}
+
+
+
 
 
 
