@@ -86,8 +86,8 @@ void putValue(struct CIRCULAR_BUFFER* buffer, int value)
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-// Consumer process
-void consumer() 
+// Producer process
+void producer() 
 {
     // Initialize an empty signal set
     sigemptyset(&sigSet);
@@ -105,7 +105,7 @@ void consumer()
     int expectedCount = 30;
 
     // Print a starting message for the consumer process
-    printf("Running Consumer process...\n");
+    printf("Running producer process...\n");
 
     sleep(2);
    
@@ -115,15 +115,15 @@ void consumer()
    {
     if (buffer->count == 0) {
         // Buffer is empty, wait for the producer to add items
-        sleepUntilWoken("Consumer");
+        sleepUntilWoken("producer");
     } else {
         int value = getValue(buffer);
-        printf("Consumer consumed: %d\n", value);
+        printf("producer created: %d\n", value);
 
         if (buffer->count == MAX - 1) 
         {
             // If the buffer was full, wake up the producer
-            sleepAndWait("Consumer");
+            sleepAndWait("producer");
         }
         consumedCount++;
     }
@@ -133,8 +133,8 @@ void consumer()
 }
 
 
-// Producer process
-void producer() 
+// Consumer process
+void consumer() 
 {
     // Initialize an empty signal set
     sigemptyset(&sigSet);
@@ -146,7 +146,7 @@ void producer()
     sigprocmask(SIG_BLOCK, &sigSet, NULL);
 
     // Print a starting message for the producer process
-    printf("Running the producer process...\n");
+    printf("Running the Consumer process...\n");
 
     // Counter for the number of items produced
     int producedCount = 0;
@@ -157,13 +157,13 @@ void producer()
     if (buffer->count == MAX)
     {
         // If buffer is full, print a message indicating the producer is sleeping
-        sleepUntilWoken("Producer");
+        sleepUntilWoken("Consumer");
     } 
     else 
     {
         putValue(buffer, producedCount);
      
-        printf("Producer produced: %d\n", producedCount);
+        printf("Consumer ate: %d\n", producedCount);
      
         producedCount++;
 
