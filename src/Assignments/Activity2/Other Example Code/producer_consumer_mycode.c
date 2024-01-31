@@ -98,6 +98,9 @@ void consumer() {
     // Counter for the number of items consumed
     int consumedCount = 0;
 
+   // Give an expected count based on the amount of items the producer will add to the circular buffer 
+    int expectedCount = 30; 
+
     // Print a starting message for the consumer process
     printf("Running Consumer process...\n");
 
@@ -105,7 +108,7 @@ void consumer() {
       sleep(1);
        
      // Start a loop to consume 20 items
-    while (consumedCount < 20) {
+    while (consumedCount < expectedCount) {
         // Check if the buffer is empty
         if (buffer->count == 0) {
             // Buffer is empty, wait for the producer to add items
