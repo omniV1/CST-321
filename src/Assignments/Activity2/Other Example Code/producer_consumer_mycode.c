@@ -107,7 +107,7 @@ void consumer()
     // Print a starting message for the consumer process
     printf("Running Consumer process...\n");
 
-    sleep(1)
+    sleep(2);
    
 
     // Start a loop to consume items
