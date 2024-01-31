@@ -31,11 +31,11 @@ sigset_t sigSet;
 struct CIRCULAR_BUFFER
 {
 // Number of items in the buffer
-    int count;          
+    int count;
 // Next slot to read in the buffer (sometimes called the head)
-    int start;          
+    int start;
 // Next slot to write in the buffer (sometimes called the tail)
-    int end;   
+    int end;
 // The buffer array
     int buffer[100];
 };
@@ -48,62 +48,62 @@ void wakeupHandler(int signum) {
 
 // Signal Handler for SLEEP signal
 void sleepHandler(int signum) {
-    // Intentionally left empty. 
+    // Intentionally left empty.
 }
 /////////////////////////////////////////////////////////////////////////////////////
 
 // Function to put an item into the buffer
 void put(int item) {
     // Loop checks if the buffer is full
-    while (((buffer->end + 1) % MAX) == buffer->start) { 
+    while (((buffer->end + 1) % MAX) == buffer->start) {
         // Set producer as asleep
-        producerAsleep = true; 
+        producerAsleep = true;
 
         // Inform the consumer that the producer is going to sleep
-        kill(otherPid, SLEEP); 
+        kill(otherPid, SLEEP);
 
         // Sleep until a signal is received
-        sigwait(&sigSet, &nSig); 
+        sigwait(&sigSet, &nSig);
     }
 
     // Set producer as awake
-    producerAsleep = false; 
+    producerAsleep = false;
 
     // Place item into the buffer
-    buffer->buffer[buffer->end] = item;  
+    buffer->buffer[buffer->end] = item;
 
     // Move end to the next position in the circular buffer
-    buffer->end = (buffer->end + 1) % MAX; 
+    buffer->end = (buffer->end + 1) % MAX;
 
     // Increment the count of items in the buffer
-    buffer->count++;           
+    buffer->count++;
 }
 
 // Function to get an item from the buffer
 int get() {
     // Loop checks if the buffer is empty
-    while (buffer->start == buffer->end) { 
+    while (buffer->start == buffer->end) {
         // Set consumer as asleep
-        consumerAsleep = true;  
+        consumerAsleep = true;
 
         // Inform the producer that the consumer is going to sleep
-        kill(otherPid, WAKEUP); 
+        kill(otherPid, WAKEUP);
 
         // Sleep until a signal is received
-        sigwait(&sigSet, &nSig); 
+        sigwait(&sigSet, &nSig);
     }
 
     // Set consumer as awake
-    consumerAsleep = false; 
+    consumerAsleep = false;
 
     // Retrieve item from the buffer
-    int item = buffer->buffer[buffer->start]; 
+    int item = buffer->buffer[buffer->start];
 
     // Move start to the next position in the circular buffer
-    buffer->start = (buffer->start + 1) % MAX; 
+    buffer->start = (buffer->start + 1) % MAX;
 
     // Decrement the count of items in the buffer
-    buffer->count--;            
+    buffer->count--;
 
     // Return the retrieved item
     return item;
@@ -125,7 +125,7 @@ void sleepUntilWoken() {
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-// Consumer process 
+// Consumer process
 void consumer() {
     // Initialize an empty signal set
     sigemptyset(&sigSet);
@@ -164,10 +164,10 @@ void consumer() {
     }
 
     // Exit the process after consuming 20 items
-    _exit(1); 
+    _exit(1);
 }
 
-// Producer process 
+// Producer process
 void producer() {
     // Initialize an empty signal set for the producer
     sigemptyset(&sigSet);
@@ -218,7 +218,7 @@ int main(int argc, char* argv[]) {
 
     // Create shared memory for the Circular Buffer
     buffer = (struct CIRCULAR_BUFFER*)mmap(0, sizeof(struct CIRCULAR_BUFFER), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
-    
+
     // Check if shared memory allocation was successful
     if (buffer == MAP_FAILED) {
         printf("Shared memory allocation failed\n");
@@ -242,7 +242,7 @@ int main(int argc, char* argv[]) {
 
     // Fork to create a child process
     pid = fork();
-    
+
     // Check if fork was successful
     if (pid == -1) {
         printf("Can't fork, error %d\n", errno);
