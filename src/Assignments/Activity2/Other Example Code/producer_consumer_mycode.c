@@ -107,23 +107,18 @@ void consumer() {
         if (buffer->count == 0) {
             // Buffer is empty, wait for the producer to add items
             sleepAndWait();
-        } 
+        }  
+        else
+        {
+            int value = getValue(buffer);
+            printf("Consumer consumed: %d\n", value);
 
-        // Retrieve a value from the buffer
-        int value = getValue(buffer);
-        // Print the consumed value
-        printf("Consumer consumed: %d\n", value);
-
-        // Increment the consumed items count
-        consumedCount++;
-
-        // If the buffer was full before consuming, wake up the producer
-        if (buffer->count == MAX - 1) {
-            wakeupOther();
+            if (buffer->count == MAX - 1) {
+                wakeupOther();
+            }
+            consumedCount++;
         }
     }
-
-    // Exit cleanly from the Consumer Process
     _exit(1);
 }
 
@@ -151,22 +146,13 @@ void producer() {
             // If buffer is full, print a message indicating the producer is sleeping
             sleepAndWait();
         }
-
-        // Add an item to the buffer
-        putValue(buffer, producedCount);
-        // Print the produced item
-        printf("Producer produced: %d\n", producedCount);
-
-        // Increment the produced items count
-        producedCount++;
-
-        // If the buffer is full, wake up the consumer 
-        if (buffer->count == MAX - 1) {
-            wakeupOther();
+        else 
+        {
+            putValue(buffer, producedCount);
+            printf("Producer produced: %d\n", producedCount);
+            producedCount++;
         }
     }
-
-    // Exit cleanly from the Consumer Process
     _exit(1);
 }
 
