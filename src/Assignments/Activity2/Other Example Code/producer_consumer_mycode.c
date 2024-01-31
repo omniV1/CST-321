@@ -109,29 +109,25 @@ void consumer()
 
     sleep(2);
    
-
     // Start a loop to consume items
-   while (consumedCount < expectedCount) 
-   {
-    if (buffer->count == 0) {
-        // Buffer is empty, wait for the producer to add items
-        sleepUntilWoken("Consumer");
-    } else {
-        int value = getValue(buffer);
-        printf("Consumer ate: %d\n", value);
+    while (consumedCount < expectedCount) 
+    {
+        if (buffer->count == 0) {
+            // Buffer is empty, wait for the producer to add items
+            sleepUntilWoken("Consumer");
+        } else {
+            int value = getValue(buffer);
+            printf("Consumer ate: %d\n", value);
 
-        if (buffer->count == MAX - 1) 
-        {
-            // If the buffer was full, wake up the producer
-            sleepAndWait("Producer");
+            if (buffer->count == MAX - 1) 
+            {
+                // If the buffer was full, wake up the producer
+                sleepAndWait("Producer");
+            }
+            consumedCount++;
         }
-        consumedCount++;
     }
 }
-
-    _exit(1);
-}
-
 
 // Producer process
 void producer() 
@@ -152,29 +148,31 @@ void producer()
     int producedCount = 0;
 
     // Start a loop to produce 30 items
-   while (producedCount < 30) 
-   {
-    if (buffer->count == MAX)
+    while (producedCount < 30) 
     {
-        // If buffer is full, print a message indicating the producer is sleeping
-        sleepUntilWoken("Producer");
-    } 
-    else 
-    {
-        putValue(buffer, producedCount);
-     
-        printf("Producer created: %d\n", producedCount);
-     
-        producedCount++;
-
-        if (buffer->count == 1) 
+        if (buffer->count == MAX)
         {
-            // If the buffer was empty and items have been produced, wake up the consumer
-            sleepAndWait("Consumer");
+            // If buffer is full, print a message indicating the producer is sleeping
+            sleepUntilWoken("Producer");
+        } 
+        else 
+        {
+            putValue(buffer, producedCount);
+         
+            printf("Producer created: %d\n", producedCount);
+         
+            producedCount++;
+
+            if (buffer->count == 1) 
+            {
+                // If the buffer was empty and items have been produced, wake up the consumer
+                sleepAndWait("Consumer");
+            }
         }
     }
-    _exit(1);
 }
+
+
 
 
 //////////////////////////////////////////////////////////////////////////////
