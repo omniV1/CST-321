@@ -24,7 +24,7 @@ int SLEEP = SIGUSR2;
 
 // A Signal Set
 sigset_t sigSet;
- 
+
 // Shared Circular Buffer
 struct CIRCULAR_BUFFER
 {
@@ -40,42 +40,42 @@ struct CIRCULAR_BUFFER
 struct CIRCULAR_BUFFER *buffer = NULL;
 
 // This method will put the current Process to sleep until it is awoken by the WAKEUP signal
-void sleepAndWait(const char* processName) 
+void sleepAndWait(const char* processName)
 {
     int sig;
-    printf("%s is going to sleep...\n", processName); 
- 
+    printf("%s is going to sleep...\n", processName);
+
     // Wait for the WAKEUP signal to be delivered
     sigwait(&sigSet, &sig);
- 
-    printf("%s is awake!\n", processName); 
+
+    printf("%s is awake!\n", processName);
 }
 
 // Function to put the process to sleep until a signal is received
-void sleepUntilWoken(const char* processName) 
+void sleepUntilWoken(const char* processName)
 {
     int nSig;
 
-    printf("%s is going to sleep...\n", processName); 
+    printf("%s is going to sleep...\n", processName);
 
     // Wait for a signal to wake up the process
     sigwait(&sigSet, &nSig);
- 
+
     printf("%s is awake!\n", processName);
 }
 /////////////////////////////////////////////////////////////////////////////////////
 
 // Gets a value from the shared buffer
-int getValue(struct CIRCULAR_BUFFER* buffer) 
+int getValue(struct CIRCULAR_BUFFER* buffer)
 {
     // Add debug statement to check values before getting
     printf("Getting value... Start: %d, End: %d, Count: %d\n", buffer->start, buffer->end, buffer->count);
-    
+
     // Critical section to get a value from the buffer
     int value = buffer->buffer[buffer->start];
     buffer->start = (buffer->start + 1) % MAX;
     buffer->count--;
-    
+
     // Add debug statement to check values after getting
     printf("Got value: %d, New Start: %d, New Count: %d\n", value, buffer->start, buffer->count);
 
@@ -83,16 +83,16 @@ int getValue(struct CIRCULAR_BUFFER* buffer)
 }
 
 // Puts a value in the shared buffer
-void putValue(struct CIRCULAR_BUFFER* buffer, int value) 
+void putValue(struct CIRCULAR_BUFFER* buffer, int value)
 {
     // Add debug statement to check values before putting
     printf("Putting value... Start: %d, End: %d, Count: %d\n", buffer->start, buffer->end, buffer->count);
-    
+
     // Critical section to put a value in the buffer
     buffer->buffer[buffer->end] = value;
     buffer->end = (buffer->end + 1) % MAX;
     buffer->count++;
-    
+
     // Add debug statement to check values after putting
     printf("Put value: %d, New End: %d, New Count: %d\n", value, buffer->end, buffer->count);
 }
@@ -101,7 +101,7 @@ void putValue(struct CIRCULAR_BUFFER* buffer, int value)
 ////////////////////////////////////////////////////////////////////////////////////
 
 // Consumer process
-void consumer() 
+void consumer()
 {
     // Initialize an empty signal set
     sigemptyset(&sigSet);
@@ -121,38 +121,38 @@ void consumer()
     // Print a starting message for the consumer process
     printf("Running Consumer process...\n");
 
-    sleep(2);
-   
+
+
     // Start a loop to consume items
-    while (consumedCount < expectedCount) 
+    while (consumedCount < expectedCount)
     {
-      if (buffer->count == 0) 
+      if (buffer->count == 0)
       {
     // Buffer is empty, wait for the producer to add items
     sleepAndWait("Consumer");
-      } 
-      else 
+      }
+      else
       {
     int value = getValue(buffer);
     printf("Consumer ate: %d\n", value);
 
     // If the buffer was full before consuming a value, wake up the producer
-   if (buffer->count == MAX - 1) 
+   if (buffer->count == MAX - 1)
          {
-          
+
     printf("Buffer was full, consumed: %d, waking up producer...\n", value);
     kill(otherPid, WAKEUP); // Wake up the producer
-          
+
          }
        consumedCount++;
       }
 
    }
- exit(0); 
+
 }
 
 // Producer process
-void producer() 
+void producer()
 {
     // Initialize an empty signal set
     sigemptyset(&sigSet);
@@ -170,28 +170,28 @@ void producer()
     int producedCount = 0;
 
     // Start a loop to produce 30 items
-    while (producedCount < 30) 
+    while (producedCount < 30)
     {
         if (buffer->count == MAX)
         {
             // If buffer is full, print a message indicating the producer is sleeping
             sleepUntilWoken("Producer");
-        } 
-       else 
+        }
+       else
         {
     putValue(buffer, producedCount);
     printf("Producer created: %d\n", producedCount);
     producedCount++;
 
     // If the buffer was empty before putting a value, wake up the consumer
-   if (buffer->count == 1) 
+   if (buffer->count == 1)
       {
     printf("Buffer was empty, produced: %d, waking up consumer...\n", producedCount);
     kill(otherPid, WAKEUP); // Wake up the consumer
       }
    }
  }
- exit(0); 
+ exit(0);
 }
 //////////////////////////////////////////////////////////////////////////////
 /**
@@ -199,7 +199,7 @@ void producer()
  *
  * @return 1 if error or 0 if OK returned to code the caller.
  */
-int main(int argc, char* argv[]) 
+int main(int argc, char* argv[])
 {
     pid_t pid;
 
@@ -207,7 +207,7 @@ int main(int argc, char* argv[])
     buffer = (struct CIRCULAR_BUFFER*)mmap(0, sizeof(struct CIRCULAR_BUFFER), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 
     // Check if shared memory allocation was successful
-    if (buffer == MAP_FAILED) 
+    if (buffer == MAP_FAILED)
     {
         printf("Shared memory allocation failed\n");
         exit(EXIT_FAILURE);
@@ -222,20 +222,20 @@ int main(int argc, char* argv[])
     pid = fork();
 
     // Check if fork was successful
-    if (pid == -1) 
+    if (pid == -1)
     {
         printf("Can't fork, error %d\n", errno);
         exit(EXIT_FAILURE);
     }
 
     // Determine if the process is the parent or child
-    if (pid != 0) 
+    if (pid != 0)
     {
         // Parent process - runs the producer logic
         otherPid = pid; // Set otherPid to the child's PID
         producer();
     }
-    else 
+    else
     {
         // Child process - runs the consumer logic
         otherPid = getppid(); // Set otherPid to the parent's PID
@@ -251,4 +251,3 @@ int main(int argc, char* argv[])
     // Return OK
     return 0;
 }
-
