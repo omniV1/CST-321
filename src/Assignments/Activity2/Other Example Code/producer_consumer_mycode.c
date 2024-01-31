@@ -10,7 +10,7 @@
 #include <sys/mman.h>
 #include <errno.h>
 #include <err.h>
-#include <stbool.h>
+#include <stdbool.h>
 
 
 //global variables
@@ -87,7 +87,7 @@ void put(int item) {
 
 // Function to get an item from the buffer
 int get() {
-  
+
      // Declare nSig to use with sigwait
      int nSig;
 
