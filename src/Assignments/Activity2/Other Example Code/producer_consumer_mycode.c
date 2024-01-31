@@ -22,10 +22,6 @@ int MAX = 100;
 int WAKEUP = SIGUSR1;
 int SLEEP = SIGUSR2;
 
-// Flags to track if producer/consumer is asleep
-volatile sig_atomic_t producerAsleep = false;
-volatile sig_atomic_t consumerAsleep = false;
-
 // A Signal Set
 sigset_t sigSet;
  
@@ -44,29 +40,34 @@ struct CIRCULAR_BUFFER
 struct CIRCULAR_BUFFER *buffer = NULL;
 
 // This method will put the current Process to sleep until it is awoken by the WAKEUP signal
-void sleepAndWait() {
+void sleepAndWait(const char* processName) 
+{
     int sig;
-    printf("Consumer/Producer is going to sleep...\n"); // Print a message before sleeping
+    printf("%s is going to sleep...\n", processName); 
+ 
     // Wait for the WAKEUP signal to be delivered
     sigwait(&sigSet, &sig);
-    printf("Consumer/Producer is awake!\n"); // Print a message when awoken
+ 
+    printf("%s is awake!\n", processName); 
 }
 
 // Function to put the process to sleep until a signal is received
-void sleepUntilWoken() {
+void sleepUntilWoken(const char* processName) 
+{
     int nSig;
 
-    printf("Consumer/Producer is going to sleep...\n"); // Print a message before sleeping
+    printf("%s is going to sleep...\n", processName); 
 
     // Wait for a signal to wake up the process
     sigwait(&sigSet, &nSig);
-
-    printf("Consumer/Producer is awake!\n"); // Print a message when awoken
+ 
+    printf("%s is awake!\n", processName);
 }
 /////////////////////////////////////////////////////////////////////////////////////
 
 // Gets a value from the shared buffer
-int getValue(struct CIRCULAR_BUFFER* buffer) {
+int getValue(struct CIRCULAR_BUFFER* buffer) 
+{
     // Critical section to get a value from the buffer
     int value = buffer->buffer[buffer->start];
     buffer->start = (buffer->start + 1) % MAX;
@@ -75,7 +76,8 @@ int getValue(struct CIRCULAR_BUFFER* buffer) {
 }
 
 // Puts a value in the shared buffer
-void putValue(struct CIRCULAR_BUFFER* buffer, int value) {
+void putValue(struct CIRCULAR_BUFFER* buffer, int value) 
+{
     // Critical section to put a value in the buffer
     buffer->buffer[buffer->end] = value;
     buffer->end = (buffer->end + 1) % MAX;
@@ -85,7 +87,8 @@ void putValue(struct CIRCULAR_BUFFER* buffer, int value) {
 ////////////////////////////////////////////////////////////////////////////////////
 
 // Consumer process
-void consumer() {
+void consumer() 
+{
     // Initialize an empty signal set
     sigemptyset(&sigSet);
 
@@ -105,27 +108,31 @@ void consumer() {
     printf("Running Consumer process...\n");
 
     // Start a loop to consume items
-    while (consumedCount < expectedCount) {
-        // Check if the buffer is empty
-        if (buffer->count == 0) {
-            // Buffer is empty, wait for the producer to add items
-            sleepUntilWoken(); // Use sleepUntilWoken() to sleep and wait for a signal
-        } else {
-            int value = getValue(buffer);
-            printf("Consumer consumed: %d\n", value);
+   while (consumedCount < expectedCount) 
+   {
+    if (buffer->count == 0) {
+        // Buffer is empty, wait for the producer to add items
+        sleepUntilWoken("Consumer");
+    } else {
+        int value = getValue(buffer);
+        printf("Consumer consumed: %d\n", value);
 
-            if (buffer->count == MAX - 1) {
-                sleepUntilWoken();
-            }
-            consumedCount++;
+        if (buffer->count == MAX - 1) 
+        {
+            // If the buffer was full, wake up the producer
+            sleepAndWait("Consumer");
         }
+        consumedCount++;
     }
+}
+
     _exit(1);
 }
 
 
 // Producer process
-void producer() {
+void producer() 
+{
     // Initialize an empty signal set
     sigemptyset(&sigSet);
 
@@ -142,19 +149,25 @@ void producer() {
     int producedCount = 0;
 
     // Start a loop to produce 30 items
-    while (producedCount < 30) {
-        // Check if the buffer is full
-        if (buffer->count == MAX) {
-         // Use sleepUntilWoken() to sleep and wait for a signal
-         sleepUntilWoken(); 
-            // If buffer is full, print a message indicating the producer is sleeping
-            sleepAndWait();
-        }
-        else 
+   while (producedCount < 30) 
+   {
+    if (buffer->count == MAX)
+    {
+        // If buffer is full, print a message indicating the producer is sleeping
+        sleepUntilWoken("Producer");
+    } 
+    else 
+    {
+        putValue(buffer, producedCount);
+     
+        printf("Producer produced: %d\n", producedCount);
+     
+        producedCount++;
+
+        if (buffer->count == 1) 
         {
-            putValue(buffer, producedCount);
-            printf("Producer produced: %d\n", producedCount);
-            producedCount++;
+            // If the buffer was empty and items have been produced, wake up the consumer
+            sleepAndWait("Producer");
         }
     }
     _exit(1);
