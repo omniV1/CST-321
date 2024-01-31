@@ -13,6 +13,7 @@
 #include <stdbool.h>
 
 
+
 //global variables
 // The Child PID if the parent else the Parent PID if the childProcess
 pid_t otherPid;
