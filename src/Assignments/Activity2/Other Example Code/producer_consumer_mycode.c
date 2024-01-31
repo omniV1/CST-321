@@ -10,6 +10,8 @@
 #include <sys/mman.h>
 #include <errno.h>
 #include <err.h>
+#include <stbool.h>
+
 
 //global variables
 // The Child PID if the parent else the Parent PID if the childProcess
@@ -54,6 +56,10 @@ void sleepHandler(int signum) {
 
 // Function to put an item into the buffer
 void put(int item) {
+
+     //Delcare nSig to use with sigwait
+    int nSig;
+
     // Loop checks if the buffer is full
     while (((buffer->end + 1) % MAX) == buffer->start) {
         // Set producer as asleep
@@ -81,6 +87,10 @@ void put(int item) {
 
 // Function to get an item from the buffer
 int get() {
+  
+     // Declare nSig to use with sigwait
+     int nSig;
+
     // Loop checks if the buffer is empty
     while (buffer->start == buffer->end) {
         // Set consumer as asleep
