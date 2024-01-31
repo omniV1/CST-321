@@ -212,17 +212,17 @@ int main(int argc, char* argv[])
         exit(EXIT_FAILURE);
     }
 
-    // Determine if the process is the child or the parent
-    if (pid == 0) 
+    // Determine if the process is the parent or child
+    if (pid != 0) 
     {
-        // Child process - runs the producer logic
-        otherPid = getppid();
+        // Parent process - runs the producer logic
+        otherPid = pid; // Set otherPid to the child's PID
         producer();
     }
     else 
     {
-        // Parent process - runs the consumer logic
-        otherPid = pid;
+        // Child process - runs the consumer logic
+        otherPid = getppid(); // Set otherPid to the parent's PID
         consumer();
     }
 
@@ -235,3 +235,4 @@ int main(int argc, char* argv[])
     // Return OK
     return 0;
 }
+
