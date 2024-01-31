@@ -44,24 +44,28 @@ struct CIRCULAR_BUFFER
 struct CIRCULAR_BUFFER *buffer = NULL;
 
 // Signal Handler for WAKEUP signal
-void wakeupHandler(int signum) {
+void wakeupHandler(int signum) 
+{
     // Intentionally left empty. The presence of the handler is to catch the signal.
 }
 
 // Signal Handler for SLEEP signal
-void sleepHandler(int signum) {
+void sleepHandler(int signum) 
+{
     // Intentionally left empty.
 }
 /////////////////////////////////////////////////////////////////////////////////////
 
 // Function to put an item into the buffer
-void put(int item) {
+void put(int item) 
+{
 
      //Delcare nSig to use with sigwait
     int nSig;
 
     // Loop checks if the buffer is full
-    while (((buffer->end + 1) % MAX) == buffer->start) {
+    while (((buffer->end + 1) % MAX) == buffer->start) 
+    {
         // Set producer as asleep
         producerAsleep = true;
 
@@ -83,6 +87,13 @@ void put(int item) {
 
     // Increment the count of items in the buffer
     buffer->count++;
+
+     // If the consumer is asleep, wake it up
+    if (consumerAsleep) 
+    {
+        kill(otherPid, WAKEUP);
+        consumerAsleep = false;
+    }
 }
 
 // Function to get an item from the buffer
@@ -136,7 +147,8 @@ void sleepUntilWoken() {
 ////////////////////////////////////////////////////////////////////////////////////
 
 // Consumer process
-void consumer() {
+void consumer() 
+{
     // Initialize an empty signal set
     sigemptyset(&sigSet);
 
@@ -153,9 +165,11 @@ void consumer() {
     printf("Running Consumer process...\n");
 
     // Start a loop to consume 20 items
-    while (count < 20) {
+    while (count < 20) 
+    {
         // Check if the buffer is empty
-        if (buffer->count == 0) {
+        if (buffer->count == 0) 
+        {
             // If buffer is empty, print a message indicating the consumer is sleeping
             printf("Buffer is empty. Putting consumer to sleep.\n");
 
@@ -178,7 +192,8 @@ void consumer() {
 }
 
 // Producer process
-void producer() {
+void producer() 
+{
     // Initialize an empty signal set for the producer
     sigemptyset(&sigSet);
 
@@ -223,14 +238,16 @@ void producer() {
  *
  * @return 1 if error or 0 if OK returned to code the caller.
  */
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) 
+{
     pid_t pid;
 
     // Create shared memory for the Circular Buffer
     buffer = (struct CIRCULAR_BUFFER*)mmap(0, sizeof(struct CIRCULAR_BUFFER), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 
     // Check if shared memory allocation was successful
-    if (buffer == MAP_FAILED) {
+    if (buffer == MAP_FAILED) 
+    {
         printf("Shared memory allocation failed\n");
         exit(EXIT_FAILURE);
     }
@@ -254,17 +271,21 @@ int main(int argc, char* argv[]) {
     pid = fork();
 
     // Check if fork was successful
-    if (pid == -1) {
+    if (pid == -1) 
+    {
         printf("Can't fork, error %d\n", errno);
         exit(EXIT_FAILURE);
     }
 
     // Determine if the process is the child or the parent
-    if (pid == 0) {
+    if (pid == 0) 
+    {
         // Child process - runs the producer logic
         otherPid = getppid();
         producer();
-    } else {
+    }
+    else 
+    {
         // Parent process - runs the consumer logic
         otherPid = pid;
         consumer();
