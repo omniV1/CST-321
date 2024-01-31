@@ -107,6 +107,9 @@ void consumer()
     // Print a starting message for the consumer process
     printf("Running Consumer process...\n");
 
+    sleep(1)
+   
+
     // Start a loop to consume items
    while (consumedCount < expectedCount) 
    {
