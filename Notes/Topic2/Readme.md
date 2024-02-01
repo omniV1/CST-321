@@ -188,10 +188,18 @@ int pthread_create(pthread_t*thread,const pthread_attr_t *attr,void*(*start_rout
 
     3. points to a function that we want to run
 
-    4. pointer that we will give to our function.     
-
+    4. pointer that we will give to our function.
+       
 ---
+### POSIX Threads
+| Thread call | Description |
+|------------- | ---------  |
+| pthread_create | create new thread | 
+| pthread_exit | Terminate the calling thread |
+| pthread_join | wait for specific thread to exit |
+| pthread_yield | Releases the CPU to let another thread run |
 
+--- 
 ### Why do I need threads?
 
 - Being able to run multiple activites within an app at a single time is important.
