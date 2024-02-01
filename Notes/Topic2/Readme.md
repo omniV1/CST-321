@@ -190,11 +190,6 @@ int pthread_create(pthread_t*thread,const pthread_attr_t *attr,void*(*start_rout
 
     4. pointer that we will give to our function.
        
-``` C
-{
-int main ()
-pthread_t id; 
-
 ---
 ### POSIX Threads
 | Thread call | Description |
