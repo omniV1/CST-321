@@ -1,6 +1,5 @@
 // Owen Lindsey
 // This was done in class
-// some was done on my own
 // Producer and consumer
 // CST-321
 
@@ -19,7 +18,7 @@
 pid_t otherPid;
 
 // Constants
-int MAX = 30;
+int MAX = 100;
 int WAKEUP = SIGUSR1;
 int SLEEP = SIGUSR2;
 
@@ -185,7 +184,7 @@ void producer()
     producedCount++;
 
     // If the buffer was empty before putting a value, wake up the consumer
-   if (buffer->count == 0)
+   if (buffer->count == 1)
       {
     printf("Buffer was empty, produced: %d, waking up consumer...\n", producedCount);
     kill(otherPid, WAKEUP); // Wake up the consumer
