@@ -177,7 +177,35 @@ POSIX thread (pthread) functions provide API for creating and managing threads. 
 
 ---
 
-### Race conditions 
+### **Race conditions**
+- Requirements to avoid race conditions:
+  1. No two processes may be simultaneously inside their critical regions
+  2. No assumptions may be made about speeds or the number of CPUs
+  3. No Processes running outside its critical region may block other processes
+  4. No process should have to wait forever to enter its critical region
+
+# Critical Regions – Pseudo Code
+
+```pseudo
+//process a
+while (TRUE) {
+    while (turn != 0); /* loop */;
+    critical_region();
+    turn = 1;
+    noncritical_region();
+}
+// Process b
+while (TRUE) {
+    while (turn != 1); /* loop */;
+    critical_region();
+    turn = 0;
+    noncritical_region();
+}
+
+```
+- A solution to the critical region problem. (a) Process 0. (b) Process 1. In both cases, be sure to note the semicolons terminating the while statements.
+
+---
 ### In class discussion 1/25
 
 - ACTIVITY 2 Fork and producer nd consumer completed
