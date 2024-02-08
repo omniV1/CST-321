@@ -124,6 +124,7 @@
 ``` C
 int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*start_routine)(void *), void *arg);
   - This function takes four arguments:
+```
     
     1. The first pointer is to a variable that will hold the id of the newly created thread.
      
