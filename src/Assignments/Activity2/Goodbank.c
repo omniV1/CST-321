@@ -7,13 +7,17 @@
 #include <unistd.h>
 #include <stdio.h>
 //////////////////////////////////////////////////////
-// this code does not run as intended!!!!!!!!!!!!!!!
+// this code does run as intended!!!!!!!!!!!!!!!
 //////////////////////////////////////////////////////
 
 // declare global variables
 // mimicking depositing money in a bank
 
 #define MAX_DEPOSITS 1000000
+
+int balance = 0;
+int depositAmount = 1;
+pthread_mutex_t mutex;
 
 int balance = 0;
 int depositAmount = 1;

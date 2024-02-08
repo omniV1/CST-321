@@ -25,16 +25,13 @@ void *deposit(void *a)
   int x, tmp;
   for(x=0;x < MAX_DEPOSITS; ++x)
   {
-  //  *** start of critical region
-  pthread_mutex_lock(&mutex);
 
-  // Not thread safe
+
   // Copy the balance to a local variable, add $1 to the balance. Saves the balance back in the global variables
   tmp = balance;
   tmp = tmp + depositAmount;
   balance = tmp;
-  // ** end of critical region of our code
-  pthread_mutex_unlock(&mutex);
+
 
   }
   return NULL;
@@ -85,7 +82,6 @@ int main()
 
     printf("\n Good Balance: bank balance is $%d\n", balance);
   }
-  //thread and mutex creation clean up
-  pthread_mutex_destroy(&mutex);
+
   pthread_exit(NULL);
 }
