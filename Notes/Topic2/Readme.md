@@ -164,7 +164,7 @@
 - File I/O
 
 ---
-### What is a linux pthread? 
+### What is a linux pthread _(POSIX Threads)_ ? 
 
 - Linux refers to them as tasks rather than threads.
 
@@ -191,25 +191,48 @@ int pthread_create(pthread_t*thread,const pthread_attr_t *attr,void*(*start_rout
     
 ---
 
-### Why do I need threads? 
+# Arguments for Using Threads
 
-- Being able to run multiple activites within an app at a single time is important.
+## First Argument
+The main reason for having threads is that in many applications, multiple activities are going on at once. Some of these may block from time to time. By decomposing such an application into multiple sequential threads that run in quasi-parallel, the programming model becomes simpler. Instead of thinking about interrupts, timers, and context switches, we can think about parallel processes. Only now with threads we add a new element: the ability for the parallel entities to share an address space and all of its data among themselves. This ability is essential for certain applications, which is why having multiple processes (with their separate address spaces) will not work.
 
-- Some of these may block from time to time. By decomposing such an application into multiple sequential threads that run in quasi-parallel, the programming model becomes simpler.
+## Second Argument
+A second argument for having threads is that since they are lighter weight than processes, they are easier (i.e., faster) to create and destroy than processes. In many systems, creating a thread goes 10–100 times faster than creating a process. When the number of threads needed changes dynamically and rapidly, this property is useful to have.
 
-- we can think simpler as we do not need to focus on interupts, timers, switches etc.
+## Third Reason
+A third reason for having threads is also a performance argument. Threads yield no performance gain when all of them are CPU bound, but when there is substantial computing and also substantial I/O, having threads allows these activities to overlap, thus speeding up the application.
 
-- parallelism
+## Fourth Reason
+Finally, threads are useful on systems with multiple CPUs, where real parallelism is possible.
 
-## examples of threads
+# Examples of Threads
+- A server for a Website. Requests for pages come in and the requested page is sent back to the client. At most Websites, some pages are more commonly accessed than other pages. For example, Sony’s home page is accessed far more than a page deep in the tree containing the technical specifications of any particular camera. Web servers use this fact to improve performance by maintaining a collection of heavily used pages in main memory to eliminate the need to go to disk to get them.
 
-- servers for a website.
-  
-     - requests for REST APIs.
+# Research POSIX Thread Functions
+## What is POSIX?
+POSIX stands for Portable Operating System Interface; it is a family of standards specified by the IEEE for maintaining compatibility between operating systems. POSIX defines the application programming interface (API), along with command line shells and utility interfaces, for software compatibility with variants of Unix and other operating systems.
+
+## What POSIX functions can be used to manage Threads?
+POSIX thread (pthread) functions provide API for creating and managing threads. Key functions include `pthread_create` for creating threads, `pthread_join` for waiting for threads to finish, and `pthread_mutex_lock` for thread synchronization.
+
 
   
 ---
 
+### **POSIX Threads**
+| Thread call | Description | 
+| ----------- | ----------- | 
+| pthread_create | Create a new thread | 
+| Pthread_exit | Terminate the calling thread | 
+| Pthread_join | Wait for a specific thread to exit |
+| Pthread_yield | Release the CPU to let another thread run | 
+| Pthread_attr_init | Create and initialize a threads attribute structure | 
+| Pthread_attr_destroy | Remove a threads attribute structure | 
+
+
+---
+
+### Race conditions 
 ### In class discussion 1/25
 
 - ACTIVITY 2 Fork and producer nd consumer completed
@@ -235,4 +258,9 @@ int pthread_create(pthread_t*thread,const pthread_attr_t *attr,void*(*start_rout
    
  - **signals**
    -   
-  
+### In class discussion 2/8/2024
+
+
+
+---
+
