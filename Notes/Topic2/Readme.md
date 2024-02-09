@@ -1,9 +1,8 @@
-<<<<<<< HEAD
-### Topic 2 notes:
+
+
 =======
 ### Topic 2 notes: 
 
->>>>>>> b302fd8c78673eae6467dbffdae7e874c5dce38f
 ---
 
 ### What is a Process?
