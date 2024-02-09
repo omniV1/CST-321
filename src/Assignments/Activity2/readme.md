@@ -166,6 +166,6 @@ The semaphore version employs a `sem_t` object, using the POSIX Semaphore API to
 
 Semaphores, like mutexes, effectively prevent concurrent access to the critical section. The final balance accurately reflects the total deposits, achieving the expected $2,000,000.
 
-## Conclusion
+## Summary
 
 Both mutexes and semaphores are effective synchronization primitives that can be used to protect shared resources in multithreaded applications. The choice between using a mutex or a semaphore can depend on specific program requirements and the desired level of control over thread execution order.
