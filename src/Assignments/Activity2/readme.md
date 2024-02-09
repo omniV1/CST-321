@@ -75,7 +75,7 @@ This program demonstrates inter-process communication (IPC) through signals in a
 This program showcases basic IPC through signals between a parent and child process in Linux, illustrating how signals can be used for synchronization and communication in concurrent programming. It also demonstrates process creation and management through the `fork()` system call, signal handling setup and invocation, and the use of process exit codes to indicate the outcome of each process.
 
 ---
-# Theory of Operations for Pthreads Program
+# 4. Theory of Operations for Pthreads Program
 
 ## Overview
 
@@ -112,7 +112,7 @@ The provided C program successfully illustrates the basic concepts of thread cre
 
 ---
 
-# Theory of Operation: Synchronizing Access to Bank Balance
+# 5. Theory of Operation: Synchronizing Access to Bank Balance
 
 In the context of a simulated bank program, two primary methods of thread synchronization are explored: mutexes and semaphores. Both approaches aim to prevent race conditions by ensuring that multiple threads do not concurrently modify the shared bank balance. This document explains the operational theory behind each method and their implications in the program.
 
