@@ -1,19 +1,21 @@
-### Owen Lindsey
-### Activity 2
-### Owen Lindsey
-### Activity 2
-### CST 321
----
 # 1. Theory of Operation for `fork()` and Signal Handling in Linux
+
+Owen Lindsey  
+CST-391  
+
+This work was done with help from the assignment guide.
 
 ## Overview
 The C program employs `fork()` to instantiate a producer-consumer scenario where the producer is the parent process and the consumer is the child. Communication and synchronization between them are managed via UNIX signals.
 
 ## Process Dynamics
-- **Producer (Parent Process)**: Initiates the `SIGUSR1` signal to the consumer after 5 iterations within a 30-iteration loop, each iteration representing a production cycle.
-- **Consumer (Child Process)**: Enters a passive wait state until the `SIGUSR1` signal is received, then performs 20 iterations of a task, symbolizing the consumption of data.
+
+| Producer (Parent Process) | Consumer (Child Process) |
+| ------------------------- | ------------------------ |
+| Initiates the `SIGUSR1` signal to the consumer after 5 iterations within a 30-iteration loop, each iteration representing a production cycle. | Enters a passive wait state until the `SIGUSR1` signal is received, then performs 20 iterations of a task, symbolizing the consumption of data. |
 
 ## Signal Mechanics
+
 - **Signal Registration**: Custom signal handlers are assigned to `SIGUSR1` and `SIGUSR2`, setting up a controlled communication protocol between the producer and consumer.
 - **Signal Execution**: The `kill()` function is utilized to send signals, orchestrating the execution flow of the consumer process based on the producer's state.
 
@@ -23,10 +25,12 @@ The C program employs `fork()` to instantiate a producer-consumer scenario where
 This program introduces threads in a Linux environment, utilizing the `pthread_create()` function to simultaneously run two threads performing separate tasks.
 
 ## Thread Behavior
+
 - **Thread 1**: Acts as a 'pilot', iterating through a sequence of checkpoints with a 1-second pause, emulating the process of navigating a flight path.
 - **Thread 2**: Represents a 'maintainer', conducting a series of maintenance checks with a 2-second interval, mimicking the systematic verification of systems.
 
 ## Thread Synchronization
+
 - **Execution**: Both threads start their sequences in parallel, demonstrating the non-blocking nature of thread execution.
 - **Completion**: Utilizing `pthread_join()`, the program ensures that the main process awaits the completion of both threads, maintaining execution integrity.
 
@@ -36,9 +40,12 @@ This program introduces threads in a Linux environment, utilizing the `pthread_c
 In the context of a simulated banking application, mutexes are utilized to manage concurrent access to a shared bank balance, ensuring accurate updates despite simultaneous deposit attempts by multiple threads.
 
 ## Critical Section Management
-- **Mutex Lock**: Before entering the critical section where the bank balance is updated, a mutex lock is acquired to prevent other threads from entering this section.
-- **Update Sequence**: The balance is safely incremented within the locked section, thus avoiding any race conditions or data inconsistencies.
-- **Mutex Unlock**: Upon updating, the mutex is released, permitting other threads to enter the critical section and perform their updates.
+
+| Action      | Description |
+| ----------- | ----------- |
+| Mutex Lock  | Before entering the critical section where the bank balance is updated, a mutex lock is acquired to prevent other threads from entering this section. |
+| Update Sequence | The balance is safely incremented within the locked section, thus avoiding any race conditions or data inconsistencies. |
+| Mutex Unlock | Upon updating, the mutex is released, permitting other threads to enter the critical section and perform their updates. |
 
 # 4. Theory of Operation for Semaphores in Bank Program
 
@@ -46,10 +53,12 @@ In the context of a simulated banking application, mutexes are utilized to manag
 Semaphores serve a similar purpose to mutexes but are often used as signaling mechanisms. In this banking application, semaphores are used to signal when a thread can safely enter the critical section and update the shared balance.
 
 ## Semaphore Workflow
+
 - **Semaphore Initialization**: A semaphore is initialized with a value that determines the number of threads allowed to access the critical section simultaneously.
 - **Deposit Loop**: Each thread waits on the semaphore before accessing the critical section and posts to the semaphore after completing the update, signaling that another thread can proceed.
 
 By controlling access to the critical section using semaphores, the program ensures that the final bank balance is accurately calculated, reflecting all the intended deposit transactions.
+
 
 # Research Question 1: Mutual Exclusion with `turn` Variable
 
