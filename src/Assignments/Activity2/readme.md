@@ -102,9 +102,12 @@ printf("Process %d finished\n", pid);
 ![spawn binary]()
 
 # 2. Signals in Linux: Inter-Process Communication
+| Action | Description |
+| ------ | ----------- | 
+| Signal Registration | Custom signal handlers are assigned to `SIGUSR1` and `SIGUSR2`, setting up a controlled communication protocol between the producer and consumer. |
+| Signal Execution | The `kill()` function is utilized to send signals, orchestrating the execution flow of the consumer process based on the producer's state. |
 
-- **Signal Registration**: Custom signal handlers are assigned to `SIGUSR1` and `SIGUSR2`, setting up a controlled communication protocol between the producer and consumer.
-- **Signal Execution**: The `kill()` function is utilized to send signals, orchestrating the execution flow of the consumer process based on the producer's state.
+  
 
 # 3. Theory of Operation for Creating Threads in Linux
 
