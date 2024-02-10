@@ -7,7 +7,7 @@
 ### Overview
 The C program employs `fork()` to instantiate a producer-consumer scenario where the producer is the parent process and the consumer is the child. Communication and synchronization between them are managed via UNIX signals.
 
-### Process Dynamics
+# 1.2 Process Dynamics
 
 | Producer (Parent Process) | Consumer (Child Process) |
 | ------------------------- | ------------------------ |
@@ -54,12 +54,59 @@ int main() {
 ```
 ![processes binary]()
 
-### Signal Mechanics
+# 1.3 Processes in Linux: Using `posix_spawn()` and `waitpid()`
+
+### Overview
+1. The program starts by checking if a command-line argument is provided, which is the application to spawn.
+2. It initializes the `posix_spawnattr_t` structure to its default values.
+3. The `posix_spawn()` function is called to create a new process that runs the specified application.
+4. The parent process waits for the spawned process to finish using `waitpid()`.
+
+## Key Functions
+
+| Function          | Description |
+| ----------------- | ----------- |
+| `posix_spawn()`   | Spawns a new process based on the specified application. |
+| `waitpid()`       | Waits for the spawned process to change state, typically to finish execution. |
+
+
+```c
+// Error checking for command-line arguments
+if (argc < 2) {
+    fprintf(stderr, "Usage: %s <application>\n", argv[0]);
+    return EXIT_FAILURE;
+}
+
+pid_t pid;
+int status;
+posix_spawnattr_t attr;
+
+posix_spawnattr_init(&attr);
+
+// Spawning a new process
+if (posix_spawn(&pid, argv[1], NULL, &attr, &argv[1], environ) != 0) {
+    perror("posix_spawn failed");
+    return EXIT_FAILURE;
+}
+printf("Spawned process ID: %d\n", pid);
+
+// Waiting for the spawned process to end
+if (waitpid(pid, &status, 0) == -1) {
+    perror("waitpid failed");
+    return EXIT_FAILURE;
+}
+
+printf("Process %d finished\n", pid);
+
+```
+![spawn binary]()
+
+# 2. Signals in Linux: Inter-Process Communication
 
 - **Signal Registration**: Custom signal handlers are assigned to `SIGUSR1` and `SIGUSR2`, setting up a controlled communication protocol between the producer and consumer.
 - **Signal Execution**: The `kill()` function is utilized to send signals, orchestrating the execution flow of the consumer process based on the producer's state.
 
-# 2. Theory of Operation for Creating Threads in Linux
+# 3. Theory of Operation for Creating Threads in Linux
 
 ### Overview
 This program introduces threads in a Linux environment, utilizing the `pthread_create()` function to simultaneously run two threads performing separate tasks.
