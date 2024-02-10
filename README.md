@@ -19,4 +19,4 @@ Below is a brief overview of the directory structure and contents of this reposi
 ## Acknowledgments
 
 - Professor Mark Reha for providing the course materials and guidance.
-- Online resources and documentation that have been instrumental in completing these assignments.
+
