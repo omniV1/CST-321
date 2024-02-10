@@ -1,11 +1,16 @@
+// Owen Lindsey
+// CST-321
+// This work was done on my own along with the help of the
+// padlet topic guide: Reha, M. (2024). Topic 2 Powerpoint guide: https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/1582473076
+// assignment guide: Reha, M. (2024). Activity 2 Assignment guide: https://mygcuedu6961.sharepoint.com/:w:/r/sites/CSETGuides/_layouts/15/Doc.aspx?sourcedoc=%7BFD1AEEC0-81CF-40E1-A169-85CE23F53355%7D&file=CST-321-RS-T2-Activity2Guide%20.docx&action=default&mobileredirect=true
+// online resources: Frasier, B. (2015). Mutex Synchronization in Linux with Pthreads. Youtube: https://www.youtube.com/watch?v=GXXE42bkqQk
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
-#include <semaphore.h>
-#include <fcntl.h>
 
 #define MAX_DEPOSITS 1000000
-sem_t* mutex;
+pthread_mutex_t mutex;
 int depositAmount = 1;
 int balance = 0;
 
@@ -14,7 +19,7 @@ void *deposit(void *a) {
     int x, tmp;
     for (x = 0; x < MAX_DEPOSITS; x++) {
       // *** start of critical region ***
-      sem_wait(mutex);
+      pthread_mutex_lock(&mutex);
 
       // Not Thread Safe
       // Copy the balance to a local variable, add $1 to the balance and
@@ -24,7 +29,7 @@ void *deposit(void *a) {
         balance = tmp;
 
         // *** End of Critical Region ***
-        sem_post(mutex);
+        pthread_mutex_unlock(&mutex);
     }
     return NULL;
 }
@@ -33,14 +38,7 @@ int main() {
     pthread_t tid1, tid2;
 
     // create a mutex to be used in a critical region of our code
-    mutex = sem_open("Mutex", O_CREAT, 0644, 1);
-
-
-    if(mutex == SEM_FAILED)
-    {
-      printf("\n ERROR creating mutex");
-      exit(2);
-    }
+    pthread_mutex_init(&mutex, 0);
 
     // Create 2 threads (users) to deposit funds into bank
     if (pthread_create(&tid1, NULL, deposit, NULL)) {
@@ -71,6 +69,6 @@ int main() {
 
 
     // Thread creation cleanupand mutex clean up
-    sem_close(mutex);
+    pthread_mutex_destroy(&mutex);
     pthread_exit(NULL);
 }
