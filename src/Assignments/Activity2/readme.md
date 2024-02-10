@@ -13,6 +13,7 @@ The C program employs `fork()` to instantiate a producer-consumer scenario where
 | ------------------------- | ------------------------ |
 | Initiates the `SIGUSR1` signal to the consumer after 5 iterations within a 30-iteration loop, each iteration representing a production cycle. | Enters a passive wait state until the `SIGUSR1` signal is received, then performs 20 iterations of a task, symbolizing the consumption of data. |
 
+
 ### Signal Mechanics
 
 - **Signal Registration**: Custom signal handlers are assigned to `SIGUSR1` and `SIGUSR2`, setting up a controlled communication protocol between the producer and consumer.
@@ -86,7 +87,55 @@ int main() {
 - output of the binary
 ![threads]()
 
-# 3. Theory of Operation for Mutexes in Bank Program
+
+# 3. Processes in Linux: Using `posix_spawn()` and `waitpid()`
+
+### Overview
+1. The program starts by checking if a command-line argument is provided, which is the application to spawn.
+2. It initializes the `posix_spawnattr_t` structure to its default values.
+3. The `posix_spawn()` function is called to create a new process that runs the specified application.
+4. The parent process waits for the spawned process to finish using `waitpid()`.
+
+## Key Functions
+
+| Function          | Description |
+| ----------------- | ----------- |
+| `posix_spawn()`   | Spawns a new process based on the specified application. |
+| `waitpid()`       | Waits for the spawned process to change state, typically to finish execution. |
+
+
+```c
+// Error checking for command-line arguments
+if (argc < 2) {
+    fprintf(stderr, "Usage: %s <application>\n", argv[0]);
+    return EXIT_FAILURE;
+}
+
+pid_t pid;
+int status;
+posix_spawnattr_t attr;
+
+posix_spawnattr_init(&attr);
+
+// Spawning a new process
+if (posix_spawn(&pid, argv[1], NULL, &attr, &argv[1], environ) != 0) {
+    perror("posix_spawn failed");
+    return EXIT_FAILURE;
+}
+printf("Spawned process ID: %d\n", pid);
+
+// Waiting for the spawned process to end
+if (waitpid(pid, &status, 0) == -1) {
+    perror("waitpid failed");
+    return EXIT_FAILURE;
+}
+
+printf("Process %d finished\n", pid);
+
+```
+![spawn binary]()
+
+# 4. Theory of Operation for Mutexes in Bank Program
 
 ### Overview
 In the context of a simulated banking application, mutexes are utilized to manage concurrent access to a shared bank balance, ensuring accurate updates despite simultaneous deposit attempts by multiple threads.
@@ -166,7 +215,7 @@ int main() {
 - output of the binary
 ![console]()
 
-# 4. Theory of Operation for Semaphores in Bank Program
+# 5. Theory of Operation for Semaphores in Bank Program
 
 ### Overview
 Semaphores serve a similar purpose to mutexes but are often used as signaling mechanisms. In this banking application, semaphores are used to signal when a thread can safely enter the critical section and update the shared balance.
