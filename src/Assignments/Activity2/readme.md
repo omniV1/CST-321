@@ -98,6 +98,29 @@ In the context of a simulated banking application, mutexes are utilized to manag
 | Update Sequence | The balance is safely incremented within the locked section, thus avoiding any race conditions or data inconsistencies. |
 | Mutex Unlock | Upon updating, the mutex is released, permitting other threads to enter the critical section and perform their updates. |
 
+- The deposit function simulates deposit operations into a bank account using a mutex for thread synchronization, ensuring each operation on the shared balance variable is executed safely in a critical section.
+```c
+// Thread function to deposit money into the bank
+void *deposit(void *a) {
+    int x, tmp;
+    for (x = 0; x < MAX_DEPOSITS; x++) {
+      // *** start of critical region ***
+      pthread_mutex_lock(&mutex);
+
+      // Not Thread Safe
+      // Copy the balance to a local variable, add $1 to the balance and
+      // save the balance in a global variable
+        tmp = balance;
+        tmp = tmp + depositAmount;
+        balance = tmp;
+
+        // *** End of Critical Region ***
+        pthread_mutex_unlock(&mutex);
+    }
+    return NULL;
+}
+```
+
 # 4. Theory of Operation for Semaphores in Bank Program
 
 ### Overview
