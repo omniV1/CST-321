@@ -15,3 +15,8 @@ Below is a brief overview of the directory structure and contents of this reposi
 | `Activity2/research_screenshots/` | Screenshots demonstrating the output of various programs. |
 | `src/`              | Source files for the assignments. |
 | `gitmodules/`       | Submodule references for external libraries or dependencies. |
+
+## Acknowledgments
+
+- Professor Mark Reha for providing the course materials and guidance.
+- Online resources and documentation that have been instrumental in completing these assignments.
