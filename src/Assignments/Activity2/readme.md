@@ -11,7 +11,8 @@ The C program employs `fork()` to instantiate a producer-consumer scenario where
 
 | Producer (Parent Process) | Consumer (Child Process) |
 | ------------------------- | ------------------------ |
-| Initiates the `SIGUSR1` signal to the consumer after 5 iterations within a 30-iteration loop, each iteration representing a production cycle. | Enters a passive wait state until the `SIGUSR1` signal is received, then performs 20 iterations of a task, symbolizing the consumption of data. |
+| Initiates the `SIGUSR1` signal to the consumer after 5 iterations within a 30-iteration loop, each iteration representing a production cycle. 
+| Enters a passive wait state until the `SIGUSR1` signal is received, then performs 20 iterations of a task, symbolizing the consumption of data. |
 
 ### Signal Mechanics
 
@@ -24,14 +25,66 @@ The C program employs `fork()` to instantiate a producer-consumer scenario where
 This program introduces threads in a Linux environment, utilizing the `pthread_create()` function to simultaneously run two threads performing separate tasks.
 
 ### Thread Behavior
-
-- **Thread 1**: Acts as a 'pilot', iterating through a sequence of checkpoints with a 1-second pause, emulating the process of navigating a flight path.
-- **Thread 2**: Represents a 'maintainer', conducting a series of maintenance checks with a 2-second interval, mimicking the systematic verification of systems.
+| Action | Description |
+| ------ | ----------- | 
+| Thread 1 | Acts as a 'pilot', iterating through a sequence of checkpoints with a 1-second pause, emulating the process of navigating a flight path. | 
+| **Thread 2**: Represents a 'maintainer', conducting a series of maintenance checks with a 2-second interval, mimicking the systematic verification of systems. |
 
 ### Thread Synchronization
+| Action | Description |
+| ------ | ----------- | 
+| Execution | Both threads start their sequences in parallel, demonstrating the non-blocking nature of thread execution. |
+| Completion |  Utilizing `pthread_join()`, the program ensures that the main process awaits the completion of both threads, maintaining execution integrity. | 
 
-- **Execution**: Both threads start their sequences in parallel, demonstrating the non-blocking nature of thread execution.
-- **Completion**: Utilizing `pthread_join()`, the program ensures that the main process awaits the completion of both threads, maintaining execution integrity.
+```c
+// Function for the 'Pilot' thread
+void *pilot(void *arg) {
+    for (int i = 0; i < NUM_SIMULATIONS; ++i) {
+        while (turn != 0) {
+            // Wait for the pilot's turn
+        }
+        printf("Pilot: Running flight simulation %d\n", i + 1);
+        sleep(1); // Simulate the time taken for the flight simulation
+        printf("Pilot: Simulation %d complete, passing controls to Co-Pilot.\n", i + 1);
+        turn = 1; // Pass control to the co-pilot
+    }
+    return NULL;
+}
+
+// Function for the 'Co-Pilot' thread
+void *coPilot(void *arg) {
+    for (int i = 0; i < NUM_SIMULATIONS; ++i) {
+        while (turn != 1) {
+            // Wait for the co-pilot's turn
+        }
+        printf("Co-Pilot: Running flight simulation %d\n", i + 1);
+        sleep(1); // Simulate the time taken for the flight simulation
+        printf("Co-Pilot: Simulation %d complete, passing controls back to Pilot.\n", i + 1);
+        turn = 0; // Pass control back to the pilot
+    }
+    return NULL;
+}
+```
+
+- The main function creates two threads for a pilot and co-pilot to run flight simulations, waits for them to complete, and then prints a success message.
+```c
+int main() {
+    pthread_t pilotThread, coPilotThread;
+
+    // Create threads
+    pthread_create(&pilotThread, NULL, pilot, NULL);
+    pthread_create(&coPilotThread, NULL, coPilot, NULL);
+
+    // Wait for threads to finish
+    pthread_join(pilotThread, NULL);
+    pthread_join(coPilotThread, NULL);
+
+    printf("Main: Flight simulation exercises completed successfully.\n");
+
+    return 0;
+}
+```
+
 
 # 3. Theory of Operation for Mutexes in Bank Program
 
