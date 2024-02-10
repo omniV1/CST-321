@@ -13,41 +13,41 @@
 
 # 1. Theory of Operation for `fork()` and Signal Handling in Linux
 
-## Overview
+### Overview
 The C program employs `fork()` to instantiate a producer-consumer scenario where the producer is the parent process and the consumer is the child. Communication and synchronization between them are managed via UNIX signals.
 
-## Process Dynamics
+### Process Dynamics
 
 | Producer (Parent Process) | Consumer (Child Process) |
 | ------------------------- | ------------------------ |
 | Initiates the `SIGUSR1` signal to the consumer after 5 iterations within a 30-iteration loop, each iteration representing a production cycle. | Enters a passive wait state until the `SIGUSR1` signal is received, then performs 20 iterations of a task, symbolizing the consumption of data. |
 
-## Signal Mechanics
+### Signal Mechanics
 
 - **Signal Registration**: Custom signal handlers are assigned to `SIGUSR1` and `SIGUSR2`, setting up a controlled communication protocol between the producer and consumer.
 - **Signal Execution**: The `kill()` function is utilized to send signals, orchestrating the execution flow of the consumer process based on the producer's state.
 
 # 2. Theory of Operation for Creating Threads in Linux
 
-## Overview
+### Overview
 This program introduces threads in a Linux environment, utilizing the `pthread_create()` function to simultaneously run two threads performing separate tasks.
 
-## Thread Behavior
+### Thread Behavior
 
 - **Thread 1**: Acts as a 'pilot', iterating through a sequence of checkpoints with a 1-second pause, emulating the process of navigating a flight path.
 - **Thread 2**: Represents a 'maintainer', conducting a series of maintenance checks with a 2-second interval, mimicking the systematic verification of systems.
 
-## Thread Synchronization
+### Thread Synchronization
 
 - **Execution**: Both threads start their sequences in parallel, demonstrating the non-blocking nature of thread execution.
 - **Completion**: Utilizing `pthread_join()`, the program ensures that the main process awaits the completion of both threads, maintaining execution integrity.
 
 # 3. Theory of Operation for Mutexes in Bank Program
 
-## Overview
+### Overview
 In the context of a simulated banking application, mutexes are utilized to manage concurrent access to a shared bank balance, ensuring accurate updates despite simultaneous deposit attempts by multiple threads.
 
-## Critical Section Management
+### Critical Section Management
 
 | Action      | Description |
 | ----------- | ----------- |
@@ -57,10 +57,10 @@ In the context of a simulated banking application, mutexes are utilized to manag
 
 # 4. Theory of Operation for Semaphores in Bank Program
 
-## Overview
+### Overview
 Semaphores serve a similar purpose to mutexes but are often used as signaling mechanisms. In this banking application, semaphores are used to signal when a thread can safely enter the critical section and update the shared balance.
 
-## Semaphore Workflow
+### Semaphore Workflow
 
 - **Semaphore Initialization**: A semaphore is initialized with a value that determines the number of threads allowed to access the critical section simultaneously.
 - **Deposit Loop**: Each thread waits on the semaphore before accessing the critical section and posts to the semaphore after completing the update, signaling that another thread can proceed.
@@ -72,7 +72,7 @@ By controlling access to the critical section using semaphores, the program ensu
 
 The C program implements a mutual exclusion protocol between two threads, `pilot` and `coPilot`, utilizing a `turn` variable. Each thread executes a series of flight simulations, sequentially accessing a critical section based on the value of the `turn` variable.
 
-## Pilot Thread Function
+### Pilot Thread Function
 
 The `pilot` thread executes its flight simulation loop when `turn` is set to 0. Upon completion of its critical section, it signals the `coPilot` by setting `turn` to 1, indicating it's the `coPilot`'s turn to execute.
 
@@ -83,7 +83,7 @@ while (turn != 0) {
 // Critical section
 turn = 1;
 ```
-## Co-Pilot Thread Function
+### Co-Pilot Thread Function
 - In contrast, the Co-Pilot awaits its turn when turn equals 1. After finishing its critical section, it hands control back to the pilot by resetting turn to 0.
 
 ```c
@@ -108,7 +108,7 @@ pthread_join(coPilotThread, NULL);
 
 The C program demonstrates process creation using the `fork()` system call. It's designed to explore the number of child processes spawned when `fork()` is called multiple times within the same program.
 
-##  theory of operation
+###  theory of operation
 
 The main function contains a sequence of `fork()` calls, each creating a child process. The program outputs the process ID (PID) of each process, helping to determine the number of processes created.
 
