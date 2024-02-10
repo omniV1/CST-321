@@ -13,6 +13,46 @@ The C program employs `fork()` to instantiate a producer-consumer scenario where
 | ------------------------- | ------------------------ |
 | Initiates the `SIGUSR1` signal to the consumer after 5 iterations within a 30-iteration loop, each iteration representing a production cycle. | Enters a passive wait state until the `SIGUSR1` signal is received, then performs 20 iterations of a task, symbolizing the consumption of data. |
 
+## Program Execution
+
+The `main()` function begins by calling `fork()`. Depending on the return value, the program distinguishes between parent and child process operations.
+
+## Key Functions and System Calls
+
+| Function/System Call | Description |
+| ---------------------| ----------- |
+| `fork()`             | Creates a new process by duplicating the calling process. |
+| `perror()`           | Prints a descriptive error message to stderr. |
+| `sleep()`            | Suspends process execution for a specified number of seconds. |
+| `exit()`             | Terminates the calling process and returns an exit status. |
+
+## Code Explanation
+
+```c
+int main() {
+    pid_t pid = fork();  // Attempt to create a child process
+
+    if (pid == -1) {
+        // If fork() returns -1, an error occurred
+        perror("fork failed");
+        exit(EXIT_FAILURE);
+    } else if (pid == 0) {
+        // Child process executes this block
+        for (int i = 0; i < 10; i++) {
+            printf("Child process message %d\n", i+1);
+            sleep(1); // Child sleeps for 1 second
+        }
+        exit(0); // Child process exits with status 0
+    } else {
+        // Parent process executes this block
+        for (int i = 0; i < 10; i++) {
+            printf("Parent process message %d\n", i+1);
+            sleep(2); // Parent sleeps for 2 seconds
+        }
+        exit(0); // Parent process exits with status 0
+    }
+```
+![processes binary]()
 
 ### Signal Mechanics
 
