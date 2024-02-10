@@ -1,9 +1,9 @@
-# 1. Theory of Operation for `fork()` and Signal Handling in Linux
-
 Owen Lindsey  
 CST-391  
 
 This work was done with help from the assignment guide.
+
+# 1. Theory of Operation for `fork()` and Signal Handling in Linux
 
 ## Overview
 The C program employs `fork()` to instantiate a producer-consumer scenario where the producer is the parent process and the consumer is the child. Communication and synchronization between them are managed via UNIX signals.
