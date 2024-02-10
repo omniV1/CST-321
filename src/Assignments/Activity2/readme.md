@@ -11,8 +11,7 @@ The C program employs `fork()` to instantiate a producer-consumer scenario where
 
 | Producer (Parent Process) | Consumer (Child Process) |
 | ------------------------- | ------------------------ |
-| Initiates the `SIGUSR1` signal to the consumer after 5 iterations within a 30-iteration loop, each iteration representing a production cycle. 
-| Enters a passive wait state until the `SIGUSR1` signal is received, then performs 20 iterations of a task, symbolizing the consumption of data. |
+| Initiates the `SIGUSR1` signal to the consumer after 5 iterations within a 30-iteration loop, each iteration representing a production cycle. | Enters a passive wait state until the `SIGUSR1` signal is received, then performs 20 iterations of a task, symbolizing the consumption of data. |
 
 ### Signal Mechanics
 
