@@ -83,7 +83,8 @@ int main() {
     return 0;
 }
 ```
-
+- output of the binary
+![threads]()
 
 # 3. Theory of Operation for Mutexes in Bank Program
 
@@ -120,6 +121,50 @@ void *deposit(void *a) {
     return NULL;
 }
 ```
+- The main function initializes a mutex, creates two threads to perform deposit operations into a shared bank account, waits for them to complete, checks if the final balance matches the expected amount, then cleans up by destroying the mutex and exiting.
+
+```c
+int main() {
+    pthread_t tid1, tid2;
+
+    // create a mutex to be used in a critical region of our code
+    pthread_mutex_init(&mutex, 0);
+
+    // Create 2 threads (users) to deposit funds into bank
+    if (pthread_create(&tid1, NULL, deposit, NULL)) {
+        printf("\n ERROR creating deposit thread 1");
+        exit(1);
+    }
+    if (pthread_create(&tid2, NULL, deposit, NULL)) {
+        printf("\n ERROR creating deposit thread 2");
+        exit(1);
+    }
+
+    // Wait for threads (users) to finish depositing funds into bank
+    if (pthread_join(tid1, NULL)) {
+        printf("\n ERROR joining deposit thread 1");
+        exit(1);
+    }
+    if (pthread_join(tid2, NULL)) {
+        printf("\n ERROR joining deposit thread 2");
+        exit(1);
+    }
+
+    // Check balance
+    if (balance != 2 * MAX_DEPOSITS) {
+        printf("\n BAD Balance: bank balance is %d and should be %d\n", balance, 2 * MAX_DEPOSITS);
+    } else {
+        printf("\n GOOD Balance: bank balance is %d\n", balance);
+    }
+
+
+    // Thread creation cleanupand mutex clean up
+    pthread_mutex_destroy(&mutex);
+    pthread_exit(NULL);
+}
+```
+- output of the binary
+![console]()
 
 # 4. Theory of Operation for Semaphores in Bank Program
 
