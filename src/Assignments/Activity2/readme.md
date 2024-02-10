@@ -28,7 +28,7 @@ This program introduces threads in a Linux environment, utilizing the `pthread_c
 | Action | Description |
 | ------ | ----------- | 
 | Thread 1 | Acts as a 'pilot', iterating through a sequence of checkpoints with a 1-second pause, emulating the process of navigating a flight path. | 
-| **Thread 2**: Represents a 'maintainer', conducting a series of maintenance checks with a 2-second interval, mimicking the systematic verification of systems. |
+| Thread 2 | Represents a 'maintainer', conducting a series of maintenance checks with a 2-second interval, mimicking the systematic verification of systems. |
 
 ### Thread Synchronization
 | Action | Description |
