@@ -1,14 +1,14 @@
-### Owen Lindsey
-### CST-321
-### This work was done on my own along with the help of the
-### padlet topic guide: Reha, M. (2024). [Topic 2 Powerpoint guide](https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/158247307)
-### assignment guide: Reha, M. (2024). [Activity 2 Assignment guide](https://mygcuedu6961.sharepoint.com/:w:/r/sites/CSETGuides/_layouts/15/Doc.aspx?sourcedoc=%7BFD1AEEC0-81CF-40E1-A169-85CE23F53355%7D&file=CST-321-RS-T2-Activity2Guide%20.docx&action=default&mobileredirect=true)
+##### Owen Lindsey
+##### CST-321
+##### This work was done on my own along with the help of the
+##### padlet topic guide: Reha, M. (2024). [Topic 2 Powerpoint guide](https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/158247307)
+##### assignment guide: Reha, M. (2024). [Activity 2 Assignment guide](https://mygcuedu6961.sharepoint.com/:w:/r/sites/CSETGuides/_layouts/15/Doc.aspx?sourcedoc=%7BFD1AEEC0-81CF-40E1-A169-85CE23F53355%7D&file=CST-321-RS-T2-Activity2Guide%20.docx&action=default&mobileredirect=true)
 
-### online resources: Kadam, P. (2024). Multithreading in c . [geeksforgeeks](https://www.geeksforgeeks.org/multithreading-in-c/)
-### online resources: Kadam, P. (2024). Signals in c language. [geeksforgeeks](https://www.geeksforgeeks.org/signals-c-language/)
-### online resources: https://www.youtube.com/watch?v=9seb8hddeK4 : [youtube](guide provided by instructor)
-### online resources: Barnes, R. (2020). Mutex vs Semaphore. [tutorialspoint](https://www.tutorialspoint.com/mutex-vs-semaphore)
-### online resources: Frasier, B. (2015). Mutex Synchronization in Linux with Pthreads.  [Youtube:](https://www.youtube.com/watch?v=GXXE42bkqQk)
+##### online resources: Kadam, P. (2024). Multithreading in c . [geeksforgeeks](https://www.geeksforgeeks.org/multithreading-in-c/)
+##### online resources: Kadam, P. (2024). Signals in c language. [geeksforgeeks](https://www.geeksforgeeks.org/signals-c-language/)
+##### online resources: https://www.youtube.com/watch?v=9seb8hddeK4 : [youtube](guide provided by instructor)
+##### online resources: Barnes, R. (2020). Mutex vs Semaphore. [tutorialspoint](https://www.tutorialspoint.com/mutex-vs-semaphore)
+##### online resources: Frasier, B. (2015). Mutex Synchronization in Linux with Pthreads.  [Youtube:](https://www.youtube.com/watch?v=GXXE42bkqQk)
 
 
 # 1. Theory of Operation for `fork()` and Signal Handling in Linux
