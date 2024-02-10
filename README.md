@@ -16,7 +16,14 @@ Below is a brief overview of the directory structure and contents of this reposi
 | `src/`              | Source files for the assignments. |
 | `gitmodules/`       | Submodule references for external libraries or dependencies. |
 
+<<<<<<< HEAD
 
 ## Acknowledgments
 
 - Professor Mark Reha for providing the course materials and guidance.
+=======
+## Acknowledgments
+
+- Professor Mark Reha for providing the course materials and guidance.
+
+>>>>>>> 6feef1997d23f5bd61b8b46c545b3e8ce45ebf7e
