@@ -64,8 +64,50 @@ Semaphores serve a similar purpose to mutexes but are often used as signaling me
 
 - **Semaphore Initialization**: A semaphore is initialized with a value that determines the number of threads allowed to access the critical section simultaneously.
 - **Deposit Loop**: Each thread waits on the semaphore before accessing the critical section and posts to the semaphore after completing the update, signaling that another thread can proceed.
+- By controlling access to the critical section using semaphores, the program ensures that the final bank balance is accurately calculated, reflecting all the intended deposit transactions.
 
-By controlling access to the critical section using semaphores, the program ensures that the final bank balance is accurately calculated, reflecting all the intended deposit transactions.
+- The deposit function is a thread routine that simulates bank deposits by safely incrementing a shared balance using a semaphore for mutual exclusion to prevent race conditions.
+```c 
+// Thread function to deposit money
+void *deposit(void *a) {
+    int x, tmp;
+    for (x = 0; x < MAX_DEPOSITS; x++) {
+        sem_wait(mutex);  // Start of critical region: acquire the semaphore
+        tmp = balance;    // Read balance to local variable
+        tmp = tmp + depositAmount; // Add deposit amount to local variable
+        balance = tmp;    // Write updated balance back to global variable
+        sem_post(mutex);  // End of critical region: release the semaphore
+    }
+    return NULL;
+}
+
+```
+-  The main function initializes a semaphore for mutual exclusion, spawns two threads for deposit operations, waits for their completion, checks if the final balance is correct, closes the semaphore, and exits the threads.
+  ```c
+int main() {
+    // Create and initialize semaphore for mutual exclusion
+    mutex = sem_open("Mutex", O_CREAT, 0644, 1);
+
+    // Create two threads to deposit funds into the bank
+    pthread_create(&tid1, NULL, deposit, NULL);
+    pthread_create(&tid2, NULL, deposit, NULL);
+
+    // Wait for both threads to complete deposit operations
+    pthread_join(tid1, NULL);
+    pthread_join(tid2, NULL);
+
+    // Check final balance against expected value
+    if (balance != 2 * MAX_DEPOSITS) {
+        printf("\n BAD Balance: bank balance is %d and should be %d\n", balance, 2 * MAX_DEPOSITS);
+    } else {
+        printf("\n GOOD Balance: bank balance is %d\n", balance);
+    }
+
+    // Cleanup: close semaphore and exit threads
+    sem_close(mutex);
+    pthread_exit(NULL);
+}
+```
 
 
 # Research Question 1: Mutual Exclusion with `turn` Variable
