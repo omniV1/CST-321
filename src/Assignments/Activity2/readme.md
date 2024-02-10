@@ -66,7 +66,7 @@ Semaphores serve a similar purpose to mutexes but are often used as signaling me
 | **Semaphore Initialization** | A semaphore is initialized with a value that determines the number of threads allowed to access the critical section simultaneously. |
 | **Deposit Loop** | Each thread waits on the semaphore before accessing the critical section and posts to the semaphore after completing the update, signaling that another thread can proceed. |
 
-    -  By controlling access to the critical section using semaphores, the program ensures that the final bank balance is accurately calculated, reflecting all the intended deposit transactions.
+   -  By controlling access to the critical section using semaphores, the program ensures that the final bank balance is accurately calculated, reflecting all the intended deposit transactions.
 
 - The deposit function is a thread routine that simulates bank deposits by safely incrementing a shared balance using a semaphore for mutual exclusion to prevent race conditions.
 ```c 
