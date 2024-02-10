@@ -116,7 +116,7 @@ The main function contains a sequence of `fork()` calls, each creating a child p
 
 - Each child process also executes the printf() statement, printing its own PID.
 
-- The output shows that each process continues to execute independently after the fork(), resulting in six processes with unique PIDs.
+- The output shows that each process continues to execute independently after the fork(), resulting in three child processes in addition to the original parent process .
 
 ```c
 #include <stdio.h>
@@ -132,3 +132,13 @@ void main() {
 
     exit(0);
 }
+```
+
+### visual representation 
+
+    P0
+   /  \
+ P1    P2
+ |
+ P3
+
