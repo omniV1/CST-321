@@ -100,7 +100,7 @@ Semaphores are ideal for managing access to a pool of resources, like the airlin
 # Screenshots and explanations of console output
 
 
-- unsynchronized code for airplane senario key parts:
+#### unsynchronized code for airplane senario key parts:
   
  ```c
 #define TOTAL_PILOTS 20
@@ -139,7 +139,7 @@ void* attemptToAssignAirplane(void* arg) {
 - **Unrealistic Management**: Instantaneous replenishment of airplanes after usage is unrealistic, ignoring necessary logistics and maintenance times.
 
 
-- synchronized code for airplane senario key parts:
+#### synchronized code for airplane senario key parts:
 ```c
 sem_t airplaneSemaphore; // Semaphore manages the availability of airplanes.
 
