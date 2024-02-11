@@ -95,3 +95,9 @@ sem_post(&cupsSemaphore);
 - **Controlled Serving Process**: The semaphore manages the number of available cups, ensuring that no more kids serve lemonade than there are cups available. This corrects the issue where the availableCups count could become negative due to unsynchronized access, as it now requires a kid to wait for a semaphore signal before serving, representing the acquisition of a cup.
 
 - **Resource Availability**: By signaling (incrementing) the semaphore after serving, it informs other threads that a cup has become available. This prevents the scenario where kids would attempt to serve lemonade without any cups available, leading to a situation where customers are left unserved.
+
+  # Screenshots and explanations of console output
+
+  ## Non-synchronized:
+
+  ![]() 
