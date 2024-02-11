@@ -126,17 +126,17 @@ void* attemptToAssignAirplane(void* arg) {
     return NULL;
 }
 ```
-
-- console output:
-   
 ![zero sync airplane](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/mutex_sema/screenshots/airplane_zero_sync.png) 
 
-### Key Issues with Non-Working Semaphore Scenario
+### Key Issues with Non-Synchronized Airplane Assignment
 
-- **Race Conditions**: Unsynchronized access to `airplanesAvailable` allows multiple pilots to decrement/increment this counter simultaneously, leading to more pilots being assigned than airplanes available.
-- **Inconsistent Airplane Counts**: The output might show unrealistic airplane availability, such as assigning more pilots than there are airplanes, or even negative counts.
-- **Conflicting Messages**: Pilots receiving conflicting information about airplane availability due to concurrent access issues.
-- **Unrealistic Management**: Instantaneous replenishment of airplanes after usage is unrealistic, ignoring necessary logistics and maintenance times.
+#### Console Output and Code Issues
+The lack of synchronization in airplane assignment leads to several problems, illustrated by console output and code behavior:
+
+- **Race Conditions**: Multiple pilots attempt to decrement/increment `airplanesAvailable` simultaneously, causing assignments beyond the fleet's capacity.
+- **Inconsistent Counts**: Output may reveal more assignments than actual airplanes, including negative availability counts.
+- **Conflicting Information**: Pilots face confusing signals about airplane availability, reflecting the chaos from unsynchronized access.
+- **Unrealistic Resource Handling**: The code suggests airplanes are immediately ready for reassignment, overlooking real-world turnaround times.
 
 
 #### synchronized code for airplane senario key parts:
@@ -159,6 +159,18 @@ void* assignAirplane(void* arg) {
 ```
 ![]() 
   
+### Console Output and Improvements for Synchronized Airplane Assignment Program
+
+#### Console Output Explanation
+The synchronized airplane assignment program ensures orderly and fair access for pilots to airplanes. The semaphore controls access, preventing race conditions and access conflicts, demonstrating:
+
+- **Orderly Assignment**: Pilots are assigned airplanes as they become available, showcasing efficient resource management.
+- **No Race Conditions**: Semaphore usage ensures exclusive access to airplanes, eliminating simultaneous assignments.
+
+#### Potential Improvements
+- **Race Condition Elimination**: The semaphore's strict management of airplane availability prevents simultaneous assignments to pilots.
+- **Fair and Orderly Access**: `sem_wait` ensures pilots access airplanes in a fair manner, contrasting with the chaos of non-synchronized scenarios.
+- **Consistent Resource State**: `sem_post` maintains an accurate count of available airplanes, avoiding inconsistencies seen in non-synchronized approaches.
 
 --- 
 # Resources 
