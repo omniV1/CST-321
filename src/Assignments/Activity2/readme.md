@@ -47,7 +47,7 @@ int main() {
         exit(0); // Parent process exits with status 0
     }
 ```
-![processes binary]()
+![processes binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/processes.png)
 
 ---
 # 1.3 Processes in Linux: Using `posix_spawn()` and `waitpid()`
@@ -95,7 +95,7 @@ if (waitpid(pid, &status, 0) == -1) {
 printf("Process %d finished\n", pid);
 
 ```
-![spawn binary]()
+![spawn binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/spawn.png)
 
 ---
 # 2. Signals in Linux: Inter-Process Communication
@@ -130,7 +130,7 @@ void wakeup_handler(int signum) {
     // Code to handle signal
 }
 ```
-  ![signals binary]()
+  ![signals binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/signals.png)
 ---
 # 3. Theory of Operation for Creating Threads in Linux
 
@@ -194,7 +194,7 @@ int main() {
     return 0;
 }
 ```
-![threads binary]()
+![threads binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/threads.png)
 ---
 
 # 4. Processes in Linux: Using `posix_spawn()` and `waitpid()`
