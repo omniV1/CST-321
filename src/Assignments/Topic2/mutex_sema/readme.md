@@ -6,15 +6,15 @@
 # Detailed Description of the Scenario
 In our simplified scenario, a group of neighborhood kids runs a lemonade stand. To ensure the smooth operation of their stand, they face two main challenges:
 
-1. Shared Refrigerator Access: Only one kid can use the refrigerator at any given time to either restock lemonade pitchers or get more lemons. This situation requires a mechanism to prevent multiple kids from trying to access the refrigerator simultaneously, leading to chaos or accidents.
+1. **Shared Refrigerator Access**: Only one kid can use the refrigerator at any given time to either restock lemonade pitchers or get more lemons. This situation requires a mechanism to prevent multiple kids from trying to access the refrigerator simultaneously, leading to chaos or accidents.
 
-2. Limited Serving Cups: The lemonade stand has a limited number of cups available for serving customers. To manage this limitation and serve customers efficiently, the kids need a system that allows only a certain number of them to serve lemonade at the same time.
+2. **Limited Serving Cups**: The lemonade stand has a limited number of cups available for serving customers. To manage this limitation and serve customers efficiently, the kids need a system that allows only a certain number of them to serve lemonade at the same time.
 
 # Justification for the Use of Mutexes and Semaphores
 
-- Mutex for Refrigerator Access: A mutex is ideal for managing access to the refrigerator. It ensures that when one kid is using the refrigerator, others must wait their turn, thereby preventing interference and accidents.
+- **Mutex for Refrigerator Access**: A mutex is ideal for managing access to the refrigerator. It ensures that when one kid is using the refrigerator, others must wait their turn, thereby preventing interference and accidents.
 
-- Counting Semaphore for Serving Cups: A counting semaphore perfectly fits the scenario of limiting the number of kids serving lemonade concurrently. It starts with a count equal to the number of available cups. Each kid serving lemonade decrements this count, and when there are no cups left, other kids must wait until a cup becomes available again.
+- **Counting Semaphore for Serving Cups**: A counting semaphore perfectly fits the scenario of limiting the number of kids serving lemonade concurrently. It starts with a count equal to the number of available cups. Each kid serving lemonade decrements this count, and when there are no cups left, other kids must wait until a cup becomes available again.
 
 | Synchronization Mechanism | Pros   | Cons   |
 |------------|--------------|------------------|
@@ -33,13 +33,13 @@ In our simplified scenario, a group of neighborhood kids runs a lemonade stand. 
 
 ### Why Synchronization is Better
 
-- Reliability: Synchronization mechanisms ensure that the program operates correctly under all conditions by preventing race conditions and data corruption.
+- **Reliability**: Synchronization mechanisms ensure that the program operates correctly under all conditions by preventing race conditions and data corruption.
 
-- Consistency: By controlling access to shared resources, synchronization guarantees that every thread sees a consistent view of the data.
+- **Consistency**: By controlling access to shared resources, synchronization guarantees that every thread sees a consistent view of the data.
 
-- Efficiency: Proper synchronization can lead to more efficient resource utilization, avoiding unnecessary waits or conflicts.
+- **Efficiency**: Proper synchronization can lead to more efficient resource utilization, avoiding unnecessary waits or conflicts.
 
-- Maintainability: While adding complexity, synchronization makes the program's behavior more predictable, which simplifies maintenance and debugging.
+- **Maintainability**: While adding complexity, synchronization makes the program's behavior more predictable, which simplifies maintenance and debugging.
 
 
 #### Unsynchronized version key code parts:
@@ -60,9 +60,9 @@ if (availableCups > 0) {
 ```
 #### Potential Failures in Non-synchronized Code:
 
-- Refrigerator Access Conflicts: Two or more threads may simultaneously set refrigeratorOpen to 1, leading to a scenario where the refrigerator is thought to be in use by multiple kids at once, causing confusion and potential 'spills' or 'loss' of lemonade.
+- **Refrigerator Access Conflicts**: Two or more threads may simultaneously set refrigeratorOpen to 1, leading to a scenario where the refrigerator is thought to be in use by multiple kids at once, causing confusion and potential 'spills' or 'loss' of lemonade.
 
-- Cups Count Mismatch: Without synchronization, the availableCups variable could be decremented by one thread and simultaneously checked by another, leading to a situation where more lemonade is served than there are cups available, resulting in a negative count of cups.
+- **Cups Count Mismatch**: Without synchronization, the availableCups variable could be decremented by one thread and simultaneously checked by another, leading to a situation where more lemonade is served than there are cups available, resulting in a negative count of cups.
 --- 
 #### Synchronized Version Key Parts:
 ```c
@@ -88,10 +88,10 @@ sem_post(&cupsSemaphore);
 ```
 #### What It Fixes:
 
-- Exclusive Access: The mutex ensures that only one thread (kid) can access the refrigerator at a time. This fixes the race condition where multiple threads could change the refrigeratorOpen flag simultaneously, leading to inconsistent states or "spills" as multiple kids try to access the refrigerator at once.
+- **Exclusive Access**: The mutex ensures that only one thread (kid) can access the refrigerator at a time. This fixes the race condition where multiple threads could change the refrigeratorOpen flag simultaneously, leading to inconsistent states or "spills" as multiple kids try to access the refrigerator at once.
 
-- Resource Protection: By locking the mutex before accessing the refrigerator and unlocking it afterward, it guarantees that the shared resource is protected from concurrent access, ensuring that all refrigerator operations are performed safely and correctly.
+- **Resource Protection**: By locking the mutex before accessing the refrigerator and unlocking it afterward, it guarantees that the shared resource is protected from concurrent access, ensuring that all refrigerator operations are performed safely and correctly.
 
-- Controlled Serving Process: The semaphore manages the number of available cups, ensuring that no more kids serve lemonade than there are cups available. This corrects the issue where the availableCups count could become negative due to unsynchronized access, as it now requires a kid to wait for a semaphore signal before serving, representing the acquisition of a cup.
+- **Controlled Serving Process**: The semaphore manages the number of available cups, ensuring that no more kids serve lemonade than there are cups available. This corrects the issue where the availableCups count could become negative due to unsynchronized access, as it now requires a kid to wait for a semaphore signal before serving, representing the acquisition of a cup.
 
-- Resource Availability: By signaling (incrementing) the semaphore after serving, it informs other threads that a cup has become available. This prevents the scenario where kids would attempt to serve lemonade without any cups available, leading to a situation where customers are left unserved.
+- **Resource Availability**: By signaling (incrementing) the semaphore after serving, it informs other threads that a cup has become available. This prevents the scenario where kids would attempt to serve lemonade without any cups available, leading to a situation where customers are left unserved.
