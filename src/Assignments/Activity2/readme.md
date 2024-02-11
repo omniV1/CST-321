@@ -200,7 +200,7 @@ int main() {
     return 0;
 }
 ```
-![threads]()
+![threads binary]()
 ---
 
 # 3. Processes in Linux: Using `posix_spawn()` and `waitpid()`
@@ -324,8 +324,8 @@ int main() {
     pthread_exit(NULL);
 }
 ```
-- output of the binary
-![console]()
+
+![console binary]()
 ---
 # 5. Theory of Operation for Semaphores in Bank Program
 
@@ -459,7 +459,7 @@ void main() {
  |
  P3
 ```
-!research2 binary]()
+![research2 binary]()
 ---
 # Resources: 
 
