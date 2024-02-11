@@ -1,12 +1,13 @@
 ##### Owen Lindsey
 ##### CST-321
 ##### Resources at bottom of the page 
-
+---
 # 1. Theory of Operation for `fork()` and Signal Handling in Linux
 
 ### Overview
 The C program employs `fork()` to instantiate a producer-consumer scenario where the producer is the parent process and the consumer is the child. Communication and synchronization between them are managed via UNIX signals.
 
+---
 # 1.2 Process Dynamics
 
 | Producer (Parent Process) | Consumer (Child Process) |
@@ -54,6 +55,7 @@ int main() {
 ```
 ![processes binary]()
 
+---
 # 1.3 Processes in Linux: Using `posix_spawn()` and `waitpid()`
 
 ### Overview
@@ -198,9 +200,8 @@ int main() {
     return 0;
 }
 ```
-- output of the binary
 ![threads]()
-
+---
 
 # 3. Processes in Linux: Using `posix_spawn()` and `waitpid()`
 
@@ -248,7 +249,7 @@ printf("Process %d finished\n", pid);
 
 ```
 ![spawn binary]()
-
+---
 # 4. Theory of Operation for Mutexes in Bank Program
 
 ### Critical Section Management
@@ -325,7 +326,7 @@ int main() {
 ```
 - output of the binary
 ![console]()
-
+---
 # 5. Theory of Operation for Semaphores in Bank Program
 
 ### Semaphore Workflow
@@ -379,7 +380,7 @@ int main() {
 }
 ```
 
-
+---
 # Research Question 1: Mutual Exclusion with `turn` Variable
 
 The C program implements a mutual exclusion protocol between two threads, `pilot` and `coPilot`, utilizing a `turn` variable. Each thread executes a series of flight simulations, sequentially accessing a critical section based on the value of the `turn` variable.
@@ -416,6 +417,9 @@ pthread_join(pilotThread, NULL);
 pthread_join(coPilotThread, NULL);
 
 ```
+![research1 binary]()
+
+---
 # Research Question 2: Number of Child Processes
 
 The C program demonstrates process creation using the `fork()` system call. It's designed to explore the number of child processes spawned when `fork()` is called multiple times within the same program.
@@ -455,7 +459,8 @@ void main() {
  |
  P3
 ```
-
+!research2 binary]()
+---
 # Resources: 
 
 ##### padlet topic guide: Reha, M. (2024). [Topic 2 Powerpoint guide](https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/158247307)
