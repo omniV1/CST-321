@@ -17,5 +17,6 @@ Below is a brief overview of the directory structure and contents of this reposi
 ## Acknowledgments
 
 - Professor Mark Reha for providing the course materials and guidance.
+- pandoc for providing the tool to convert files from markdown to word. 
 
 
