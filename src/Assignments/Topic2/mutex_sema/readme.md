@@ -108,6 +108,6 @@ The output from the unsynchronized version of the lemonade stand program (`lemon
 
 ## Synchronized: 
 
-![]() 
+![sync](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/mutex_sema/screenshots/lemonade_w_sync.png) 
 
   
