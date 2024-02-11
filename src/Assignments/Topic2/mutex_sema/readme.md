@@ -2,7 +2,7 @@
 ##### Understanding mutexes and semaphores
 ##### Date: 2/11/2024
 ##### CST-321
-##### Screencast explanation : https://www.loom.com/share/cebd36eba8ff4fa69a4b56434c6f937d
+##### Screencast explanation : 
 
 # Detailed Description of the Scenario
 In our simplified scenario, a group of neighborhood kids runs a lemonade stand. To ensure the smooth operation of their stand, they face two main challenges:
@@ -24,7 +24,7 @@ In our simplified scenario, a group of neighborhood kids runs a lemonade stand. 
 
 # Comparison of Working and Non-synchronized Code Segments
 
-| Aspect               | Working Segment                                                    | Non-Working Segment                                               | Notes                                                                                                             |
+| Aspect               | Working Segment                                                    | Non-synchronized Segment                                               | Notes                                                                                                             |
 |----------------------|--------------------------------------------------------------------|-------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
 | **Refrigerator Access** | Usage of mutex to ensure exclusive access: `pthread_mutex_lock(&fridgeMutex);` ... `pthread_mutex_unlock(&fridgeMutex);` | Direct checks and modifications without synchronization: `if (!refrigeratorOpen) { refrigeratorOpen = 1; ... }` | Synchronization with a mutex prevents multiple threads from accessing the refrigerator simultaneously, eliminating race conditions. |
 | **Serving Lemonade**    | Semaphore management for cups: `sem_wait(&cupsSemaphore);` ... `sem_post(&cupsSemaphore);`    | Direct manipulation of `availableCups` without synchronization. | The semaphore ensures a controlled serving process, allowing only as many kids to serve as there are cups available, preventing resource exhaustion. |
@@ -65,37 +65,15 @@ if (availableCups > 0) {
 
 - **Cups Count Mismatch**: Without synchronization, the availableCups variable could be decremented by one thread and simultaneously checked by another, leading to a situation where more lemonade is served than there are cups available, resulting in a negative count of cups.
 --- 
-#### Synchronized Version Key Parts:
-```c
-/////////////////// Mutex //////////////////////
-pthread_mutex_t fridgeMutex = PTHREAD_MUTEX_INITIALIZER;
+#### Synchronized W mutex Version Key Parts:
 
-// Using a mutex to ensure exclusive access to the refrigerator
-pthread_mutex_lock(&fridgeMutex);
-// Access the refrigerator
-pthread_mutex_unlock(&fridgeMutex);
-
-//////////////// Semaphore /////////////////
-sem_t cupsSemaphore;
-
-// Initialization of the semaphore with the total number of available cups
-sem_init(&cupsSemaphore, 0, TOTAL_CUPS);
-
-// Using a semaphore to manage serving lemonade based on available cups
-sem_wait(&cupsSemaphore);
-// Serve lemonade
-sem_post(&cupsSemaphore);
-
-```
 #### What It Fixes:
 
 - **Exclusive Access**: The mutex ensures that only one thread (kid) can access the refrigerator at a time. This fixes the race condition where multiple threads could change the refrigeratorOpen flag simultaneously, leading to inconsistent states or "spills" as multiple kids try to access the refrigerator at once.
 
 - **Resource Protection**: By locking the mutex before accessing the refrigerator and unlocking it afterward, it guarantees that the shared resource is protected from concurrent access, ensuring that all refrigerator operations are performed safely and correctly.
 
-- **Controlled Serving Process**: The semaphore manages the number of available cups, ensuring that no more kids serve lemonade than there are cups available. This corrects the issue where the availableCups count could become negative due to unsynchronized access, as it now requires a kid to wait for a semaphore signal before serving, representing the acquisition of a cup.
 
-- **Resource Availability**: By signaling (incrementing) the semaphore after serving, it informs other threads that a cup has become available. This prevents the scenario where kids would attempt to serve lemonade without any cups available, leading to a situation where customers are left unserved.
 
   # Screenshots and explanations of console output
 
@@ -112,3 +90,23 @@ The output from the unsynchronized version of the lemonade stand program (`lemon
 ![sync](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/mutex_sema/screenshots/lemonade_w_sync.png) 
 
 - the console output shows each kid accessing the refrigerator one at a time, and serving lemonade only when cups are available. This would be achieved by locking access to the refrigerator with a mutex and managing the number of available cups with a semaphore.
+
+
+--- 
+# Resources 
+
+- Barnes, R. (2020). Mutex vs Semaphore. tutorialspoint: https://www.tutorialspoint.com/mutex-vs-semaphore
+
+- Frasier, B. (2015). Mutex Synchronization in Linux with Pthreads. Youtube: https://www.youtube.com/watch?v=GXXE42bkqQk 
+
+- Kadam, P. (2024). Multithreading in c . geeksforgeeks: https://www.geeksforgeeks.org/multithreading-in-c/
+
+- Reha, M. (2024). Activity 2 Assignment guide: hhttps://halo.gcu.edu/resource/5d85b77c-19f5-4266-ac1c-ceb57a98052a
+
+- Reha, M. (2024). Topic 2 Powerpoint guide: https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/1582473076
+
+
+
+
+
+
