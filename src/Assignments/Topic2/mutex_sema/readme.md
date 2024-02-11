@@ -40,3 +40,45 @@ In our simplified scenario, a group of neighborhood kids runs a lemonade stand. 
 - Efficiency: Proper synchronization can lead to more efficient resource utilization, avoiding unnecessary waits or conflicts.
 
 - Maintainability: While adding complexity, synchronization makes the program's behavior more predictable, which simplifies maintenance and debugging.
+
+
+# Unsynchronized version key code parts:
+```c
+// Direct checks and modifications of shared resources without synchronization/ // 
+if (!refrigeratorOpen) {
+    refrigeratorOpen = 1; // Attempt to mark the refrigerator as in use
+    // Access the refrigerator
+    refrigeratorOpen = 0; // Mark the refrigerator as free
+}
+
+if (availableCups > 0) {
+    availableCups -= 1; // Decrement the number of available cups
+    // Serve lemonade
+    availableCups += 1; // Increment the number of available cups back
+}
+
+```
+
+--- 
+# Synchronized Version Key Parts:
+```c
+/////////////////// Mutex //////////////////////
+pthread_mutex_t fridgeMutex = PTHREAD_MUTEX_INITIALIZER;
+
+// Using a mutex to ensure exclusive access to the refrigerator
+pthread_mutex_lock(&fridgeMutex);
+// Access the refrigerator
+pthread_mutex_unlock(&fridgeMutex);
+
+//////////////// Semaphore /////////////////
+sem_t cupsSemaphore;
+
+// Initialization of the semaphore with the total number of available cups
+sem_init(&cupsSemaphore, 0, TOTAL_CUPS);
+
+// Using a semaphore to manage serving lemonade based on available cups
+sem_wait(&cupsSemaphore);
+// Serve lemonade
+sem_post(&cupsSemaphore);
+
+```
