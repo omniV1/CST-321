@@ -2,7 +2,7 @@
 ##### Understanding mutexes and semaphores
 ##### Date: 2/11/2024
 ##### CST-321
-##### Screencast explanation : 
+##### Screencast explanation : https://www.loom.com/share/4cd211745f014bbda6a03b200f90e380
 
 # Detailed Description of the Scenario Mutex
 
