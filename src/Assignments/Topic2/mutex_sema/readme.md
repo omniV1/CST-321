@@ -87,6 +87,7 @@ void* serveLemonade(void* arg) {
 
 # Detailed Description of the Scenario Semaphore
 
+- An airline operates with a limited fleet of airplanes, and pilots need to be assigned to available planes for their scheduled flights. Given the limited number of airplanes, the airline needs a system to ensure that only a designated number of pilots can access an airplane at any given time. 
 
 
 
