@@ -1,6 +1,6 @@
 # Welcome to CST-321 Assignments Repository
 
-This repository contains assignments and examples for CST-321 course, providing a practical approach to learning C programming, synchronization, and thread management.
+This repository contains assignments and examples for CST-321 course.
 
 ## Directory Structure
 
