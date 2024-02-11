@@ -102,9 +102,33 @@ Semaphores are ideal for managing access to a pool of resources, like the airlin
 
 - unsynchronized code for airplane senario:
   
-  ```c
+ ```c
+#define TOTAL_PILOTS 20
+#define TOTAL_AIRPLANES 10
 
-  ```
+int airplanesAvailable = TOTAL_AIRPLANES; // Counter for available airplanes
+
+void* attemptToAssignAirplane(void* arg) {
+    int pilotId = *(int*)arg;
+    if (airplanesAvailable > 0) {
+        printf("Pilot %d attempts to get an airplane.\n", pilotId);
+        // Simulate the delay in getting to the airplane
+        sleep(1);
+        airplanesAvailable--; // Unsafely decrement the count of available airplanes
+        printf("Pilot %d is assigned an airplane. Airplanes left: %d\n", pilotId, airplanesAvailable);
+        // Simulate the flight preparation time
+        sleep(1);
+        airplanesAvailable++; // Unsafely increment the count, assuming the airplane is back
+    } else {
+        printf("Pilot %d cannot find an available airplane.\n", pilotId);
+    }
+    free(arg);
+    return NULL;
+}
+```
+
+- console output:
+   
 ![zero sync airplane](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/mutex_sema/screenshots/airplane_zero_sync.png) 
 
 ### Key Issues with Non-Working Semaphore Scenario
