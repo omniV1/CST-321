@@ -48,13 +48,31 @@ The output from the unsynchronized version of the lemonade stand program (`lemon
 
 - **Cups Count Mismatch**: Without synchronization, the availableCups variable could be decremented by one thread and simultaneously checked by another, leading to a situation where more lemonade is served than there are cups available, resulting in a negative count of cups.
 --- 
-#### Synchronized W mutex Version Key Parts:
-```c
+# Synchronized W mutex Version Key Parts:
 
+```c
+// Function to simulate accessing the refrigerator and pouring lemonade
+void* serveLemonade(void* arg) {
+    int kidId = *(int*)arg;
+    for (int i = 0; i < USES; i++) {
+        pthread_mutex_lock(&fridgeMutex); // Acquire the mutex lock to use the fridge and pour lemonade
+        if (lemonadeQuantity > 0) {
+            printf("Kid %d is using the refrigerator.\n", kidId);
+            sleep(1); // Simulate time to use the refrigerator
+            lemonadeQuantity--; // Pour a cup of lemonade
+            printf("Kid %d is done with the refrigerator. Lemonade left: %d\n", kidId, lemonadeQuantity);
+        } else {
+            printf("Kid %d found no lemonade left to pour.\n", kidId);
+        }
+        pthread_mutex_unlock(&fridgeMutex); // Release the mutex lock
+    }
+    free(arg); // Free the allocated memory
+    return NULL;
+}
 ```
 
 
-## Synchronized: 
+## Synchronized with a mutex console output: 
 
 ![sync](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/mutex_sema/screenshots/lemonade_mutex_sync.png) 
 
