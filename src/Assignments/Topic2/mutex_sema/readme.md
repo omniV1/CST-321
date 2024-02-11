@@ -138,7 +138,7 @@ The lack of synchronization in airplane assignment leads to several problems, il
 - **Conflicting Information**: Pilots face confusing signals about airplane availability, reflecting the chaos from unsynchronized access.
 - **Unrealistic Resource Handling**: The code suggests airplanes are immediately ready for reassignment, overlooking real-world turnaround times.
 
-
+---
 
 ```c
 sem_t airplaneSemaphore; // Semaphore manages the availability of airplanes.
