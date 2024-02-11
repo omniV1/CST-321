@@ -14,7 +14,7 @@ in this scenario, we explore how a group of neighborhood kids operates a lemonad
 
 - **Mutex for Refrigerator Access**: A mutex is ideal for managing access to the refrigerator. It ensures that when one kid is using the refrigerator, others must wait their turn, thereby preventing interference and accidents.
 
-- 
+  
 # Screenshots and explanations of console output
 
 #### Unsynchronized version key code parts:
