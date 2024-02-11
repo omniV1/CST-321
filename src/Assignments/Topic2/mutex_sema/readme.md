@@ -42,7 +42,7 @@ In our simplified scenario, a group of neighborhood kids runs a lemonade stand. 
 - Maintainability: While adding complexity, synchronization makes the program's behavior more predictable, which simplifies maintenance and debugging.
 
 
-# Unsynchronized version key code parts:
+#### Unsynchronized version key code parts:
 ```c
 // Direct checks and modifications of shared resources without synchronization/ // 
 if (!refrigeratorOpen) {
@@ -58,13 +58,13 @@ if (availableCups > 0) {
 }
 
 ```
-### Potential Failures in Non-synchronized Code:
+#### Potential Failures in Non-synchronized Code:
 
 - Refrigerator Access Conflicts: Two or more threads may simultaneously set refrigeratorOpen to 1, leading to a scenario where the refrigerator is thought to be in use by multiple kids at once, causing confusion and potential 'spills' or 'loss' of lemonade.
 
 - Cups Count Mismatch: Without synchronization, the availableCups variable could be decremented by one thread and simultaneously checked by another, leading to a situation where more lemonade is served than there are cups available, resulting in a negative count of cups.
 --- 
-# Synchronized Version Key Parts:
+#### Synchronized Version Key Parts:
 ```c
 /////////////////// Mutex //////////////////////
 pthread_mutex_t fridgeMutex = PTHREAD_MUTEX_INITIALIZER;
@@ -86,7 +86,7 @@ sem_wait(&cupsSemaphore);
 sem_post(&cupsSemaphore);
 
 ```
-# What It Fixes:
+#### What It Fixes:
 
 - Exclusive Access: The mutex ensures that only one thread (kid) can access the refrigerator at a time. This fixes the race condition where multiple threads could change the refrigeratorOpen flag simultaneously, leading to inconsistent states or "spills" as multiple kids try to access the refrigerator at once.
 
