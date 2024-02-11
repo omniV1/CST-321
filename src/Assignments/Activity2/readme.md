@@ -242,7 +242,7 @@ if (waitpid(pid, &status, 0) == -1) {
 printf("Process %d finished\n", pid);
 
 ```
-![spawn binary]()
+![spawn binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/spawn.png)
 ---
 # 5. Theory of Operation for Mutexes in Bank Program
 
@@ -319,7 +319,7 @@ int main() {
 }
 ```
 
-![console binary]()
+![Mutex binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/goodbank-mutex.png)
 ---
 # 6. Theory of Operation for Semaphores in Bank Program
 
@@ -373,7 +373,7 @@ int main() {
     pthread_exit(NULL);
 }
 ```
-
+![goodbank sema](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/goodbank-sema.png)
 ---
 # Research Question 1: Mutual Exclusion with `turn` Variable
 
@@ -411,7 +411,7 @@ pthread_join(pilotThread, NULL);
 pthread_join(coPilotThread, NULL);
 
 ```
-![research1 binary]()
+![research1 binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/research1.png)
 
 ---
 # Research Question 2: Number of Child Processes
@@ -453,7 +453,7 @@ void main() {
  |
  P3
 ```
-![research2 binary]()
+![research2 binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/research2.png)
 ---
 # Resources: 
 
