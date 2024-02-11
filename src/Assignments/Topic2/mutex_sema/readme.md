@@ -56,7 +56,7 @@ The output from the unsynchronized version of the lemonade stand program (`lemon
 
 ## Synchronized: 
 
-![sync](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/mutex_sema/screenshots/lemonade_w_sync.png) 
+![sync](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/mutex_sema/screenshots/lemonade_mutex_sync.png) 
 
 - the console output shows each kid accessing the refrigerator one at a time, and serving lemonade only when cups are available. This would be achieved by locking access to the refrigerator with a mutex. 
 
