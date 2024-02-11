@@ -106,4 +106,8 @@ sem_post(&cupsSemaphore);
 
 The output from the unsynchronized version of the lemonade stand program (`lemonade_zero_sync`) shows attempts by multiple kids (threads) to access the refrigerator and serve lemonade. Messages like "Kid 3 couldn't use the refrigerator because it's already in use" and "Kid 4 couldn't serve lemonade because there are no cups available" indicate race conditions. These arise from simultaneous access attempts to shared resources—refrigerator and cups—without synchronization, leading to access conflicts and resource shortages.
 
+## Synchronized: 
+
+![]() 
+
   
