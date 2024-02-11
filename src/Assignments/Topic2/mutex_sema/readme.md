@@ -100,4 +100,7 @@ sem_post(&cupsSemaphore);
 
   ## Non-synchronized:
 
-  ![]() 
+  ![no sync](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/mutex_sema/screenshots/lemonade_no_sync.png)
+
+
+  
