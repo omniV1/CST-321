@@ -97,7 +97,8 @@ Semaphores are ideal for managing access to a pool of resources, like the airlin
 | **Semaphores**            | Flexible in managing access to a pool of resources. Can allow multiple threads (or, in our analogy, pilots) to access a resource up to a specified limit, ensuring efficient utilization of resources like airplanes. | More complex to understand and implement correctly. Improper use can lead to complicated synchronization issues, such as starvation, where some pilots might wait indefinitely if not managed properly. |
 
 
-
+# Screenshots and explanations of console output
+![zero sync airplane]() 
 --- 
 # Resources 
 
