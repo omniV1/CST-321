@@ -123,7 +123,7 @@ The output from the unsynchronized version of the lemonade stand program (`lemon
 
 - Kadam, P. (2024). Multithreading in c . geeksforgeeks: https://www.geeksforgeeks.org/multithreading-in-c/
 
-- Reha, M. (2024). Activity 2 Assignment guide: https://mygcuedu6961.sharepoint.com/:w:/r/sites/CSETGuides/_layouts/15/Doc.aspx?sourcedoc=%7BFD1AEEC0-81CF-40E1-A169-85CE23F53355%7D&file=CST-321-RS-T2-Activity2Guide%20.docx&action=default&mobileredirect=true
+- Reha, M. (2024). Activity 2 Assignment guide: hhttps://halo.gcu.edu/resource/5d85b77c-19f5-4266-ac1c-ceb57a98052a
 
 - Reha, M. (2024). Topic 2 Powerpoint guide: https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/1582473076
 
