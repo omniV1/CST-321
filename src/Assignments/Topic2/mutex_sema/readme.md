@@ -2,7 +2,7 @@
 ##### Understanding mutexes and semaphores
 ##### Date: 2/11/2024
 ##### CST-321
-##### Screencast explanation : 
+##### Screencast explanation : https://www.loom.com/share/cebd36eba8ff4fa69a4b56434c6f937d
 
 # Detailed Description of the Scenario
 In our simplified scenario, a group of neighborhood kids runs a lemonade stand. To ensure the smooth operation of their stand, they face two main challenges:
