@@ -99,7 +99,22 @@ Semaphores are ideal for managing access to a pool of resources, like the airlin
 
 # Screenshots and explanations of console output
 
+
+- unsynchronized code for airplane senario:
+  
+  ```c
+
+  ```
 ![zero sync airplane](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/mutex_sema/screenshots/airplane_zero_sync.png) 
+
+### Key Issues with Non-Working Semaphore Scenario
+
+- **Race Conditions**: Unsynchronized access to `airplanesAvailable` allows multiple pilots to decrement/increment this counter simultaneously, leading to more pilots being assigned than airplanes available.
+- **Inconsistent Airplane Counts**: The output might show unrealistic airplane availability, such as assigning more pilots than there are airplanes, or even negative counts.
+- **Conflicting Messages**: Pilots receiving conflicting information about airplane availability due to concurrent access issues.
+- **Unrealistic Management**: Instantaneous replenishment of airplanes after usage is unrealistic, ignoring necessary logistics and maintenance times.
+
+
 --- 
 # Resources 
 
