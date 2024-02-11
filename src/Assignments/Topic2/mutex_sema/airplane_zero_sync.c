@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <pthread.h>
 
 #define TOTAL_PILOTS 20
 #define TOTAL_AIRPLANES 10
