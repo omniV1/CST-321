@@ -89,6 +89,14 @@ void* serveLemonade(void* arg) {
 
 - An airline operates with a limited fleet of airplanes, and pilots need to be assigned to available planes for their scheduled flights. Given the limited number of airplanes, the airline needs a system to ensure that only a designated number of pilots can access an airplane at any given time. 
 
+### Justification for the Use of Semaphores
+Semaphores are ideal for managing access to a pool of resources, like the airline's fleet of airplanes. They ensure that a specific number of pilots can be assigned airplanes at any given time, optimizing resource utilization while preventing overallocation.
+
+Synchronization Mechanism: Pros and Cons
+
+| Synchronization Mechanism | Pros    | Cons                      |
+|---------------------------|----------|--------------------------|
+| **Semaphores**            | Flexible in managing access to a pool of resources. Can allow multiple threads (or, in our analogy, pilots) to access a resource up to a specified limit, ensuring efficient utilization of resources like airplanes. | More complex to understand and implement correctly. Improper use can lead to complicated synchronization issues, such as starvation, where some pilots might wait indefinitely if not managed properly. |
 
 
 --- 
