@@ -24,7 +24,7 @@ In our simplified scenario, a group of neighborhood kids runs a lemonade stand. 
 
 # Comparison of Working and Non-synchronized Code Segments
 
-| Aspect               | Working Segment                                                    | Non-Working Segment                                               | Notes                                                                                                             |
+| Aspect               | Working Segment                                                    | Non-synchronized Segment                                               | Notes                                                                                                             |
 |----------------------|--------------------------------------------------------------------|-------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
 | **Refrigerator Access** | Usage of mutex to ensure exclusive access: `pthread_mutex_lock(&fridgeMutex);` ... `pthread_mutex_unlock(&fridgeMutex);` | Direct checks and modifications without synchronization: `if (!refrigeratorOpen) { refrigeratorOpen = 1; ... }` | Synchronization with a mutex prevents multiple threads from accessing the refrigerator simultaneously, eliminating race conditions. |
 | **Serving Lemonade**    | Semaphore management for cups: `sem_wait(&cupsSemaphore);` ... `sem_post(&cupsSemaphore);`    | Direct manipulation of `availableCups` without synchronization. | The semaphore ensures a controlled serving process, allowing only as many kids to serve as there are cups available, preventing resource exhaustion. |
