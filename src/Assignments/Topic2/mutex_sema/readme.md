@@ -100,7 +100,7 @@ Semaphores are ideal for managing access to a pool of resources, like the airlin
 # Screenshots and explanations of console output
 
 
-#### unsynchronized code for airplane senario key parts:
+
   
  ```c
 #define TOTAL_PILOTS 20
@@ -139,7 +139,7 @@ The lack of synchronization in airplane assignment leads to several problems, il
 - **Unrealistic Resource Handling**: The code suggests airplanes are immediately ready for reassignment, overlooking real-world turnaround times.
 
 
-#### synchronized code for airplane senario key parts:
+
 ```c
 sem_t airplaneSemaphore; // Semaphore manages the availability of airplanes.
 
@@ -159,7 +159,7 @@ void* assignAirplane(void* arg) {
 ```
 ![]() 
   
-### Console Output and Improvements for Synchronized Airplane Assignment Program
+### Console Output and Improvements for Synchronized Airplane Assignment Program with a semaphore
 
 #### Console Output Explanation
 The synchronized airplane assignment program ensures orderly and fair access for pilots to airplanes. The semaphore controls access, preventing race conditions and access conflicts, demonstrating:
