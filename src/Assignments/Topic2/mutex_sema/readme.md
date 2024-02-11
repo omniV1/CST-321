@@ -23,13 +23,12 @@ In our simplified scenario, a group of neighborhood kids runs a lemonade stand. 
 
 # Comparison of Working and Non-Working Code Segments
 
-| Aspect               | Working Segment                                                    | Non-Working Segment                             | Notes                                                                                                             |
-|----------------------|--------------------------------------------------------------------|-------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
-| **Refrigerator Access** | `if (!refrigeratorOpen) { refrigeratorOpen = 1; ... refrigeratorOpen = 0; }` | The entire block is non-atomic and unsynchronized. | Without synchronization, multiple threads might enter the `if` block simultaneously, leading to incorrect behavior. |
-| **Serving Lemonade**    | `if (availableCups > 0) { availableCups--; ... availableCups++; }`    | Similarly, this segment lacks atomic operations and proper synchronization. | Multiple threads could decrement `availableCups` simultaneously, potentially leading to negative values.           |
-| **Thread Safety**       | None of the segments are thread-safe in this example.                 | Entire implementation.                          | Without synchronization primitives like mutexes or semaphores, the shared resources (refrigerator and cups) are subject to race conditions. |
-| **Resource Management** | Properly frees allocated memory with `free(arg);`                     | Memory management is correct but overshadowed by synchronization issues. | Correctly freeing memory is crucial in preventing memory leaks, which is handled well in both segments.            |
-
+| Aspect               | Working Segment                                                    | Non-Working Segment                                               | Notes                                                                                                             |
+|----------------------|--------------------------------------------------------------------|-------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| **Refrigerator Access** | Usage of mutex to ensure exclusive access: `pthread_mutex_lock(&fridgeMutex);` ... `pthread_mutex_unlock(&fridgeMutex);` | Direct checks and modifications without synchronization: `if (!refrigeratorOpen) { refrigeratorOpen = 1; ... }` | Synchronization with a mutex prevents multiple threads from accessing the refrigerator simultaneously, eliminating race conditions. |
+| **Serving Lemonade**    | Semaphore management for cups: `sem_wait(&cupsSemaphore);` ... `sem_post(&cupsSemaphore);`    | Direct manipulation of `availableCups` without synchronization. | The semaphore ensures a controlled serving process, allowing only as many kids to serve as there are cups available, preventing resource exhaustion. |
+| **Thread Safety**       | Mutex and semaphore usage ensure thread safety in resource access and modification. | Lack of synchronization exposes shared resources to concurrent access issues. | Synchronization mechanisms like mutexes and semaphores are essential for thread safety in concurrent programming. |
+| **Resource Management** | The same approach of correctly freeing memory: `free(arg);`          | Memory management remains correct but requires synchronization to ensure safety. | Proper memory management is crucial, but synchronization ensures that resources are accessed and modified safely and correctly. |
 
 
 ### Why Synchronization is Better
