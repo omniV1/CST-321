@@ -164,10 +164,6 @@ void* assignAirplane(void* arg) {
 #### Console Output Explanation
 The synchronized airplane assignment program ensures orderly and fair access for pilots to airplanes. The semaphore controls access, preventing race conditions and access conflicts, demonstrating:
 
-- **Orderly Assignment**: Pilots are assigned airplanes as they become available, showcasing efficient resource management.
-- **No Race Conditions**: Semaphore usage ensures exclusive access to airplanes, eliminating simultaneous assignments.
-
-#### Potential Improvements
 - **Race Condition Elimination**: The semaphore's strict management of airplane availability prevents simultaneous assignments to pilots.
 - **Fair and Orderly Access**: `sem_wait` ensures pilots access airplanes in a fair manner, contrasting with the chaos of non-synchronized scenarios.
 - **Consistent Resource State**: `sem_post` maintains an accurate count of available airplanes, avoiding inconsistencies seen in non-synchronized approaches.
