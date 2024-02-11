@@ -98,7 +98,8 @@ Semaphores are ideal for managing access to a pool of resources, like the airlin
 
 
 # Screenshots and explanations of console output
-![zero sync airplane](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/mutex_sema/airplane_zero_sync.c) 
+
+![zero sync airplane](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/mutex_sema/screenshots/airplane_zero_sync.png) 
 --- 
 # Resources 
 
