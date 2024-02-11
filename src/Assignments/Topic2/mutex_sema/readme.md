@@ -58,7 +58,11 @@ if (availableCups > 0) {
 }
 
 ```
+### Potential Failures in Non-Working Code:
 
+- Refrigerator Access Conflicts: Two or more threads may simultaneously set refrigeratorOpen to 1, leading to a scenario where the refrigerator is thought to be in use by multiple kids at once, causing confusion and potential 'spills' or 'loss' of lemonade.
+
+- Cups Count Mismatch: Without synchronization, the availableCups variable could be decremented by one thread and simultaneously checked by another, leading to a situation where more lemonade is served than there are cups available, resulting in a negative count of cups.
 --- 
 # Synchronized Version Key Parts:
 ```c
