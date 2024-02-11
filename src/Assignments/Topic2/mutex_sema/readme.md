@@ -100,7 +100,7 @@ Semaphores are ideal for managing access to a pool of resources, like the airlin
 # Screenshots and explanations of console output
 
 
-- unsynchronized code for airplane senario:
+- unsynchronized code for airplane senario key parts:
   
  ```c
 #define TOTAL_PILOTS 20
@@ -138,6 +138,27 @@ void* attemptToAssignAirplane(void* arg) {
 - **Conflicting Messages**: Pilots receiving conflicting information about airplane availability due to concurrent access issues.
 - **Unrealistic Management**: Instantaneous replenishment of airplanes after usage is unrealistic, ignoring necessary logistics and maintenance times.
 
+
+- synchronized code for airplane senario key parts:
+```c
+sem_t airplaneSemaphore; // Semaphore manages the availability of airplanes.
+
+// Function executed by each pilot thread.
+void* assignAirplane(void* arg) {
+    int pilotId = *(int*)arg;
+    
+    sem_wait(&airplaneSemaphore); // Blocks if no airplanes are available, ensuring controlled access.
+    printf("Pilot %d is assigned an airplane.\n", pilotId);
+    sleep(1); // Simulates the time a pilot takes to prepare for flight.
+    printf("Pilot %d's airplane is now ready for takeoff.\n", pilotId);
+    sem_post(&airplaneSemaphore); // Releases the airplane, making it available for another pilot.
+    
+    free(arg); // Frees dynamically allocated memory for pilot ID.
+    return NULL;
+}
+```
+![]() 
+  
 
 --- 
 # Resources 
