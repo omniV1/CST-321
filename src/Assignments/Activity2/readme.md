@@ -101,18 +101,42 @@ printf("Process %d finished\n", pid);
 ```
 ![spawn binary]()
 
+---
 # 2. Signals in Linux: Inter-Process Communication
+
 | Action | Description |
 | ------ | ----------- | 
 | Signal Registration | Custom signal handlers are assigned to `SIGUSR1` and `SIGUSR2`, setting up a controlled communication protocol between the producer and consumer. |
 | Signal Execution | The `kill()` function is utilized to send signals, orchestrating the execution flow of the consumer process based on the producer's state. |
 
-  
+## Program Structure
 
+The program consists of a producer process and a consumer process. The consumer waits for a `SIGUSR1` (denoted as `WAKEUP`) signal from the producer before starting its operations. The producer, after a certain condition is met, sends the signal to the consumer to commence its processing.
+
+## Key Functions and Signals
+
+| Function/Signal | Description |
+| --------------- | ----------- |
+| `fork()`        | Creates a child process from the current process. |
+| `signal()`      | Registers a signal handler for a specific signal. |
+| `pause()`       | Suspends the process until a signal is received. |
+| `kill()`        | Sends a signal to a specific process. |
+| `WAKEUP` (SIGUSR1) | User-defined signal used for communication between processes. |
+
+## Signal Handling
+
+```c
+// Define the signal as per POSIX standard
+#define WAKEUP SIGUSR1
+
+// Function to handle WAKEUP signal for the consumer
+void wakeup_handler(int signum) {
+    // Code to handle signal
+}
+```
+  ![signals binary]()
+---
 # 3. Theory of Operation for Creating Threads in Linux
-
-### Overview
-This program introduces threads in a Linux environment, utilizing the `pthread_create()` function to simultaneously run two threads performing separate tasks.
 
 ### Thread Behavior
 | Action | Description |
@@ -180,7 +204,7 @@ int main() {
 
 # 3. Processes in Linux: Using `posix_spawn()` and `waitpid()`
 
-### Overview
+### Operation in steps
 1. The program starts by checking if a command-line argument is provided, which is the application to spawn.
 2. It initializes the `posix_spawnattr_t` structure to its default values.
 3. The `posix_spawn()` function is called to create a new process that runs the specified application.
@@ -226,9 +250,6 @@ printf("Process %d finished\n", pid);
 ![spawn binary]()
 
 # 4. Theory of Operation for Mutexes in Bank Program
-
-### Overview
-In the context of a simulated banking application, mutexes are utilized to manage concurrent access to a shared bank balance, ensuring accurate updates despite simultaneous deposit attempts by multiple threads.
 
 ### Critical Section Management
 
@@ -306,9 +327,6 @@ int main() {
 ![console]()
 
 # 5. Theory of Operation for Semaphores in Bank Program
-
-### Overview
-Semaphores serve a similar purpose to mutexes but are often used as signaling mechanisms. In this banking application, semaphores are used to signal when a thread can safely enter the critical section and update the shared balance.
 
 ### Semaphore Workflow
 | Action | Description | 
