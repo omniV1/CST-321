@@ -47,7 +47,8 @@ int main() {
         exit(0); // Parent process exits with status 0
     }
 ```
-![processes binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/processes.png)
+![processes binary](
+https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/research_screenshots/processes.png)
 
 ---
 # 1.3 Processes in Linux: Using `posix_spawn()` and `waitpid()`
@@ -95,7 +96,7 @@ if (waitpid(pid, &status, 0) == -1) {
 printf("Process %d finished\n", pid);
 
 ```
-![spawn binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/spawn.png)
+![spawn binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/research_screenshots/spawn.png)
 
 ---
 # 2. Signals in Linux: Inter-Process Communication
@@ -130,7 +131,7 @@ void wakeup_handler(int signum) {
     // Code to handle signal
 }
 ```
-  ![signals binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/signals.png)
+  ![signals binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/research_screenshots/signals.png)
 ---
 # 3. Theory of Operation for Creating Threads in Linux
 
@@ -194,57 +195,10 @@ int main() {
     return 0;
 }
 ```
-![threads binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/threads.png)
+![threads binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/research_screenshots/threads.png)
 ---
 
-# 4. Processes in Linux: Using `posix_spawn()` and `waitpid()`
-
-### Operation in steps
-1. The program starts by checking if a command-line argument is provided, which is the application to spawn.
-2. It initializes the `posix_spawnattr_t` structure to its default values.
-3. The `posix_spawn()` function is called to create a new process that runs the specified application.
-4. The parent process waits for the spawned process to finish using `waitpid()`.
-
-## Key Functions
-
-| Function          | Description |
-| ----------------- | ----------- |
-| `posix_spawn()`   | Spawns a new process based on the specified application. |
-| `waitpid()`       | Waits for the spawned process to change state, typically to finish execution. |
-
-
-```c
-// Error checking for command-line arguments
-if (argc < 2) {
-    fprintf(stderr, "Usage: %s <application>\n", argv[0]);
-    return EXIT_FAILURE;
-}
-
-pid_t pid;
-int status;
-posix_spawnattr_t attr;
-
-posix_spawnattr_init(&attr);
-
-// Spawning a new process
-if (posix_spawn(&pid, argv[1], NULL, &attr, &argv[1], environ) != 0) {
-    perror("posix_spawn failed");
-    return EXIT_FAILURE;
-}
-printf("Spawned process ID: %d\n", pid);
-
-// Waiting for the spawned process to end
-if (waitpid(pid, &status, 0) == -1) {
-    perror("waitpid failed");
-    return EXIT_FAILURE;
-}
-
-printf("Process %d finished\n", pid);
-
-```
-![spawn binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/spawn.png)
----
-# 5. Theory of Operation for Mutexes in Bank Program
+# 4. Theory of Operation for Mutexes in Bank Program
 
 ### Critical Section Management
 
@@ -319,9 +273,9 @@ int main() {
 }
 ```
 
-![Mutex binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/goodbank-mutex.png)
+![Mutex binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/research_screenshots/goodbank-mutex.png)
 ---
-# 6. Theory of Operation for Semaphores in Bank Program
+# 5. Theory of Operation for Semaphores in Bank Program
 
 ### Semaphore Workflow
 | Action | Description | 
@@ -373,7 +327,7 @@ int main() {
     pthread_exit(NULL);
 }
 ```
-![goodbank sema](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/goodbank-sema.png)
+![goodbank sema](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/research_screenshots/goodbank-sema.png)
 ---
 # Research Question 1: Mutual Exclusion with `turn` Variable
 
@@ -411,7 +365,8 @@ pthread_join(pilotThread, NULL);
 pthread_join(coPilotThread, NULL);
 
 ```
-![research1 binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/research1.png)
+![research1 binary](
+https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/research_screenshots/research1.png)
 
 ---
 # Research Question 2: Number of Child Processes
@@ -453,7 +408,7 @@ void main() {
  |
  P3
 ```
-![research2 binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Activity2/research_screenshots/research2.png)
+![research2 binary](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/research_screenshots/research2.png)
 ---
 # Resources: 
 
