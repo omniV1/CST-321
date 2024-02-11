@@ -157,7 +157,7 @@ void* assignAirplane(void* arg) {
     return NULL;
 }
 ```
-![]() 
+![sema](src/Assignments/Topic2/mutex_sema/screenshots/airplane_sema_sync.png) 
   
 ### Console Output and Improvements for Synchronized Airplane Assignment Program with a semaphore
 
