@@ -22,8 +22,4 @@ Below is a brief overview of the directory structure and contents of this reposi
 
 - Professor Mark Reha for providing the course materials and guidance.
 
-## Acknowledgments
-
-- Professor Mark Reha for providing the course materials and guidance.
-
 
