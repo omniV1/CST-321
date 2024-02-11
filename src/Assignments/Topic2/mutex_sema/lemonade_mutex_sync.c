@@ -7,38 +7,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
-#include <semaphore.h>
 #include <unistd.h>
 
 #define KIDS 5
-#define USES 3
-#define TOTAL_CUPS 2
+#define USES 2
+#define INITIAL_LEMONADE 10
 
+int lemonadeQuantity = INITIAL_LEMONADE;
 pthread_mutex_t fridgeMutex; // Mutex to control fridge access
-sem_t cupsSemaphore; // Semaphore to control cup availability
 
-// Prints the current number of available cups
-void printCupCount(const char* action, int kidId) {
-    int cups;
-    sem_getvalue(&cupsSemaphore, &cups); // Get the current value of the semaphore
-    printf("Kid %d %s lemonade. Cups available: %d\n", kidId, action, cups);
-}
-
-// Function for each kid to serve lemonade
+// Function to simulate accessing the refrigerator and pouring lemonade
 void* serveLemonade(void* arg) {
     int kidId = *(int*)arg;
     for (int i = 0; i < USES; i++) {
-        pthread_mutex_lock(&fridgeMutex); // Acquire the mutex lock to use the fridge
-        printf("Kid %d is using the refrigerator.\n", kidId);
-        sleep(1); // Simulate time to use the refrigerator
-        printf("Kid %d is done with the refrigerator.\n", kidId);
+        pthread_mutex_lock(&fridgeMutex); // Acquire the mutex lock to use the fridge and pour lemonade
+        if (lemonadeQuantity > 0) {
+            printf("Kid %d is using the refrigerator.\n", kidId);
+            sleep(1); // Simulate time to use the refrigerator
+            lemonadeQuantity--; // Pour a cup of lemonade
+            printf("Kid %d is done with the refrigerator. Lemonade left: %d\n", kidId, lemonadeQuantity);
+        } else {
+            printf("Kid %d found no lemonade left to pour.\n", kidId);
+        }
         pthread_mutex_unlock(&fridgeMutex); // Release the mutex lock
-
-        sem_wait(&cupsSemaphore); // Acquire a cup to serve lemonade
-        printCupCount("starts serving", kidId); // Print number of cups before serving
-        sleep(1); // Simulate time to serve lemonade
-        printCupCount("has served", kidId); // Print number of cups after serving
-        sem_post(&cupsSemaphore); // Release the cup back to the pool
     }
     free(arg); // Free the allocated memory
     return NULL;
@@ -46,26 +37,21 @@ void* serveLemonade(void* arg) {
 
 int main() {
     pthread_mutex_init(&fridgeMutex, NULL); // Initialize the mutex
-    sem_init(&cupsSemaphore, 0, TOTAL_CUPS); // Initialize the semaphore with total cups
-
     pthread_t kids[KIDS]; // Thread identifiers for kids
 
     // Create and start threads for each kid
-    for(int i = 0; i < KIDS; i++) {
+    for (int i = 0; i < KIDS; i++) {
         int* kidId = malloc(sizeof(int)); // Dynamically allocate memory for the kid ID
         *kidId = i; // Set kid ID
         pthread_create(&kids[i], NULL, serveLemonade, kidId); // Start the thread
     }
 
     // Wait for all threads to complete
-    for(int i = 0; i < KIDS; i++) {
+    for (int i = 0; i < KIDS; i++) {
         pthread_join(kids[i], NULL); // Wait for thread to finish
     }
 
-    // Clean up mutex and semaphore
     pthread_mutex_destroy(&fridgeMutex); // Destroy mutex
-    sem_destroy(&cupsSemaphore); // Destroy semaphore
-
-    printf("All kids are done serving lemonade.\n"); // All kids are done
+    printf("All kids are done getting lemonade. Lemonade left: %d\n", lemonadeQuantity); // All kids are done
     return 0;
 }
