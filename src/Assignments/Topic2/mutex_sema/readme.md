@@ -34,7 +34,7 @@ if (availableCups > 0) {
 ```
   ## Non-synchronized:
 
-  ![no sync](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/mutex_sema/screenshots/lemonade_no_sync.png)
+  ![no sync](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/mutex_sema/screenshots/lemonade_zero_sync.png)
 
 - ### Console Output Explanation
 
