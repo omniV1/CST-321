@@ -21,7 +21,7 @@ In our simplified scenario, a group of neighborhood kids runs a lemonade stand. 
 | **Mutexes**               | Simple and effective for ensuring exclusive access to a resource. Prevents data corruption and ensures safety. | Can lead to deadlocks if not implemented carefully. Limited to binary states, making it unsuitable for counting resources. |
 | **Semaphores**            | Flexible in managing access to a pool of resources. Can allow multiple threads (or, in our analogy, kids) to access a resource up to a specified limit. | More complex to understand and implement correctly. Improper use can lead to complicated synchronization issues. |
 
-# Comparison of Working and Non-Working Code Segments
+# Comparison of Working and Non-synchronized Code Segments
 
 | Aspect               | Working Segment                                                    | Non-Working Segment                                               | Notes                                                                                                             |
 |----------------------|--------------------------------------------------------------------|-------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
@@ -58,7 +58,7 @@ if (availableCups > 0) {
 }
 
 ```
-### Potential Failures in Non-Working Code:
+### Potential Failures in Non-synchronized Code:
 
 - Refrigerator Access Conflicts: Two or more threads may simultaneously set refrigeratorOpen to 1, leading to a scenario where the refrigerator is thought to be in use by multiple kids at once, causing confusion and potential 'spills' or 'loss' of lemonade.
 
