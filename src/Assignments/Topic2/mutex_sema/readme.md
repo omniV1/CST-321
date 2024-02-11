@@ -72,7 +72,7 @@ void* serveLemonade(void* arg) {
 ```
 
 
-## Synchronized with a mutex console output: 
+### Synchronized with a mutex console output: 
 
 ![sync](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/mutex_sema/screenshots/lemonade_mutex_sync.png) 
 
