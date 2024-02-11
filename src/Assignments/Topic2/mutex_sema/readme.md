@@ -65,37 +65,15 @@ if (availableCups > 0) {
 
 - **Cups Count Mismatch**: Without synchronization, the availableCups variable could be decremented by one thread and simultaneously checked by another, leading to a situation where more lemonade is served than there are cups available, resulting in a negative count of cups.
 --- 
-#### Synchronized Version Key Parts:
-```c
-/////////////////// Mutex //////////////////////
-pthread_mutex_t fridgeMutex = PTHREAD_MUTEX_INITIALIZER;
+#### Synchronized W mutex Version Key Parts:
 
-// Using a mutex to ensure exclusive access to the refrigerator
-pthread_mutex_lock(&fridgeMutex);
-// Access the refrigerator
-pthread_mutex_unlock(&fridgeMutex);
-
-//////////////// Semaphore /////////////////
-sem_t cupsSemaphore;
-
-// Initialization of the semaphore with the total number of available cups
-sem_init(&cupsSemaphore, 0, TOTAL_CUPS);
-
-// Using a semaphore to manage serving lemonade based on available cups
-sem_wait(&cupsSemaphore);
-// Serve lemonade
-sem_post(&cupsSemaphore);
-
-```
 #### What It Fixes:
 
 - **Exclusive Access**: The mutex ensures that only one thread (kid) can access the refrigerator at a time. This fixes the race condition where multiple threads could change the refrigeratorOpen flag simultaneously, leading to inconsistent states or "spills" as multiple kids try to access the refrigerator at once.
 
 - **Resource Protection**: By locking the mutex before accessing the refrigerator and unlocking it afterward, it guarantees that the shared resource is protected from concurrent access, ensuring that all refrigerator operations are performed safely and correctly.
 
-- **Controlled Serving Process**: The semaphore manages the number of available cups, ensuring that no more kids serve lemonade than there are cups available. This corrects the issue where the availableCups count could become negative due to unsynchronized access, as it now requires a kid to wait for a semaphore signal before serving, representing the acquisition of a cup.
 
-- **Resource Availability**: By signaling (incrementing) the semaphore after serving, it informs other threads that a cup has become available. This prevents the scenario where kids would attempt to serve lemonade without any cups available, leading to a situation where customers are left unserved.
 
   # Screenshots and explanations of console output
 
