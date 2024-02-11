@@ -2,6 +2,7 @@
 ##### Understanding mutexes and semaphores
 ##### Date: 2/11/2024
 ##### CST-321
+##### Screencast explanation : https://www.loom.com/share/cebd36eba8ff4fa69a4b56434c6f937d
 
 # Detailed Description of the Scenario
 In our simplified scenario, a group of neighborhood kids runs a lemonade stand. To ensure the smooth operation of their stand, they face two main challenges:
@@ -100,4 +101,14 @@ sem_post(&cupsSemaphore);
 
   ## Non-synchronized:
 
-  ![]() 
+  ![no sync](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/mutex_sema/screenshots/lemonade_no_sync.png)
+
+- ### Console Output Explanation
+
+The output from the unsynchronized version of the lemonade stand program (`lemonade_zero_sync`) shows attempts by multiple kids (threads) to access the refrigerator and serve lemonade. Messages like "Kid 3 couldn't use the refrigerator because it's already in use" and "Kid 4 couldn't serve lemonade because there are no cups available" indicate race conditions. These arise from simultaneous access attempts to shared resources—refrigerator and cups—without synchronization, leading to access conflicts and resource shortages.
+
+## Synchronized: 
+
+![sync](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/mutex_sema/screenshots/lemonade_w_sync.png) 
+
+- the console output shows each kid accessing the refrigerator one at a time, and serving lemonade only when cups are available. This would be achieved by locking access to the refrigerator with a mutex and managing the number of available cups with a semaphore.
