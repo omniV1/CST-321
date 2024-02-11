@@ -13,6 +13,9 @@ in this scenario, we explore how a group of neighborhood kids operates a lemonad
 # Justification for the Use of Mutexes 
 
 - **Mutex for Refrigerator Access**: A mutex is ideal for managing access to the refrigerator. It ensures that when one kid is using the refrigerator, others must wait their turn, thereby preventing interference and accidents.
+| Synchronization Mechanism | Pros                                                        | Cons                                                         |
+|---------------------------|-------------------------------------------------------------|--------------------------------------------------------------|
+| **Mutexes**               | Ensures exclusive access to resources, preventing data corruption and ensuring safety. | Can lead to deadlocks if not carefully managed. Limited to binary (on/off) states. |
 
   
 # Screenshots and explanations of console output
@@ -77,6 +80,13 @@ void* serveLemonade(void* arg) {
 ![sync](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic2/mutex_sema/screenshots/lemonade_mutex_sync.png) 
 
 - the console output shows each kid accessing the refrigerator one at a time, and serving lemonade only when cups are available. This would be achieved by locking access to the refrigerator with a mutex. 
+
+
+--- 
+
+# Detailed Description of the Scenario Semaphore
+
+
 
 
 --- 
