@@ -21,15 +21,15 @@ In our simplified scenario, a group of neighborhood kids runs a lemonade stand. 
 | **Mutexes**               | Simple and effective for ensuring exclusive access to a resource. Prevents data corruption and ensures safety. | Can lead to deadlocks if not implemented carefully. Limited to binary states, making it unsuitable for counting resources. |
 | **Semaphores**            | Flexible in managing access to a pool of resources. Can allow multiple threads (or, in our analogy, kids) to access a resource up to a specified limit. | More complex to understand and implement correctly. Improper use can lead to complicated synchronization issues. |
 
-# With Synchronization vs. Without Synchronization
+# Comparison of Working and Non-Working Code Segments
 
-| Aspect                    | Without Synchronization                                                                                                    | With Synchronization                                                                                                  |
-|---------------------------|----------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| **Access to Shared Resources** | Multiple threads may access and modify shared resources concurrently without any coordination, leading to race conditions. | Ensures that only one thread can access a critical section at a time (mutex), or limits the number of threads accessing a particular resource (semaphore). |
-| **Data Integrity**        | Data corruption is likely because threads can overwrite each other's changes unexpectedly.                                 | Prevents race conditions, ensuring data integrity and consistency.                                                    |
-| **Program Behavior**      | The program's behavior becomes unpredictable, and debugging issues related to race conditions can be challenging.          | Makes the program's behavior predictable and stable, simplifying debugging and maintenance.                            |
-| **Resource Utilization**  | The lack of control over resource access can lead to inefficient resource utilization.                                     | Improves resource utilization efficiency by coordinating access to shared resources.                                   |
-| **Example Problems**      | - **Refrigerator Chaos:** Multiple kids attempt to use the refrigerator simultaneously. <br> - **Cup Shortage:** Kids try to serve lemonade even when there are no available cups. | - **Mutex for Refrigerator:** Ensures only one kid can access the refrigerator at a time. <br> - **Semaphore for Cups:** Limits the number of kids serving lemonade to the number of available cups. |
+| Aspect               | Working Segment                                                    | Non-Working Segment                             | Notes                                                                                                             |
+|----------------------|--------------------------------------------------------------------|-------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| **Refrigerator Access** | `if (!refrigeratorOpen) { refrigeratorOpen = 1; ... refrigeratorOpen = 0; }` | The entire block is non-atomic and unsynchronized. | Without synchronization, multiple threads might enter the `if` block simultaneously, leading to incorrect behavior. |
+| **Serving Lemonade**    | `if (availableCups > 0) { availableCups--; ... availableCups++; }`    | Similarly, this segment lacks atomic operations and proper synchronization. | Multiple threads could decrement `availableCups` simultaneously, potentially leading to negative values.           |
+| **Thread Safety**       | None of the segments are thread-safe in this example.                 | Entire implementation.                          | Without synchronization primitives like mutexes or semaphores, the shared resources (refrigerator and cups) are subject to race conditions. |
+| **Resource Management** | Properly frees allocated memory with `free(arg);`                     | Memory management is correct but overshadowed by synchronization issues. | Correctly freeing memory is crucial in preventing memory leaks, which is handled well in both segments.            |
+
 
 
 ### Why Synchronization is Better
