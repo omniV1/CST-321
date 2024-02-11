@@ -197,7 +197,7 @@ int main() {
 ![threads binary]()
 ---
 
-# 3. Processes in Linux: Using `posix_spawn()` and `waitpid()`
+# 4. Processes in Linux: Using `posix_spawn()` and `waitpid()`
 
 ### Operation in steps
 1. The program starts by checking if a command-line argument is provided, which is the application to spawn.
@@ -244,7 +244,7 @@ printf("Process %d finished\n", pid);
 ```
 ![spawn binary]()
 ---
-# 4. Theory of Operation for Mutexes in Bank Program
+# 5. Theory of Operation for Mutexes in Bank Program
 
 ### Critical Section Management
 
@@ -321,7 +321,7 @@ int main() {
 
 ![console binary]()
 ---
-# 5. Theory of Operation for Semaphores in Bank Program
+# 6. Theory of Operation for Semaphores in Bank Program
 
 ### Semaphore Workflow
 | Action | Description | 
