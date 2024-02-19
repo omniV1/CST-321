@@ -25,7 +25,7 @@
 
 **Think of how we use stop lights and signs to avoid collisions while driving**
 
-![deadlock](/home/owen/CST-321/Notes/Topic3/screenshots/deadlock.gif)
+![deadlock](https://github.com/omniV1/CST-321/blob/main/Notes/Topic3/screenshots/deadlock.gif)
 
 ### How can I recover from a deadlock
 
