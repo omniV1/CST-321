@@ -15,7 +15,7 @@
 
 - If a process is unable to change its state indefinitely because the resources **requested** by it are being used by another **waiting** process then the system is said to be in a _deadlock_.
 
-### A deadlock illistrated
+### A deadlock illustrated
 
 1.  Four processes (blue lines) compete for one resource (grey circle), following a right-before-left policy
 
@@ -25,7 +25,7 @@
 
 **Think of how we use stop lights and signs to avoid collisions while driving**
 
-![deadlock](https://github.com/omniV1/CST-321/blob/main/Notes/Topic3/screenshots/deadlock.gif)
+![deadlock](/home/owen/CST-321/Notes/Topic3/screenshots/deadlock.gif)
 
 ### How can I recover from a deadlock
 

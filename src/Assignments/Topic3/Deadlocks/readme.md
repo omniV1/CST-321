@@ -122,6 +122,20 @@ All airplanes have been handled.
 | `wait(NULL)`               | Parent process waits for all child processes to finish execution before proceeding with cleanup and program completion.                                                       |
 | `fprintf()`                | Outputs log messages to the console, providing information about the status of airplanes attempting to land, runway availability, and any diversions or successful landings. |
 
+# Analysis of Timer Use for Deadlock Resolution
+
+- The use of a timer in the semaphore-based program to terminate processes after a timeout can effectively prevent deadlocks by ensuring no process holds onto a resource indefinitely. However, this method has limitations, particularly when scaling to a larger number of processes or threads:
+
+- Scalability Issues: As the number of concurrent processes increases, managing individual timers for each becomes more complex and resource-intensive.
+Risk of Starvation: Processes might repeatedly be terminated before accessing the needed resource, leading to potential starvation, especially for lower-priority tasks.
+Optimal Timeout Determination: Setting an appropriate timeout that balances between preventing deadlocks and not prematurely terminating processes is challenging and might not be one-size-fits-all.
+Alternative Approach
+
+- Instead of relying solely on timeouts, implementing a priority-based scheduling mechanism could offer a more nuanced solution. This system would allow processes with higher priority to access the resource first, while still using timeouts to prevent deadlocks. However, these timeouts would be dynamically adjusted based on the process's priority and the current system load, offering a more flexible and fair approach to resource allocation.
+
+- Advantages: Prioritizing critical processes reduces the risk of important operations being terminated. Dynamically adjusting timeouts based on system conditions and process priority ensures a more responsive and efficient system, tailoring behavior to current needs.
+
+
 
 # Resources
 
