@@ -4,7 +4,7 @@
 ###### CST -321
 ###### 2/18/2024
 ###### Resources at bottom
-
+###### Loom video explanation: 
 # Deadlock Avoidance
 
 ## Scenario description
