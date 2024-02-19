@@ -4,7 +4,7 @@
 ###### CST -321
 ###### 2/18/2024
 ###### Resources at bottom
-
+###### Loom video explanation: https://www.loom.com/share/090bce81c15c4215bac08d98a95d2c3e
 # Deadlock Avoidance
 
 ## Scenario description
@@ -22,6 +22,7 @@ In this scenario, we simulate an airport runway management system where multiple
 `Cleanup:` After all airplanes have landed or been diverted, the parent process (main program) waits for all child processes to finish execution using wait(). Once all airplanes have completed their landing operations, the semaphore associated with the runway is closed and removed from the system, ensuring proper cleanup of resources.
 
 ### flowchart
+![Flowchart](https://github.com/omniV1/CST-321/blob/main/src/Assignments/Topic3/Deadlocks/screenshots/flowchart.png)
 
 ### Program flowchart Explanation
 
