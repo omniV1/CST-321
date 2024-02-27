@@ -8,7 +8,7 @@ The **Page Fault Handler**, which is part of the operating system's kernel, mana
 
 ### How does Copy-On-Write work in our `fork()` API?
 
-![Page Fault Process Diagram](/path/to/image.png)
+
 
 # What is a Page Fault Handler?
 
@@ -19,7 +19,6 @@ A Page Fault occurs under the following circumstances:
 
 When a page is not present in physical memory, the present/absent bit is set to 0, causing a fault and prompting the OS to load the page from the disk.
 
-![Page Fault Handler Diagram](/path/to/image.png)
 
 # What happens in the Page Fault Handler? 
 
