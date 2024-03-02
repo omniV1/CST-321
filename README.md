@@ -9,7 +9,7 @@ Below is a brief overview of the directory structure and contents of this reposi
 | --------- | ----------- | 
 | Assignments | houses all assignments. Each Topic will have its own directory | 
 | Notes       | houses all notes. Each topic will have its owm directory | 
-
+| Documentation | houses all documentation for all assigments and milestones | 
 
 
 
