@@ -86,7 +86,7 @@ This cycle ensures that even with limited physical memory, the system can effici
 
 ### Flowchart
 
-![Flowchart]()
+![Flowchart](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic4/screenshots/mmu.drawio.png)
 
 1. Start: The process begins, corresponding to the initial state of the program execution.
 
