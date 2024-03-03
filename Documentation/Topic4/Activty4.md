@@ -137,25 +137,127 @@ void decimalToBinary(int number, char* bits) {
 
 | Function/System Call    | Description                                                                                   |
 |-------------------------|-----------------------------------------------------------------------------------------------|
-| `printf()`              | Outputs formatted data to stdout, used for prompting the user and displaying results.         |
-| `scanf()`               | Reads formatted input from stdin, used to get the user's number.                             |
 | `convertPrintBinary()`  | Orchestrates the conversion of a decimal number to binary and then prints it.                |
 | `decimalToBinary()`     | Performs the actual conversion from decimal to binary.                                        |
 | `printBinary()`         | Handles the printing of the binary array in a human-readable format.                          |
 | `clearBinaryBits()`     | Resets the binary array to all zeros to prepare for a new conversion.                         |
 
-## Detailed Descriptions:
+## Function Descriptions:
 
-- `printf()`: This standard output function is crucial for interacting with the user. It provides feedback and results, making the program's operations transparent and understandable. Whether it's prompting the user for input or displaying the final output in various formats, `printf()` ensures that information is communicated effectively.
+- `convertPrintBinary()`: This function coordinates several steps: clearing any previous binary representation, converting the new decimal input to binary, and then displaying this binary data. By encapsulating these operations, it simplifies the main program flow and emphasizes modularity.
 
-- `scanf()`: Serving as the primary means of receiving input from the user, `scanf()` is essential for capturing the number that will undergo conversion and manipulation. It ensures that the program can process user-specific data, making the operations dynamic and interactive.
+- `decimalToBinary()`: The core algorithm for converting decimal numbers to binary is encapsulated within this function. It iteratively divides the decimal number, capturing the remainder as binary digits, and stores them in an array.
 
-- `convertPrintBinary()`: This function is at the heart of the program's binary conversion and display process. It coordinates several steps: clearing any previous binary representation, converting the new decimal input to binary, and then displaying this binary data. By encapsulating these operations, it simplifies the main program flow and emphasizes modularity.
+- `printBinary()`: this function takes the binary data stored in an array and prints it from the most significant bit to the least significant bit. This reverse-order printing is crucial for presenting the binary data in a format that's intuitive for us to read.
 
-- `decimalToBinary()`: The core algorithm for converting decimal numbers to binary is encapsulated within this function. It iteratively divides the decimal number, capturing the remainder as binary digits, and stores them in an array. This methodical approach ensures accurate conversion from decimal to binary representation.
+- `clearBinaryBits()`: Before each conversion process, it's essential to reset the binary representation to ensure no residual data from previous operations affects the current calculation. This function zeroes out the binary array, preparing it for a fresh conversion.
 
-- `printBinary()`: Focused on output, this function takes the binary data stored in an array and prints it from the most significant bit to the least significant bit. This reverse-order printing is crucial for presenting the binary data in a format that's intuitive for humans to read, aligning with conventional binary notation.
+These functions work together to create a program that converts decimal numbers to binary, displaying them alongside their hexadecimal representation and demonstrating basic bitwise operations.
 
-- `clearBinaryBits()`: Before each conversion process, it's essential to reset the binary representation to ensure no residual data from previous operations affects the current calculation. This function zeroes out the binary array, preparing it for a fresh conversion and ensuring the program's output remains accurate and reliable for each user input.
 
-These functions work together to create a user-friendly program that converts decimal numbers to binary, displaying them alongside their hexadecimal representation and demonstrating basic bitwise operations. Through clear separation of concerns and encapsulation of specific tasks, the program remains modular, maintainable, and easy to understand.
+# Research question A: TLB Miss
+
+ To cause a TLB (Translation Lookaside Buffer) miss on purpose, we will try to access parts of memory in such a way that the computer's quick memory lookup (the TLB) doesn't already have a shortcut for where to find it. Here's a simple breakdown of how we plan to do this with our loop and the variables `M` (step size) and `N` (array size).
+
+- **Page Size**: This is like a block of memory. Our block size is 4KB, which is pretty standard.
+- **TLB Entries**: Think of this as slots in our quick memory lookup. We have 64 slots available.
+- **Size of an `int`**: We're assuming each integer takes up 4 bytes of space.
+
+
+### Step Size (`M`)
+
+- **Goal**: We want to jump far enough in our memory block so that each time we do, we're landing on a new block.
+- **How**: Since a block is 4KB and an `int` is 4 bytes, jumping 1024 `int`s (or `4096 / 4`) means we're always moving to the next block of memory.
+
+### Array Size (`N`)
+
+- **Goal**: We want to make sure we're using more memory blocks than our quick lookup can handle, to ensure it can't keep up.
+- **How**: We use 65 blocks of memory because our TLB can only keep track of 64. This way, we're always one step ahead, causing a miss.
+
+## Conclusion
+
+- **For a single loop**: We set `M` to 1024 so every jump is to a new memory block, and `N` to `65 * 1024` to ensure we use more blocks than the TLB can track.
+- **If we repeat the loop**: The computer might try to catch up by remembering some of our steps (caching), which could make our plan to always cause a TLB miss less effective over time. But initially, we're making the computer work harder to find each piece of data.
+
+
+# Research Question b: Program Fit and Page Size
+
+### The program's requirement is broken down into three segments:
+
+- **Text Segment**: This is where our program's executable code resides, requiring 32,768 bytes.
+- **Data Segment**: It holds global and static variables, amounting to 16,386 bytes.
+- **Stack Segment**: Utilized for local variables and function calls, it needs 15,870 bytes.
+
+
+### Code:
+```c
+#include <stdio.h>
+
+#define TEXT_SIZE 32768   // Text segment size in bytes
+#define DATA_SIZE 16386   // Data segment size in bytes
+#define STACK_SIZE 15870  // Stack segment size in bytes
+#define PAGE_SIZE_4KB 4096    // 4KB page size in bytes
+#define PAGE_SIZE_512B 512    // 512B page size in bytes
+
+// A function to figure out how many pages each segment will need
+void calculate_pages(int page_size, const char* page_size_name) {
+    // Doing some math to divide each segment by the page size
+    // If there's any leftover, that means we need an extra page
+    int text_pages = TEXT_SIZE / page_size + (TEXT_SIZE % page_size ? 1 : 0);
+    int data_pages = DATA_SIZE / page_size + (DATA_SIZE % page_size ? 1 : 0);
+    int stack_pages = STACK_SIZE / page_size + (STACK_SIZE % page_size ? 1 : 0);
+    int total_pages = text_pages + data_pages + stack_pages;
+
+    // Print out how many pages we need for each part
+    printf("Using %s pages, the program needs:\n", page_size_name);
+    printf("Text: %d pages, Data: %d pages, Stack: %d pages, Total: %d pages\n\n",
+           text_pages, data_pages, stack_pages, total_pages);
+}
+}
+
+```
+### Output
+
+```
+owen@linux:~/CST-321/src/Topic4/src$ ./researchb_binary
+Program segments: Text=32768 bytes, Data=16386 bytes, Stack=15870 bytes
+
+Using 4KB pages, the program requires:
+Text: 8 pages, Data: 5 pages, Stack: 4 pages, Total: 17 pages
+
+Using 512B pages, the program requires:
+Text: 64 pages, Data: 33 pages, Stack: 31 pages, Total: 128 pages
+
+
+
+```
+## Analysis of Page Sizes
+
+- **4KB Pages**: Opting for these larger pages tends to simplify the overall memory management process since fewer pages are needed. This efficiency, however, may introduce internal fragmentation. What this means is that we might end up with allocated memory pages not being fully used, akin to having empty spaces in a mostly filled storage box.
+
+- **512B Pages**: On the flip side, utilizing smaller pages increases the total number required. This granularity allows for a more precise allocation of memory, potentially minimizing wasted space. The downside? It significantly ramps up the management overhead. It's like organizing a large collection of small items individually rather than in bulk - it requires more effort but can result in neater organization.
+
+## Fitting Within the Address Space
+
+The code's output provides clear insights into whether our program can fit within the system's address space:
+
+- **For 4KB Pages**: The program requires a total of 17 pages. In the grand scheme of modern computing systems, this is relatively modest, suggesting that the program should comfortably fit within the typical address spaces provided by most systems today.
+
+- **For 512B Pages**: Here, the program precisely fits into an address space of 65,536 bytes, using up every available bit of space with no room to spare. This scenario underscores a tight but exact allocation, showcasing the precision possible with smaller pages but also highlighting the lack of flexibility.
+
+## Key Takeaways
+
+When we're faced with the decision between using 4KB and 512B pages, we're essentially balancing between two ends of a spectrum: allocation efficiency and management overhead. Larger pages make our lives easier by simplifying memory management but can lead to less efficient use of space. Otherwise, smaller pages can maximize our use of the available address space but at the cost of increased complexity in memory management.
+
+Understanding how to navigate this balance is important for any software developer looking to optimize memory usage. It's an example of the trade-offs that we often have to consider in software development, demonstrating that the best choice often depends on the specific requirements and constraints of the project at hand.
+
+# Resources
+Black-Shaffer, D. (2024). Virtual Memory: 11 TLB Example. Youtube. https://www.youtube.com/watch?v=95QpHJX55bM
+
+Programiz. (2024). Bitwise Operators in C.https://www.programiz.com/c-programming/bitwise-operators
+
+Reha, M. , (2024). Activity 4 Assignment guide: https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/1582473096
+
+Reha, M. (2024). Topic 4 Lecture : https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/1582472997
+
+Ryan's Tutorials. (2024). Binary Tutorial - Binary Conversions. https://ryanstutorials.net/binary-tutorial/binary-conversions.php

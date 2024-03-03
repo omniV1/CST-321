@@ -1,3 +1,19 @@
+/**Owen Lindsey
+ * CST-321
+ * 3/03/2024
+ * This code was done with the help of:
+ *
+ * Black-Shaffer, D. (2024). Virtual Memory: 11 TLB Example. Youtube. https://www.youtube.com/watch?v=95QpHJX55bM
+ *
+ * Programiz. (2024). Bitwise Operators in C.https://www.programiz.com/c-programming/bitwise-operators
+ *
+ * Reha, M. , (2024). Activity 4 Assignment guide: https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/1582473096
+ *
+ * Reha, M. (2024). Topic 4 Lecture : https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/1582472997
+ *
+ * Ryan's Tutorials. (2024). Binary Tutorial - Binary Conversions. https://ryanstutorials.net/binary-tutorial/binary-conversions.php
+*/
+
 #include <stdio.h>
 #include <stdbool.h>
 
