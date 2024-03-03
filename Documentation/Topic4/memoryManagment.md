@@ -102,7 +102,7 @@ This cycle ensures that even with limited physical memory, the system can effici
 
 7. Calculate PA using Physical Page Number and Page Offset: If the PTE is valid, the physical address is calculated by combining the frame number from the PTE with the page offset.
 
-8. utput Physical Address: The program displays the calculated physical address, satisfying the requirement to show the resultant physical memory address as a hexadecimal number.
+8. Output Physical Address: The program displays the calculated physical address, satisfying the requirement to show the resultant physical memory address as a hexadecimal number.
 
 9. Handle page fault: If the PTE is not valid, which means the page is not in physical memory, the flowchart indicates a page fault. This would generally trigger a process to load the page from secondary storage (disk), but for your program's purpose, this step could simply indicate that the page is "Currently on Disk."
 
@@ -184,8 +184,8 @@ unsigned int virtualToPhysicalAddress(unsigned int virtualAddress, unsigned int 
 
 #### 2. Binary and Hexadecimal Representation of Page Size
 - **Operation**: The selected page size is shown to the user in both binary and hexadecimal formats.
-- **Technical Approach**: The program employs bitwise operations to convert the page size to binary and utilizes format specifiers for hexadecimal.
-- **Significance**: Demonstrating the page size in multiple formats provides insight into the data representation methods used within computer systems for memory management.
+- **Technical Approach**: The program uses bitwise operations to convert the page size to binary and utilizes format specifiers for hexadecimal.
+- **Significance**: Demonstrating the page size in multiple formats provides the data representation methods used within computers for memory management.
 
 #### 3. Page Table Simulation
 - **Operation**: The program shows the functionality of a page table by mapping virtual addresses to physical addresses or indicating that data is "on disk."
@@ -193,9 +193,9 @@ unsigned int virtualToPhysicalAddress(unsigned int virtualAddress, unsigned int 
 - **Significance**: This abstraction models the core functionality of a memory management unit (MMU), offering a view of how virtual to physical address translation occurs within an operating system.
 
 #### 4. Virtual Address Input and Conversion
-- **Operation**: Users input a virtual memory address in hexadecimal format, which the program then evaluates for direct mapping or disk storage.
+- **Operation**: Users input a virtual memory address in hexadecimal format, which the program then checks for direct mapping or disk storage.
 - **Technical Approach**: The program checks whether the input address falls within the physical memory boundaries, directly mapping it if possible, or show it as "on disk".
-- **Significance**: This step emulates the MMU's crucial task of address translation, highlighting the dynamics between virtual and physical memory spaces and the handling of memory that exceeds physical storage capabilities.
+- **Significance**: This step emulates the MMU's crucial task of address translation, highlighting the use cases between virtual and physical memory spaces and the handling of memory that exceeds physical storage capabilities.
 ### 5. Validation with Different Addresses
 
 ![screenshot of output]()
