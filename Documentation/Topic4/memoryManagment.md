@@ -200,6 +200,61 @@ unsigned int virtualToPhysicalAddress(unsigned int virtualAddress, unsigned int 
 
 ![screenshot of output](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic4/screenshots/memoryManagment.png)
 
+# Program Output Analysis
+
+The output showcases the execution of a C program designed to emulate the Memory Management Unit (MMU) functionality. Below is an analysis of the program's behavior based on the provided output:
+
+## Test Cases with 4K Page Size
+
+### Case 1: Virtual Address `0x500`
+- **Page Size**: 4095 (4K)
+- **Hexadecimal Page Size**: 0xFFF
+- **Binary Representation**: `0000111111111111`
+- **Input Virtual Address**: `0x500`
+- **Physical Address**: `0x500`
+
+The virtual address `0x500` falls within the physical memory range, and the program correctly maps it to the same physical address, indicating direct mapping.
+
+### Case 2: Virtual Address `0xFFF`
+- **Input Virtual Address**: `0xFFF`
+- **Physical Address**: `0xFFF`
+
+Similar to the previous case, the virtual address `0xFFF` is within the range and is directly mapped to an identical physical address.
+
+### Case 3: Virtual Address `0x80000`
+- **Input Virtual Address**: `0x80000`
+- **Output**: "Currently on Disk."
+
+This virtual address exceeds the physical memory limit. The program correctly identifies that it cannot be mapped to physical memory and is, therefore, "on disk."
+
+### Case 4: Virtual Address `0x7FFFFE`
+- **Input Virtual Address**: `0x7FFFFE`
+- **Output**: "Currently on Disk."
+
+Despite being close to the physical memory limit, this virtual address is beyond the range and is accurately identified as "on disk."
+
+## Test Cases with 8K Page Size
+
+### Case 1: Virtual Address `0x12345`
+- **Page Size**: 8191 (8K)
+- **Hexadecimal Page Size**: `0x1FFF`
+- **Binary Representation**: `0001111111111111`
+- **Input Virtual Address**: `0x12345`
+- **Physical Address**: `0x12345`
+
+For an 8K page size, the address `0x12345` is directly mapped, indicating correct address translation.
+
+### Case 2: Virtual Address `0xABCD`
+- **Input Virtual Address**: `0xABCD`
+- **Output**: "Currently on Disk."
+
+The address `0xABCD` does not fit into the available physical memory range for an 8K page size, and the program correctly reports it as "on disk."
+
+In summary, the program's output reflects the appropriate responses for each test case, demonstrating the correct implementation of virtual to physical address translation, direct mapping, and handling of addresses that do not fit into the physical memory space.
+
+## Conclusion
+
+The MMU emulation program has demonstrated a basic mechanism for translating virtual addresses to physical addresses and handling page faults. Through this program, key concepts of memory management and the role of the MMU within an operating system were explored. 
 
 # screen cast video of application
 
