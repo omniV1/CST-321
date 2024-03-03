@@ -198,7 +198,7 @@ unsigned int virtualToPhysicalAddress(unsigned int virtualAddress, unsigned int 
 - **Significance**: This step emulates the MMU's crucial task of address translation, highlighting the use cases between virtual and physical memory spaces and the handling of memory that exceeds physical storage capabilities.
 ### 5. Validation with Different Addresses
 
-![screenshot of output]()
+![screenshot of output](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic4/screenshots/memoryManagment.png)
 
 
 # screen cast video of application
