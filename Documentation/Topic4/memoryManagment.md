@@ -47,7 +47,7 @@ This pseudocode outlines the key steps in translating a virtual address to a phy
 # Page fault handling
 
 ### Flow chart
-![]()
+![flowchart](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic4/screenshots/pageHandling.drawio.png)
 
 
 
