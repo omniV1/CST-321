@@ -257,6 +257,7 @@ In summary, the program's output reflects the appropriate responses for each tes
 The MMU emulation program has demonstrated a basic mechanism for translating virtual addresses to physical addresses and handling page faults. Through this program, key concepts of memory management and the role of the MMU within an operating system were explored. 
 
 # screen cast video of application
+https://www.loom.com/share/d0253aad08e04282b095c0059a088f9a
 
 # Resources
 Tanenbaum, A. S., & Bos, H. (2021). Memory management. In Modern operating systems (5th ed., pp. 193-198)
