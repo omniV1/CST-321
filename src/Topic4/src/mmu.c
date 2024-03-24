@@ -107,15 +107,37 @@ void convertAndDisplayAddress(unsigned int pageSize) {
     if (physicalAddress != (unsigned int)-1) {
         printf("Physical Address (Hexadecimal): 0x%X\n", physicalAddress);
     } else {
+        // If the physical address is -1, it indicates the address is "Currently on Disk"
         printf("Result: Currently on Disk.\n");
     }
 }
 
 // Convert a virtual address to a physical address using the page table
 unsigned int virtualToPhysicalAddress(unsigned int virtualAddress, unsigned int pageSize) {
+    // Determine the maximum valid page number based on physical address space size
+    unsigned int maxValidPageNumber = PA_SIZE / pageSize;
+
     // Extract the page number from the virtual address
     unsigned int pageNumber = virtualAddress >> 12; // 12-bit shift corresponds to a 4KB page size
     // If the page is present in the page table, calculate the physical address
+    unsigned int pageNumber = virtualAddress / pageSize;
+    unsigned int pageOffset = virtualAddress % pageSize;  // Extract the page offset
+
+    // Check if the page number exceeds the maximum valid page number
+    if (pageNumber >= maxValidPageNumber) {
+        // If the page number is too high, it means the data is not in physical memory
+        return (unsigned int)-1; // Indicate that the address is "Currently on Disk"
+    }
+
+    // Check if the page is present in the page table and valid
     if (pageTable[pageNumber].valid) {
         // Retrieve the frame number from the page table entry
         unsigned int frameNumber = pageTable[pageNumber].frameNumber
+        unsigned int frameNumber = pageTable[pageNumber].frameNumber;
+        // Calculate the physical address by combining the frame number and page offset
+        return (frameNumber * pageSize) + pageOffset;
+    } else {
+        // If the page is not valid, it's a page fault or "Currently on Disk"
+        return (unsigned int)-1;
+    }
+}
