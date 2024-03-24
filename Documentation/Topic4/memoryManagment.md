@@ -47,7 +47,7 @@ This pseudocode outlines the key steps in translating a virtual address to a phy
 # Page fault handling
 
 ### Flow chart
-![]()
+![flowchart](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic4/screenshots/pageHandling.drawio.png)
 
 
 
@@ -86,7 +86,7 @@ This cycle ensures that even with limited physical memory, the system can effici
 
 ### Flowchart
 
-![Flowchart]()
+![Flowchart](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic4/screenshots/mmu.drawio.png)
 
 1. Start: The process begins, corresponding to the initial state of the program execution.
 
@@ -102,7 +102,7 @@ This cycle ensures that even with limited physical memory, the system can effici
 
 7. Calculate PA using Physical Page Number and Page Offset: If the PTE is valid, the physical address is calculated by combining the frame number from the PTE with the page offset.
 
-8. utput Physical Address: The program displays the calculated physical address, satisfying the requirement to show the resultant physical memory address as a hexadecimal number.
+8. Output Physical Address: The program displays the calculated physical address, satisfying the requirement to show the resultant physical memory address as a hexadecimal number.
 
 9. Handle page fault: If the PTE is not valid, which means the page is not in physical memory, the flowchart indicates a page fault. This would generally trigger a process to load the page from secondary storage (disk), but for your program's purpose, this step could simply indicate that the page is "Currently on Disk."
 
@@ -184,8 +184,8 @@ unsigned int virtualToPhysicalAddress(unsigned int virtualAddress, unsigned int 
 
 #### 2. Binary and Hexadecimal Representation of Page Size
 - **Operation**: The selected page size is shown to the user in both binary and hexadecimal formats.
-- **Technical Approach**: The program employs bitwise operations to convert the page size to binary and utilizes format specifiers for hexadecimal.
-- **Significance**: Demonstrating the page size in multiple formats provides insight into the data representation methods used within computer systems for memory management.
+- **Technical Approach**: The program uses bitwise operations to convert the page size to binary and utilizes format specifiers for hexadecimal.
+- **Significance**: Demonstrating the page size in multiple formats provides the data representation methods used within computers for memory management.
 
 #### 3. Page Table Simulation
 - **Operation**: The program shows the functionality of a page table by mapping virtual addresses to physical addresses or indicating that data is "on disk."
@@ -193,15 +193,71 @@ unsigned int virtualToPhysicalAddress(unsigned int virtualAddress, unsigned int 
 - **Significance**: This abstraction models the core functionality of a memory management unit (MMU), offering a view of how virtual to physical address translation occurs within an operating system.
 
 #### 4. Virtual Address Input and Conversion
-- **Operation**: Users input a virtual memory address in hexadecimal format, which the program then evaluates for direct mapping or disk storage.
+- **Operation**: Users input a virtual memory address in hexadecimal format, which the program then checks for direct mapping or disk storage.
 - **Technical Approach**: The program checks whether the input address falls within the physical memory boundaries, directly mapping it if possible, or show it as "on disk".
-- **Significance**: This step emulates the MMU's crucial task of address translation, highlighting the dynamics between virtual and physical memory spaces and the handling of memory that exceeds physical storage capabilities.
+- **Significance**: This step emulates the MMU's crucial task of address translation, highlighting the use cases between virtual and physical memory spaces and the handling of memory that exceeds physical storage capabilities.
 ### 5. Validation with Different Addresses
 
-![screenshot of output]()
+![screenshot of output](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic4/screenshots/memoryManagment.png)
 
+# Program Output Analysis
+
+The output showcases the execution of a C program designed to emulate the Memory Management Unit (MMU) functionality. Below is an analysis of the program's behavior based on the provided output:
+
+## Test Cases with 4K Page Size
+
+### Case 1: Virtual Address `0x500`
+- **Page Size**: 4095 (4K)
+- **Hexadecimal Page Size**: 0xFFF
+- **Binary Representation**: `0000111111111111`
+- **Input Virtual Address**: `0x500`
+- **Physical Address**: `0x500`
+
+The virtual address `0x500` falls within the physical memory range, and the program correctly maps it to the same physical address, indicating direct mapping.
+
+### Case 2: Virtual Address `0xFFF`
+- **Input Virtual Address**: `0xFFF`
+- **Physical Address**: `0xFFF`
+
+Similar to the previous case, the virtual address `0xFFF` is within the range and is directly mapped to an identical physical address.
+
+### Case 3: Virtual Address `0x80000`
+- **Input Virtual Address**: `0x80000`
+- **Output**: "Currently on Disk."
+
+This virtual address exceeds the physical memory limit. The program correctly identifies that it cannot be mapped to physical memory and is, therefore, "on disk."
+
+### Case 4: Virtual Address `0x7FFFFE`
+- **Input Virtual Address**: `0x7FFFFE`
+- **Output**: "Currently on Disk."
+
+Despite being close to the physical memory limit, this virtual address is beyond the range and is accurately identified as "on disk."
+
+## Test Cases with 8K Page Size
+
+### Case 1: Virtual Address `0x12345`
+- **Page Size**: 8191 (8K)
+- **Hexadecimal Page Size**: `0x1FFF`
+- **Binary Representation**: `0001111111111111`
+- **Input Virtual Address**: `0x12345`
+- **Physical Address**: `0x12345`
+
+For an 8K page size, the address `0x12345` is directly mapped, indicating correct address translation.
+
+### Case 2: Virtual Address `0xABCD`
+- **Input Virtual Address**: `0xABCD`
+- **Output**: "Currently on Disk."
+
+The address `0xABCD` does not fit into the available physical memory range for an 8K page size, and the program correctly reports it as "on disk."
+
+In summary, the program's output reflects the appropriate responses for each test case, demonstrating the correct implementation of virtual to physical address translation, direct mapping, and handling of addresses that do not fit into the physical memory space.
+
+## Conclusion
+
+The MMU emulation program has demonstrated a basic mechanism for translating virtual addresses to physical addresses and handling page faults. Through this program, key concepts of memory management and the role of the MMU within an operating system were explored. 
 
 # screen cast video of application
+https://www.loom.com/share/d0253aad08e04282b095c0059a088f9a
 
 # Resources
 Tanenbaum, A. S., & Bos, H. (2021). Memory management. In Modern operating systems (5th ed., pp. 193-198)
