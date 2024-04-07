@@ -1,0 +1,6 @@
+total 16
+-rw-rw-r-- 1 owen owen    0 Apr  7 11:12 myfiles.txt
+-rw-rw-r-- 1 owen owen  433 Apr  7 10:31 test1.sh
+-rw-rw-r-- 1 owen owen 1410 Apr  7 10:31 test2.sh
+-rwxrwxr-x 1 owen owen  254 Apr  7 11:03 test3.sh
+-rwxrwxr-x 1 owen owen  447 Apr  7 11:03 test4.sh
