@@ -24,7 +24,11 @@ Here's what each part of the script does:
 
 The script provides a demonstration of basic file system navigation and pattern matching using the Bash shell. By echoing the current directory and listing specific files, it shows how shell scripts can automate tasks and provide informative output to the user.
 
+
+
 (output)[url of screenshot test1.sh]
+
+
 
 
 ## Theory of Operation for test2.sh
@@ -51,7 +55,11 @@ The `test2.sh` script manages file and directory operations in the Linux file sy
 
 9. `rm -rf deadcode`: Deletes the `deadcode` directory and its contents completely, showcasing how to clean up or remove project directories that are no longer needed.
 
-(Screenshot of terminal output)[]
+
+
+(Screenshot of test2.sh)[]
+
+
 
 ### Script Justification
 
@@ -78,13 +86,17 @@ The series of commands executed in the terminal are standard file and directory 
 
 Each of these commands is an essential part of navigating and viewing files in a Unix-like environment, and they provide a powerful interface for managing files and directories from the command line.
 
+
 (Terminal file command)[]
 
-(Terminal command less)[] 
+(less)[] 
 
-(Terminal command more)[]
+(more -d)[]
 
-(Terminal ls command home)[] 
+(command more)[]
+
+(Terminal ls home)[] 
+
 
 ## Theory of Operation for test3.sh and test4.sh Scripts
 
@@ -121,11 +133,12 @@ The `test4.sh` script showcases the use of special shell variables and the Inter
 - The `man` command opens manual pages for Unix commands.
 - `man gcc` provides access to the comprehensive manual for the `gcc` compiler, detailing its options, syntax, and examples.
 
+
 (Terminal msc commands)[]
 
 
 
-## Theory of Operation for test5.sh Script
+## Theory of Operation for test5.sh Script - Permissions
 
 ### Initial Script Execution
 
@@ -136,3 +149,126 @@ The initial `test5.sh` script includes a simple `echo` command that outputs "Hel
 To make the script executable, the `chmod +x ~/test5.sh` command is used. This command modifies the file's permissions, adding the execute (`x`) permission for the user. The `ls -l` command will then show an updated permission string, likely changing from something like `-rw-r--r--` to `-rwxr-xr-x`, indicating that the user (owner), group, and others can now execute (`x`) the file.
 
 Running the script after changing permissions will successfully execute and output "Hello World" to the terminal. This demonstrates the importance of file permissions in Unix-like operating systems and how they can be modified to control access to file contents.
+
+
+(test5.sh screenshot)[]
+
+
+## Theory of Operation for Redirection and Piping Commands
+
+### Redirection
+
+- The `ls -l > myfiles.txt` command lists directory contents in long format and redirects the output from the standard output to the file `myfiles.txt`. Instead of displaying the list in the terminal, it saves it to the file.
+
+
+(myfiles.txt screenshot)[] 
+
+
+### Sorting Text in a File
+
+- To sort names alphabetically, the `sort < names.txt` command is used. It takes the content of `names.txt` as input and sorts the lines, displaying the sorted output in the terminal.
+
+(names before)[]
+
+
+(names after)[] 
+
+### Using Pipes with `less`
+
+- The `ls -l | less` command combination uses a pipe (`|`) to send the output of the `ls -l` command to `less`, allowing the user to view the content in a scrollable format.
+  
+- Another command piped into `less` can be `cat myfiles.txt | less`, which displays the contents of `myfiles.txt` in a scrollable format using `less`.
+
+These operations demonstrate how the shell can redirect output from one command to a file or another command, which is a powerful feature for combining commands and managing output in Unix-like operating systems.
+
+
+(less-pipe-command)[] 
+
+
+(less-pipe-output)[] 
+
+
+## Theory of Operation for Head and Tail Commands
+
+The `head` and `tail` commands are used to display the beginning and the end of files, respectively.
+
+- `head`: This command outputs the first ten lines of a file by default. It's useful for quickly inspecting the start of log files or any text files where the initial content is of interest. Running `head syslog` in the `/var/log` directory displays the most recent system log entries, which are often the most relevant for checking the status or recent events on the system.
+
+- `tail`: Conversely, `tail` shows the last ten lines of a file. For log files, which are appended to over time, this command is commonly used to see the latest entries. Executing `tail syslog` provides a snapshot of the most recent activities logged by the system.
+
+In cases where the user does not have sufficient permissions to read the log files, `sudo` can be prefixed to the commands to run them with elevated privileges, allowing for unrestricted access to the files.
+
+## Theory of Operation for the Logs Application
+
+The Logs application provides a graphical user interface (GUI) for viewing system log files. It simplifies the process of inspecting logs by categorizing them and allowing users to filter and search for specific entries. This approach is more user-friendly, especially for those who are less comfortable using command-line tools. The application typically defaults to showing the `syslog`, or it can be navigated to via the interface. The benefit of using the Logs application is its ease of use and the ability to visualize the log data in a more organized and interactive manner.
+
+(head&tails)[]
+
+## Theory of Operation for Disk Utility Commands
+
+### fdisk -l Command
+
+The `sudo fdisk -l` command lists all the disk partitions along with detailed information such as disk size, number of sectors, bytes per sector, and partition types. The output shows various `/dev/loopX` devices, which are typically associated with loop devices that represent ISO files or disk images mounted in the filesystem. It also lists physical disk devices like `/dev/sda` and `/dev/sdb`, which are the actual hard drives or SSDs. The `sudo` prefix is necessary because viewing disk partition details requires administrative privileges.
+
+### df Command
+
+Running the `df` command displays information about the file system disk space usage. It lists each mounted filesystem, total blocks, used and available space, and the mount points. In the provided output, filesystems like `tmpfs`, `/dev/sda3`, and mounts for EFI system partitions and shared folders are displayed, providing insight into storage distribution and usage across the system.
+
+### du Command
+
+The `du` (disk usage) command is used to estimate file and directory space usage. The command `du` without options shows the number of kilobytes used by the current directory, which in this case, is 100 kilobytes. When run with the `-h` option (`du -h`), it provides a human-readable format, which shows the size in a more comprehensible format (100K).
+
+## Disk Usage Analyzer - Analyzing the Home Folder
+
+### Selecting and Analyzing the Home Folder
+
+Upon running the Disk Usage Analyzer, I selected my Home Folder to be analyzed. This tool quickly scanned the contents of the folder, including all subdirectories and files. It presented a detailed overview of disk usage in a visual format, including graphs and a list of items sorted by the space they occupy.
+
+### Interpretation of Results
+
+The results displayed by the Disk Usage Analyzer gave insights into which files and folders were using the most disk space. This can be particularly helpful for identifying large, unnecessary files or for general housekeeping to free up disk space. The graphical representation makes it easy to spot at a glance where space is being used, which is more intuitive than interpreting raw numbers from the command line.
+
+The application showed various directories like Documents, Downloads, Pictures, and others within the Home Folder, along with their respective sizes. This breakdown allows for efficient management of disk space by providing the user with actionable information on where they can clean up files if needed.
+
+### Advantages of Disk Usage Analyzer
+
+Using the Disk Usage Analyzer has several advantages:
+
+- **User-Friendly**: Provides a graphical interface that is more approachable for users not familiar with command-line tools.
+- **Efficient**: Quickly scans and presents data, saving time compared to manual inspection.
+- **Detailed Breakdown**: Offers a granular view of disk usage by file and directory.
+- **Visualization**: Graphs and charts help in understanding data usage patterns easily.
+
+This GUI-based approach complements the traditional command-line disk utilities, making disk management more accessible to all user levels.
+
+(Disk usage analyzer)[] 
+
+## Research Question 1: 
+
+| Feature             | FAT-16                     | FAT-32                           | NFS                                  | Unix File Systems (e.g., EXT4)       |
+|---------------------|----------------------------|----------------------------------|--------------------------------------|--------------------------------------|
+| **Developed by**    | Microsoft                  | Microsoft                        | Sun Microsystems                     | Various (EXT4 primarily by Linux)    |
+| **Max File Size**   | 2-4 GB                     | 4 GB                             | Limited by server's file system      | Up to 16 TB (EXT4)                   |
+| **Max Volume Size** | 2-4 GB (16 GB with certain OS) | 2 TB (commonly), 8 TB (max)           | Not applicable (network protocol)    | Up to 1 EB (EXT4)                    |
+| **File System Type**| Disk file system           | Disk file system                 | Network file system protocol         | Disk file system                     |
+| **Use Case**        | Older or smaller storage devices | Larger storage than FAT-16, wide compatibility | Accessing files over a network        | Modern Linux installations, robustness |
+| **Advantages**      | Simplicity, wide compatibility | Improved capacity over FAT-16, compatibility | Distributed file access, no local disk space used | Journaling, performance, large file and volume support |
+| **Disadvantages**   | Limited size, lacks modern features | 4 GB file size limit, not suited for new, large drives | Dependent on network, performance can vary | Not native to Windows, less common outside Linux |
+
+
+## Research Question 2: 
+
+
+
+| Feature / Distro     | Linux Mint                     | Pop!_OS                         | Zorin OS                         | Ubuntu Desktop                 |
+|----------------------|--------------------------------|---------------------------------|----------------------------------|-------------------------------|
+| Base                 | Ubuntu                         | Ubuntu                          | Ubuntu                           | Debian (upstream for Ubuntu)  |
+| Desktop Environment  | Cinnamon, MATE, Xfce           | GNOME (Customized)              | GNOME with Zorin Appearance      | GNOME                         |
+| User Interface       | Traditional, similar to Windows| Modern, streamlined             | Windows-like, customizable       | Modern, streamlined           |
+| Performance          | Optimized for stability        | Optimized for System76 hardware | Balanced for performance         | Balanced for performance      |
+| Software Management  | APT, Synaptic, Software Manager| APT, Pop!_Shop                  | APT, Software Store              | APT, Snap, Ubuntu Software    |
+| Unique Selling Point | Familiarity and comfort        | Integration with System76 hardware, gaming focus | Ease of transition from Windows  | Leading open-source platform  |
+| System Restoration   | Timeshift backup tool          | Recovery partition              | No default tool, relies on backups | No default tool, relies on backups |
+| Pre-installed Apps   | Mint-specific tools            | Pop!_OS specific tools, NVIDIA support | Zorin-specific apps and tools     | Standard GNOME apps           |
+| Target Audience      | Beginners, Windows converts    | Power users, developers         | Windows converts, new Linux users | General Linux audience        |
+| Support Lifecycle    | Based on Ubuntu LTS            | Based on Ubuntu LTS             | Based on Ubuntu LTS              | 5 years for LTS, 9 months for regular releases |
