@@ -77,3 +77,17 @@ In this exercise, the flowchart will illustrate a simulated process of compiling
 
  # Resources:
 
+Reha, M. (2024). Operating System Fundamentals Topic 6. Available at: https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/1582472999
+
+Reha, M. (2024). Topic 6 Assignment Getting Started. Available at: https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/1582473081
+ 
+Linux Operating System. (n.d.). File System Calls. Available at: https://linasm.sourceforge.net/docs/syscalls/filesystem.php
+
+Muiruri, J. (n.d.). How to Use the I/O System Calls open, close, read, and write. Available at: https://medium.com/@muirujackson/how-to-use-the-i-o-system-calls-open-close-read-and-write-f6f80dc61e2a 
+
+WIT Solapur - Professional Learning Community. (2019). System Calls for the File System : Part 1. YouTube. Available at: https://www.youtube.com/watch?v=tmp7dGJuyLQ 
+
+WIT Solapur - Professional Learning Community. (2019). System Calls for the File System : Part 2. YouTube. Available at: https://www.youtube.com/watch?v=jsozu-FXKRQ
+
+WIT Solapur - Professional Learning Community. (2019). System Calls for the File System : Part 3. YouTube. Available at: https://www.youtube.com/watch?v=gUM_KSs6zHI
+
