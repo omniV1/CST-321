@@ -26,7 +26,7 @@ The script provides a demonstration of basic file system navigation and pattern 
 
 
 
-(output)[url of screenshot test1.sh]
+(output)[https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/test1.sh.png]
 
 
 
@@ -57,13 +57,9 @@ The `test2.sh` script manages file and directory operations in the Linux file sy
 
 
 
-(Screenshot of test2.sh)[]
+(Screenshot of test2.sh)[https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/test2.sh.png]
 
 
-
-### Script Justification
-
-The script is carefully crafted to showcase fundamental file manipulation commands in a Bash environment. It also reflects the need for a neat organization and version control in a developer's workflow. Creating separate directories for the same set of files and then removing them mimics a scenario where a developer might want to back up their work before making significant changes, or perhaps before attempting a risky operation that could potentially corrupt their files.
 
 
 ## Theory of Operation for Terminal Commands
@@ -87,15 +83,14 @@ The series of commands executed in the terminal are standard file and directory 
 Each of these commands is an essential part of navigating and viewing files in a Unix-like environment, and they provide a powerful interface for managing files and directories from the command line.
 
 
-(Terminal file command)[]
 
-(less)[] 
+(less)[https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/less-command.png] 
 
-(more -d)[]
+(more -d)[https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/more-d.png]
 
-(command more)[]
+(command more)[https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/more.png]
 
-(Terminal ls home)[] 
+(Terminal ls home)[https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/ls-home.png] 
 
 
 ## Theory of Operation for test3.sh and test4.sh Scripts
@@ -108,6 +103,7 @@ The `test3.sh` script demonstrates basic variable declaration and output in a Ba
 - Another variable `age` is declared to store the my age.
 - The `echo` command is used to print the contents of both variables to the screen, providing a simple way to verify that the variables have been set correctly.
 
+(test3.sh)[https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/test3.sh.png]
 
 ### test4.sh Script
 
@@ -119,7 +115,7 @@ The `test4.sh` script showcases the use of special shell variables and the Inter
 - `$@` and `$*` both represent all arguments passed to the script, but `"quoted values"` are handled differently by each.
 - `$#` is the total number of arguments passed to the script.
 
-
+(test4.sh)[https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/test4.sh.png]
 
 ## Theory of Operation for Terminal Commands
 
@@ -133,8 +129,6 @@ The `test4.sh` script showcases the use of special shell variables and the Inter
 - The `man` command opens manual pages for Unix commands.
 - `man gcc` provides access to the comprehensive manual for the `gcc` compiler, detailing its options, syntax, and examples.
 
-
-(Terminal msc commands)[]
 
 
 
@@ -151,7 +145,7 @@ To make the script executable, the `chmod +x ~/test5.sh` command is used. This c
 Running the script after changing permissions will successfully execute and output "Hello World" to the terminal. This demonstrates the importance of file permissions in Unix-like operating systems and how they can be modified to control access to file contents.
 
 
-(test5.sh screenshot)[]
+(test5.sh screenshot)[https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/test5.sh.png]
 
 
 ## Theory of Operation for Redirection and Piping Commands
@@ -161,17 +155,17 @@ Running the script after changing permissions will successfully execute and outp
 - The `ls -l > myfiles.txt` command lists directory contents in long format and redirects the output from the standard output to the file `myfiles.txt`. Instead of displaying the list in the terminal, it saves it to the file.
 
 
-(myfiles.txt screenshot)[] 
+(myfiles.txt screenshot)[https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/myfiles.txt.png] 
 
 
 ### Sorting Text in a File
 
 - To sort names alphabetically, the `sort < names.txt` command is used. It takes the content of `names.txt` as input and sorts the lines, displaying the sorted output in the terminal.
 
-(names before)[]
+(names before)[https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/names-before.png]
 
 
-(names after)[] 
+(names after)[https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/names-after.png] 
 
 ### Using Pipes with `less`
 
@@ -182,10 +176,10 @@ Running the script after changing permissions will successfully execute and outp
 These operations demonstrate how the shell can redirect output from one command to a file or another command, which is a powerful feature for combining commands and managing output in Unix-like operating systems.
 
 
-(less-pipe-command)[] 
+(less-pipe-command)https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/less-pipe-command.png[] 
 
 
-(less-pipe-output)[] 
+(less-pipe-output)[https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/less-pipe-output.png] 
 
 
 ## Theory of Operation for Head and Tail Commands
@@ -202,13 +196,15 @@ In cases where the user does not have sufficient permissions to read the log fil
 
 The Logs application provides a graphical user interface (GUI) for viewing system log files. It simplifies the process of inspecting logs by categorizing them and allowing users to filter and search for specific entries. This approach is more user-friendly, especially for those who are less comfortable using command-line tools. The application typically defaults to showing the `syslog`, or it can be navigated to via the interface. The benefit of using the Logs application is its ease of use and the ability to visualize the log data in a more organized and interactive manner.
 
-(head&tails)[]
+(head&tails)[https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/head%26tails.png]
 
 ## Theory of Operation for Disk Utility Commands
 
 ### fdisk -l Command
 
 The `sudo fdisk -l` command lists all the disk partitions along with detailed information such as disk size, number of sectors, bytes per sector, and partition types. The output shows various `/dev/loopX` devices, which are typically associated with loop devices that represent ISO files or disk images mounted in the filesystem. It also lists physical disk devices like `/dev/sda` and `/dev/sdb`, which are the actual hard drives or SSDs. The `sudo` prefix is necessary because viewing disk partition details requires administrative privileges.
+
+(fdisk)[https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/fdisk.png] 
 
 ### df Command
 
@@ -217,6 +213,8 @@ Running the `df` command displays information about the file system disk space u
 ### du Command
 
 The `du` (disk usage) command is used to estimate file and directory space usage. The command `du` without options shows the number of kilobytes used by the current directory, which in this case, is 100 kilobytes. When run with the `-h` option (`du -h`), it provides a human-readable format, which shows the size in a more comprehensible format (100K).
+
+(du&df)[https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/df%26du.png]
 
 ## Disk Usage Analyzer - Analyzing the Home Folder
 
@@ -241,7 +239,7 @@ Using the Disk Usage Analyzer has several advantages:
 
 This GUI-based approach complements the traditional command-line disk utilities, making disk management more accessible to all user levels.
 
-(Disk usage analyzer)[] 
+(Disk usage analyzer)[https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/DiskUsageAnalyzer.png] 
 
 ## Research Question 1: 
 
