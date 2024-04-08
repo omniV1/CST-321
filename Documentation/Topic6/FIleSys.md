@@ -46,13 +46,13 @@
 | `eclipse-workspace`| Where Eclipse project files and workspace configurations are saved.                           |
 | `nohup.out`        | A file that captures output from processes run with `nohup` command, not a directory.         |
 | `CST-321`          | Directory for the CST-321 course's cloned Git repository, contains course-related project files.|
-| `owen`             | A personal directory for the user 'owen', possibly for specific files or personal projects.   |
+| `owen`             | A personal directory for the user 'owen', for specific files or personal projects.   |
 
 ## Exercise 3: Flowchart for Simulated C Compiler Process
 
 In this exercise, the flowchart will illustrate a simulated process of compiling a C program using a series of Linux system I/O calls. Each step in the flowchart will correspond to a specific I/O operation, starting from reading the input C program, compiling it into tokens, and writing these tokens to a file, to finally linking these tokens with a library to create an executable file. This process will demonstrate a thorough understanding of file operations such as creating, opening, reading from, writing to, and closing files, as well as directory management within a Linux environment.
 
-*The flowchart will be linked here in the final document.*
+![Flowchart](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/Filesys.drawio.png)
 
 ### Justifications for Decisions
 - **Opening Files:**
