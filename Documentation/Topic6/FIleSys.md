@@ -71,7 +71,7 @@ In this exercise, the flowchart will illustrate a simulated process of compiling
   A temporary directory is used for intermediate files to avoid cluttering the user's workspace and to ease cleanup after compilation.
 
 - **Checksum Implementation:**
-  A checksum is computed and added to the final executable to ensure data integrity, following best practices for software distribution.
+  A checksum is computed and added to the final executable to ensure data integrity.
 
 
 
