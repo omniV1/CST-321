@@ -270,3 +270,15 @@ This GUI-based approach complements the traditional command-line disk utilities,
 | Pre-installed Apps   | Mint-specific tools            | Pop!_OS specific tools, NVIDIA support | Zorin-specific apps and tools     | Standard GNOME apps           |
 | Target Audience      | Beginners, Windows converts    | Power users, developers         | Windows converts, new Linux users | General Linux audience        |
 | Support Lifecycle    | Based on Ubuntu LTS            | Based on Ubuntu LTS             | Based on Ubuntu LTS              | 5 years for LTS, 9 months for regular releases |
+
+
+
+# References 
+
+Child, D. (n.d.). Linux Command Line Cheat Sheet. Available at: https://cheatography.com/davechild/cheat-sheets/linux-command-line/
+
+Reha, M. (2024). Operating System Fundamentals Topic 6. Available at: https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/1582472999
+
+Reha, M. (2024). Topic 6 Assignment Getting Started.  Available at: https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/1582473081
+
+Tanenbaum, A. S., & Bos, H. (2022). Chapter 4. In Modern Operating Systems (5th ed.). Pearson.
