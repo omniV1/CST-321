@@ -109,6 +109,9 @@ The `test3.sh` script demonstrates basic variable declaration and output in a Ba
 - The `echo` command is used to print the contents of both variables to the screen, providing a simple way to verify that the variables have been set correctly.
 
 
+(test3.sh)[]
+
+
 ### test4.sh Script
 
 The `test4.sh` script showcases the use of special shell variables and the Internal Field Separator (IFS).
@@ -119,6 +122,8 @@ The `test4.sh` script showcases the use of special shell variables and the Inter
 - `$@` and `$*` both represent all arguments passed to the script, but `"quoted values"` are handled differently by each.
 - `$#` is the total number of arguments passed to the script.
 
+
+(test4.sh)[]
 
 
 ## Theory of Operation for Terminal Commands
@@ -218,6 +223,10 @@ Running the `df` command displays information about the file system disk space u
 
 The `du` (disk usage) command is used to estimate file and directory space usage. The command `du` without options shows the number of kilobytes used by the current directory, which in this case, is 100 kilobytes. When run with the `-h` option (`du -h`), it provides a human-readable format, which shows the size in a more comprehensible format (100K).
 
+
+(df&du)[]
+
+
 ## Disk Usage Analyzer - Analyzing the Home Folder
 
 ### Selecting and Analyzing the Home Folder
@@ -272,3 +281,8 @@ This GUI-based approach complements the traditional command-line disk utilities,
 | Pre-installed Apps   | Mint-specific tools            | Pop!_OS specific tools, NVIDIA support | Zorin-specific apps and tools     | Standard GNOME apps           |
 | Target Audience      | Beginners, Windows converts    | Power users, developers         | Windows converts, new Linux users | General Linux audience        |
 | Support Lifecycle    | Based on Ubuntu LTS            | Based on Ubuntu LTS             | Based on Ubuntu LTS              | 5 years for LTS, 9 months for regular releases |
+
+
+
+# Resources
+
