@@ -118,13 +118,8 @@ The `test4.sh` script showcases the use of special shell variables and the Inter
 - `$@` and `$*` both represent all arguments passed to the script, but `"quoted values"` are handled differently by each.
 - `$#` is the total number of arguments passed to the script.
 
-<<<<<<< HEAD
-
-(test4.sh)[]
-
-=======
 ![test4.sh](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/test4.sh.png)
->>>>>>> 04eda0a786f9431d3be14af9e27d754aed4a23f5
+
 
 ## Theory of Operation for Terminal Commands
 
