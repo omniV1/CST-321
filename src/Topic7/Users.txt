@@ -1,0 +1,5 @@
+Owen $(openssl passwd -6 -salt xyz secret123)
+Sarah $(openssl passwd -6 -salt xyz password123)
+Elijah $(openssl passwd -6 -salt xyz hello123)
+Oliver $(openssl passwd -6 -salt xyz welcome123)
+Everly $(openssl passwd -6 -salt xyz test123)
