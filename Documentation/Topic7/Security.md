@@ -12,7 +12,7 @@ A buffer overflow occurs when a program attempts to write more data to a fixed-l
 
 ### b) Diagram of a Buffer Overflow
 
-*Note: Insert diagram here*
+![buffer overflow diagram](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/bufferoverflow.drawio.png)
 
 The diagram would depict the stack during program execution, where a buffer overflow leads to excess data spilling over into adjacent memory spaces, overwriting critical control information such as return addresses.
 
