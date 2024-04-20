@@ -14,7 +14,31 @@ A buffer overflow occurs when a program attempts to write more data to a fixed-l
 
 ![buffer overflow diagram](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/bufferoverflow.drawio.png)
 
-The diagram would depict the stack during program execution, where a buffer overflow leads to excess data spilling over into adjacent memory spaces, overwriting critical control information such as return addresses.
+## Stack State: Before and After Buffer Overflow Attack
+
+### Function Before Attack
+This section of the stack is unchanged and represents the original state:
+- **Local Variable**: Unaffected and occupies the top of the stack.
+- **Buffer**: Intended space for data storage.
+- **Frame Pointer**: Points to the start of the current stack frame (not visible in the after-attack view because we assume it has been overwritten).
+- **Return Address**: Points to the next instruction after the function returns (this will be targeted by the overflow).
+- **Function Parameters**: Passed to the function and located at the bottom of the stack frame.
+
+### Function After Attack
+This section shows the stack after it has been compromised:
+- **Local Variable**: Remains unaffected at the top.
+- **Overflow Data**: Exceeds the intended buffer space and begins to overwrite adjacent memory.
+- **Overwritten Data**: This area has been corrupted by the overflow data, affecting what was originally the frame pointer and potentially other parts of the stack.
+- **Return Address**: Has been altered by the overflow data; it now points to a different memory location.
+- **Data Written Past Buffer Boundary**: This part of the diagram highlights the critical overflow that leads to the attack vector.
+- **Malicious Code**: The new destination for the corrupted return address, leading to the execution of an attacker’s payload.
+
+### Stack Growth
+- The downward arrow between the two stack states clearly indicates the direction in which the stack grows.
+
+### Attack Execution Path
+- An arrow from the "Return Address" in the "After Attack" section to "Malicious Code" visualizes the path that the CPU’s instruction pointer will follow due to the altered return address.
+
 
 ### c) Issues and Harm Caused by Buffer Overflows
 
