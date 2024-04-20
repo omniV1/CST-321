@@ -37,7 +37,7 @@ This section shows the stack after it has been compromised:
 - The downward arrow between the two stack states clearly indicates the direction in which the stack grows.
 
 ### Attack Execution Path
-- An arrow from the "Return Address" in the "After Attack" section to "Malicious Code" visualizes the path that the CPU’s instruction pointer will follow due to the altered return address.
+- An arrow from the Return Address in the After Attack section to Malicious Code visualizes the path that the CPU’s instruction pointer will follow due to the altered return address.
 
 
 ### c) Issues and Harm Caused by Buffer Overflows
@@ -133,28 +133,140 @@ From a Christian worldview, using Kali Linux responsibly aligns with the steward
 
 **Benefiting Others:** Knowledge of tools like Kali Linux can significantly benefit society by enhancing the security of technological systems. From securing personal data to protecting national infrastructure, the proper use of Kali Linux supports the common good, reflecting the Christian mandate to love and serve others (John 15:12).
 
+## Password Validator Script
 
+A Bash script has been created to check and validate the strength of passwords provided as command-line arguments. The script evaluates the password based on length, numeric character inclusion, and the presence of special characters.
 
-////////////////////////////////////  BASH SCRIPT INFORMATION FOR PROBLEM 4 ////////////////////////////////////
-
-
-
-
-
+### Password Validator Script (`password_validator.sh`)
 
 
 
+```BASH
+
+#!/bin/bash
+
+# Check if the correct number of arguments were provided
+if [ "$#" -ne 3 ]; then
+    echo "Error: You must enter exactly 3 command line arguments: the filename, the group name, and the operation flag."
+    exit 1
+fi
+
+filename=$1
+group=$2
+operation=$3
+
+# Check if the input file exists and is not empty
+if [ ! -s "$filename" ]; then
+    echo "Error: File does not exist or is empty."
+    exit 1
+fi
+
+# Check if the group exists, if not, create it
+if ! getent group "$group" > /dev/null 2>&1; then
+    sudo groupadd "$group"
+    echo "Group '$group' created."
+fi
+
+# Function to add users from the file
+add_users() {
+    while IFS=' ' read -r userid password; do
+        if [ -z "$userid" ] || [ -z "$password" ]; then
+            echo "Skipping blank line."
+            continue
+        fi
+
+        echo "Adding user '$userid'..."
+        sudo useradd -m -p "$password" -G "$group" "$userid"
+        if [ "$?" -eq 0 ]; then
+            echo "User '$userid' added successfully."
+        else
+            echo "Failed to add user '$userid'."
+        fi
+    done < "$filename"
+}
+
+# Function to remove users from the file
+remove_users() {
+    while IFS=' ' read -r userid password; do
+        if [ -z "$userid" ]; then
+            echo "Skipping blank line."
+            continue
+        fi
+
+        echo "Removing user '$userid'..."
+        sudo userdel -r "$userid"
+        if [ "$?" -eq 0 ]; then
+            echo "User '$userid' removed successfully."
+        else
+            echo "Failed to remove user '$userid'."
+        fi
+    done < "$filename"
+}
+
+# Determine the operation to perform
+case "$operation" in
+    -a)
+        add_users
+        ;;
+    -r)
+        remove_users
+        ;;
+    *)
+        echo "Invalid operation flag. Use '-a' to add or '-r' to remove."
+        exit 1
+        ;;
+esac
+```
+![password_validator]()
 
 
+## User Management Script
 
+The user management script handles the addition and removal of users from a Linux system. It takes a file with user information, a group name, and an operation flag as arguments.
 
+### User Management Script (manage_users.sh)
 
+```BASH
+#!/bin/bash
 
+# Script to add or remove users from a Linux system
 
+# Validating the correct number of arguments
+if [ "$#" -ne 3 ]; then
+    echo "Error: Incorrect number of arguments."
+    exit 1
+fi
 
+# Arguments
+filename=$1
+group=$2
+operation=$3
 
+# Process the input file
+if [ ! -s "$filename" ]; then
+    echo "Error: User file is empty or does not exist."
+    exit 1
+fi
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# Check and add group if necessary
+if ! getent group "$group" &>/dev/null; then
+    sudo groupadd "$group"
+    echo "Group '$group' has been created."
+fi
 
+# Add or remove users based on the operation flag
+case "$operation" in
+    -a)
+        add_users
+        ;;
+    -r)
+        remove_users
+        ;;
+    *)
+        echo "Error: Invalid operation flag."
+        exit 1
+        ;;
+esac
 
-
+```
+![Manage users]()
