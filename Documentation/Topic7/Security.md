@@ -217,7 +217,8 @@ case "$operation" in
         ;;
 esac
 ```
-![password_validator]()
+![password_validator](
+https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/password_validator.png)
 
 
 ## User Management Script
@@ -269,4 +270,6 @@ case "$operation" in
 esac
 
 ```
-![Manage users]()
+![Manage users](
+https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/Manage_users.png
+)
