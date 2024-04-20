@@ -18,9 +18,9 @@ The Login Interface is designed to ensure a secure yet user-friendly authenticat
 - The account is locked after three unsuccessful login attempts to prevent brute force attacks.
 - The 2FA code expires quickly to mitigate the risk of interception or reuse.
 
-![Login Flowchart]()
+![Login Flowchart](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/loginInterfaceFlowchart.drawio.png)
 
-![Login webframe]()
+![Login webframe](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/loginInterface.drawio.png)
 
 
 ## Functional Requirements and Security Policies
@@ -48,9 +48,9 @@ The System Help Interface is crafted to provide users with easy access to suppor
 - Sensitive help topics are behind an additional verification wall to ensure that only authorized users can access them.
 - User inactivity leads to an automatic sign-out, protecting the session.
 
-![System Help Flowchart]()
+![System Help Flowchart](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/SysHelpFlowchart.drawio.png)
 
-![System Help webframe]()
+![System Help webframe](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/SystemHelp.drawio.png)
 
 
 ## Functional Requirements and Security Policies
@@ -75,9 +75,10 @@ The Process Management Interface allows users to effectively monitor and control
 - Sensitive process actions are logged for auditing purposes and are subject to strict access control.
 - Biometric data used for verification is stored and transmitted with strong encryption protocols.
 
-![process Flowchart]()
+![process Flowchart](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/processFlowchart.drawio.png)
 
-![process webframe]()
+![process webframe](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/ProcessManager.drawio.png
+)
 
 ## Functional Requirements and Security Policies
 
