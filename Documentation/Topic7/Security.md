@@ -77,8 +77,6 @@ A zero-day exploit is a cyber attack that takes place on the same day a vulnerab
 
 ### b) Ethical Issues Arising from Zero-Day Exploits and a Christian Worldview Perspective
 
-#### **Article Reference:**
-- "Modernism, Christianity, and Business Ethics: A Worldview Perspective"
 
 #### **Discussion:**
 
@@ -122,8 +120,6 @@ The following table lists 10 standard tools included in the Kali Linux distribut
 
 ### c) Ethical Issues Related to Kali Linux from a Christian Worldview
 
-#### **Article Reference:**
-- "Modernism, Christianity, and Business Ethics: A Worldview Perspective"
 
 #### **Discussion:**
 
@@ -273,3 +269,22 @@ esac
 ![Manage users](
 https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/Manage_users.png
 )
+
+
+
+### Resources 
+
+Bitten Tech. (2017). What is BUFFER OVERFLOW? | Overflow of input | Programming errors explained [Video]. YouTube. https://www.youtube.com/watch?v=mTrTwg03N9M
+
+Cyber Security Entertainment. (2017). Zero Day Exploit explained under 2 mins [Video]. YouTube. https://www.youtube.com/watch?v=PNgIJXodwic
+
+Kim, D., Fisher, D., & McCalman, D. (2009). Modernism, Christianity, and Business Ethics: A Worldview Perspective. Journal of Business Ethics, 90(1), 115–121. https://doi-org.lopes.idm.oclc.org/10.1007/s10551-009-0031-2
+
+Monteclaro, A. J. (2023). What is virtualization security? how to keep your virtualized infrastructure secure. ServerWatch. https://www.serverwatch.com/virtualization/virtualization-security/ 
+
+Reha, M. (2024). Operating System Fundamentals Topic 7. Available at: https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/1582473003
+
+Reha, M. (2024). Topic 7 Assignment Getting Started.  Available at: https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/1582473082
+
+Lynch, E. on O. B. J., & Lynch, J. (2016). Is debian the gold standard for linux security?. InfoWorld. https://www.infoworld.com/article/3118898/is-debian-the-gold-standard-for-linux-security.html 
+

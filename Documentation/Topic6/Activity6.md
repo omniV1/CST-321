@@ -224,7 +224,7 @@ The `du` (disk usage) command is used to estimate file and directory space usage
 
 =======
 ![du&df](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic6/screenshots/df%26du.png)
->>>>>>> 04eda0a786f9431d3be14af9e27d754aed4a23f5
+
 
 ## Disk Usage Analyzer - Analyzing the Home Folder
 

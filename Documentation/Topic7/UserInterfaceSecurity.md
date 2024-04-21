@@ -88,3 +88,14 @@ The Process Management Interface allows users to effectively monitor and control
 | Biometric verification for critical actions | Use of secure biometric verification methods    |
 | Action logging for auditing              | Comprehensive logging and monitoring policy    |
 | Restriction of sensitive actions to admin users | Access control policies for sensitive actions |
+
+
+### Resources
+
+Authentication cheat sheet. Authentication - OWASP Cheat Sheet Series. (n.d.). https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html 
+
+Reha, M. (2024). Operating System Fundamentals Topic 7. Available at: https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/1582473003
+
+Reha, M. (2024). Topic 7 Assignment Getting Started.  Available at: https://padlet.com/mark_reha/cst-321-hbq3dgqav9oah80v/wish/1582473082
+
+Ultimate Flowchart Guide 2024: Definition, examples, symbols, etc.. Ultimate Flowchart Guide 2024: Definition, Examples, Symbols, etc. (n.d.). https://www.zenflowchart.com/flowchart 
