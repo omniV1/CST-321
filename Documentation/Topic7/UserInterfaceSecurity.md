@@ -30,7 +30,7 @@ The Login Interface is designed to ensure a secure yet user-friendly authenticat
 | Username (8-10 alphanumeric characters) | AES-256 encryption for stored usernames      |
 | Password (10-15 mixed characters)      | SHA-256 hashing for password transmission    |
 | Biometric data for 2FA                 | Biometric data encrypted at rest             |
-| Automatic lock after 3 failed attempts | Account lockout policy for security          |
+| Automatic lock after 4 failed attempts | Account lockout policy for security          |
 | Password change every 90 days          | Mandatory password rotation policy           |
 | No password reuse for 10 generations   | History-based password policy enforcement    |
 | 2FA code entry                         | Use of TOTP for 2FA to ensure one-time use   |
