@@ -1,5 +1,24 @@
 #!/bin/bash
-# This script checks for logins outside of office hours from 8:00AM to 5:00PM
 
+# Define office hour start and end times (24-hour format)
+office_start=0800
+office_end=1700
+
+# Print header
 echo "Logins outside office hours:"
-awk -F: '{ if ($3 < 800 || $3 > 1700) print $0 }' /var/log/auth.log | grep -i "session opened"
+
+# Filter auth.log by time, outside of office hours
+awk -v start="$office_start" -v end="$office_end" '{
+  # Extract the month, day, and time
+  month = $1;
+  day = $2;
+  time = $3;
+
+  # Convert time to 24-hour format without colon
+  gsub(":", "", time);
+
+  # Check if the time is outside of office hours and print the line if it is
+  if ((time < start && time >= "0000") || (time > end && time <= "2359")) {
+    print month, day, time, $0;
+  }
+}' /var/log/auth.log | grep "session opened"
