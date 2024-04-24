@@ -18,7 +18,7 @@ awk -v start="$office_start" -v end="$office_end" '{
   gsub(":", "", time);
 
   # Check if the time is outside of office hours and print the line if it is
-  if ((time < start && time >= "0000") || (time > end && time <= "2359")) {
+  if ((time < start && time >= "0000") || (time > end && time <= "2359") && $0 !~ /CRON/) {
     print month, day, time, $0;
   }
 }' /var/log/auth.log | grep "session opened"
