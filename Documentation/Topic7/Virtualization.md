@@ -35,7 +35,7 @@ The Integrated Maintenance Data System (IMDS) is pivotal within the Air Force's 
 ### Application Rationale
 Virtualizing IMDS addresses operational challenges by offering a scalable, secure, and reliable computing environment. This approach supports the Air Force's goals for maintaining high operational readiness and strategic flexibility, ensuring IMDS's continued evolution and effectiveness in aerospace maintenance and operations.
 
-![IMDS virtualization]()
+![IMDS virtualization](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/IMDSVirtualization.drawio.png)
 
 ### 3. Current Leading Virtualization Software
 
