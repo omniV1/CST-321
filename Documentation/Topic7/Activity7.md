@@ -36,7 +36,9 @@
 
 
 
-![Terminal commands]() 
+![Terminal commands](
+https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/commandsInTerminal.png
+) 
 
 
 #### - `k.`) Theory of Operations for commands 
@@ -55,7 +57,7 @@
 
 #### - `b.`) Screenshot of the Terminal console output 
 
-![Terminal GREP operation]() 
+![Terminal GREP operation](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/GREPinTerminal.png) 
 
 
 #### - `c.`) Theory of Operation for GREP 
@@ -128,7 +130,11 @@
 
 #### `i.`) Screenshot of terminal console output
 
-![Terminal OpenSSL operation]() 
+![Terminal OpenSSL operation](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/Openssl_1.png) 
+
+![Terminal OpenSSL operation](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/openssl2.png) 
+
+![Terminal OpenSSL operation](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/openssl3.png) 
 
 #### `e.`) Theory of Operation for OpenSSL commands
 
@@ -159,7 +165,9 @@
 
 #### `i.`) Screenshot of terminal output 
 
-![Terminal netstat operation]() 
+![Terminal netstat operation](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/network1.png) 
+
+![Terminal netstat operation](https://github.com/omniV1/CST-321/blob/main/Documentation/Topic7/screenshots/network2.png) 
 
 #### `j.`) Theory of Operation on netsat utility 
 
