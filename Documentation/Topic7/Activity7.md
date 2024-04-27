@@ -140,14 +140,14 @@
 | `openssl enc -d -aes-256-cbc -a -in test.enc -out test.dec`    | Decrypts `test.enc` and decodes from Base64 using the same algorithm.    | Combines decryption with Base64 decoding. The `-a` flag indicates that the input file (`test.enc`) is Base64 encoded. Decrypts and converts the data back to plaintext, outputting to `test.dec`. The same password is required for decryption. |
 
 #### `m.`) Research on MD5 Hash 
-            - i. What is steganography?
+ - i. What is steganography?
                 
-                Steganography is the practice of hiding secret data within an ordinary file or message to avoid detection. Unlike cryptography, which obscures the content of a message, steganography hides the existence of the message itself. It can be used to embed hidden information in digital images, audio files, videos, or other types of digital media, where alterations to the binary data are imperceptible to human senses.
+` Steganography` is the practice of hiding secret data within an ordinary file or message to avoid detection. Unlike cryptography, which obscures the content of a message, steganography hides the existence of the message itself. It can be used to embed hidden information in digital images, audio files, videos, or other types of digital media, where alterations to the binary data are imperceptible to human senses.
 
 
-            - ii. How could an MD5 hash be used to prevent steganography
+- ii. How could an MD5 hash be used to prevent steganography
               
-                An MD5 hash can be used to monitor the integrity of files and detect unauthorized changes, which could include the insertion of steganographic content. By generating and storing an MD5 hash of the original file, a system can periodically re-hash the stored media and compare it against the original hash. Any alteration to the file, including the embedding of hidden data via steganography, will change the hash value, thereby indicating tampering or modification. However, it's important to note that MD5 is not collision-resistant, which limits its effectiveness against sophisticated attacks where the hash might be preserved despite changes to the data.
+ An `MD5 hash` can be used to monitor the integrity of files and detect unauthorized changes, which could include the insertion of steganographic content. By generating and storing an MD5 hash of the original file, a system can periodically re-hash the stored media and compare it against the original hash. Any alteration to the file, including the embedding of hidden data via steganography, will change the hash value, thereby indicating tampering or modification. However, it's important to note that MD5 is not collision-resistant, which limits its effectiveness against sophisticated attacks where the hash might be preserved despite changes to the data.
 
 
 #### `n.`) Screenshot of MD5 Hash 
