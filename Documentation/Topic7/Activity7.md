@@ -163,41 +163,155 @@
 
 #### `j.`) Theory of Operation on netsat utility 
 
+| Command | Description | Theory of Operation |
+|---------|-------------|--------------------|
+| `sudo apt install net-tools` | Installs the net-tools package which contains essential networking utilities including `netstat`. | This command uses the Advanced Packaging Tool (APT) to install the net-tools package. It is essential for managing networking on older Linux systems and provides utilities like `ifconfig` and `netstat` which are used for network interface configuration and network statistics monitoring respectively. |
+| `hostname` | Displays the system's network name. | This command is used to get or set the hostname of the system. The hostname is important for network communication, allowing a user-readable label that can be resolved to an IP address via DNS. |
+| `ifconfig -a` | Lists all network interfaces, including those that are down. | `ifconfig` (interface configuration) is used to configure, manage, and display the properties of network interfaces such as IP addresses and netmasks. The `-a` option ensures that all currently available interfaces are listed, regardless of their state. |
+| `netstat -a` | Lists all network connections and listening ports. | `netstat` (network statistics) is a powerful tool that displays network connections for TCP, routing tables, interface statistics, masquerade connections, and multicast memberships. The `-a` option shows both listening and non-listening sockets. |
+| `netstat -at` | Lists TCP connections. | This command filters the output of `netstat` to show only TCP connections. TCP (Transmission Control Protocol) is crucial for establishing reliable connections between hosts. |
+| `netstat -tnl` | Displays listening TCP connections, showing only network address and port number. | The `-tnl` options combine to show TCP connections (`-t`), suppress the resolution of hostnames (`-n`), and display only listening sockets (`-l`). This is useful for quickly assessing which services are accepting incoming connections. |
+| `sudo netstat -ltpe` | Lists listening ports along with service names and more detailed information like process ID and user ID. | The `-ltpe` options extend the `netstat` output to include the program name (`-p`), show listening sockets (`-l`), disable hostname resolution (`-n`), and display the user ID (`-e`). This is invaluable for administrators to identify which applications are listening on which ports. |
+| `netstat -i` | Displays network interfaces with statistics. | This command lists the network interfaces along with statistics such as the number of packets and bytes received and sent. This information is key for monitoring network activity and diagnosing issues. |
+
 ## Ethical Hacking 
 
 ### 1)  Tutorials point research
-            - i. What are some types of hacking?
-            .
+  `i`. What are some types of hacking?
   
-            - ii. What tools are available
-            .
+ 1. **Social Engineering**: An attack vector that relies on human interaction and often involves manipulating people into breaking normal security procedures to gain unauthorized access to systems, networks, or physical locations, or for financial gain. Examples include:
+   
+   - Dumpster diving to retrieve sensitive information thrown away by a company.
+   - Befriending employees to extract confidential information.
+   - Impersonating an employee or a legitimate user to gain physical or system access.
   
-            - iii. What are some different attacks?
-            .
 
 
-            - iV. What other possible tools would you need to do this job?
-            .
+1. **Phishing Attacks**: A form of social engineering where attackers send fraudulent emails that seem to come from reputable sources to steal sensitive data like credit card numbers and login credentials.
 
-            - v.  What additional training or resources would you need to do this job??
-            . 
+
+
+2. **TCP/IP Hijacking**: An active session attack where an attacker takes over a TCP session between two machines without the need of a password mainly by exploiting the session's data packets. This could involve:
+   - Using the Man-in-the-Middle (MITM) technique to intercept and inject malicious data into the session.
+   - Employing tools like Shijack or Hunt to actively hijack the session.
+
+
+
+3. **Reconnaissance**: Involves gathering information about the target before launching an attack. This can be:
+   - **Passive**: Gathering data without directly interacting with the target system to avoid detection.
+   - **Active**: Directly interacting with the system to gather information which may alert the target about the potential attack.
+  
+
+  `ii`. What tools are available
+  
+1. **Wireshark**: A network protocol analyzer that lets you capture and interactively browse the traffic running on a computer network.
+2. **Shijack**: A tool mentioned specifically for TCP/IP session hijacking, used to take over a session by manipulating sequence numbers in packet headers.
+3. **Hunt**: Another tool for TCP/IP hijacking, capable of sniffing networks and intercepting traffic to perform man-in-the-middle and session hijacking attacks.
+4. **Ethercap**: Commonly used for man-in-the-middle attacks on LANs, capable of intercepting and modifying traffic on a network segment.
+  
+ `iii`. What are some different attacks?
+1. **Social Engineering Attacks**: Includes dumpster diving, phishing, pretexting, and tailgating where attackers exploit human psychology.
+
+2. **TCP/IP Hijacking**: Where an attacker takes control of a pre-established communication session between two computers.
+
+3. **Phishing**: A specific type of social engineering where attackers send fraudulent emails or set up fake websites to trick victims into providing sensitive information.
+
+
+`iV`. What other possible tools would you need to do this job?
+  
+1. **Metasploit**: A framework for developing and executing exploit code against a remote target machine.
+   
+2. **Nmap**: A network scanning tool used to discover hosts and services on a computer network by sending packets and analyzing the responses.
+   
+3. **Burp Suite**: An integrated platform for performing security testing of web applications.
+   
+4. **Kali Linux**: A Debian-derived Linux distribution designed for digital forensics and penetration testing, which includes numerous tools for hacking and security testing.            
+
+`v`.  What additional training or resources would you need to do this job??
+
+1. **Certified Ethical Hacker (CEH)**: A professional certification provided by the EC-Council that teaches the fundamentals of ethical hacking and penetration testing.
+   
+2. **Offensive Security Certified Professional (OSCP)**: An ethical hacking certification that focuses on hands-on offensive information security skills.
+
+3. **Security conferences and workshops**: Events like DEF CON and Black Hat provide a platform for learning about the latest security research, trends, and tools.
+   
+4. **Online Courses and Tutorials**: Platforms like Coursera, Udemy, and Cybrary offer courses ranging from beginner to advanced levels in ethical hacking and cybersecurity.
+   
+5. **Practice Labs and Ranges**: Online platforms like Hack The Box or TryHackMe offer virtual labs and challenges for hands-on hacking practice.
 
 
 ### 2) Trusted Computing Base 
-            - i. What is the trusted computing base?
-            .
-  
-            - ii. Why is this important?
-            .
+`i`. What is the trusted computing base?
 
+The **trusted computing base (TCB)** is the core component of a computing system that is crucial for enforcing its security. The TCB comprises all the hardware, firmware, and software components that are critical to the security of the system. Essentially, it includes those elements that handle the enforcement of security policies and thereby manage the security of the entire computing system. Components outside the TCB have limited privileges and cannot perform actions that might compromise the system's security. The TCB is fundamental because any vulnerabilities or bugs within this base can jeopardize the security properties of the whole system.
+
+  
+`ii`. Why is this important?
+
+The TCB is critically important for several reasons:
+
+1. **Security Assurance**: The integrity and security of a computing system largely depend on the TCB. By focusing security efforts on a small, manageable set of components, it is possible to more thoroughly ensure the system is secure against attacks.
+
+2. **System Integrity**: The TCB maintains the system's integrity by ensuring that all security mechanisms within the computer operate correctly. This includes maintaining the correctness of security protocols, the protection of security mechanisms from tampering, and the accurate execution of security policies.
+
+3. **Minimization of Risk**: By isolating the security-critical components into a TCB, the system can be designed to minimize the risk of security breaches. Components outside the TCB cannot perform actions that significantly compromise the system, limiting the potential damage from less secure parts of the system.
+
+4. **Enabling Secure Operations**: The TCB allows for secure operations on a computer system by ensuring that only authorized code and processes can access sensitive information or perform critical functions. This is crucial for environments where high security is necessary.
+
+5. **Facilitation of Security Evaluations**: With a defined TCB, security evaluations, such as those done under the Common Criteria security process, can be more focused and thorough. Evaluators can concentrate their efforts on the most critical parts of the system, which simplifies the process and enhances the reliability of the evaluation.
+
+6. **Economic and Practical Feasibility**: The necessity to keep the TCB as small as possible is economically and practically important. Smaller TCBs simplify the task of securing and verifying the system, which can reduce the costs and time required for security audits and reviews. This is especially significant in systems that require high assurance, such as military or critical infrastructure systems.
 
 ## Research Questions
 
+### Overview on Authentication Schemes 
+
 #### `a.`) 
 
+| Authentication Scheme | Description | Example Use |
+|-----------------------|-------------|-------------|
+| Passwords             | The most common form of authentication, requiring a user to know and enter a secret string of characters. | Used by nearly all operating systems and online platforms for initial login authentication. |
+| Physical Objects      | Authentication using a physical device such as a security token, smart card, or USB key. | Bank ATMs use a physical card and PIN for account access. |
+| Biometrics            | Uses unique biological traits of individuals for verification, such as fingerprints, facial recognition, or iris scans. | Smartphones like iPhones use Face ID or Touch ID for device unlocking and payments. |
+| Challenge-Response    | A method where the user proves knowledge of a secret without revealing it, by answering a challenge. | Used in some secure VPN connections and remote server access. |
+| One-Time Passwords (OTP) | Passwords that are valid for only one login session or transaction, often generated by a hardware token or software application. | Frequently used for two-factor authentication but can serve as a single-factor in systems like a bank's OTP token for transactions. |
+| Behavioral Biometrics | Analyzes patterns in human activity like keystrokes dynamics or mouse movements. | Used for continuous authentication on sensitive systems. |
+
+
+### Overview on Multi-Factor Authentication Schemes 
 
 
 #### `b.`) 
 
+| Authentication Scheme        | Description |
+|------------------------------|-------------|
+| Two-Factor Authentication (2FA) | Combines two different types of authentication methods, typically something the user knows (password) and something the user has (security token or mobile app OTP). Common in both consumer and corporate settings to protect user accounts. |
+| Three-Factor Authentication | Involves three distinct authentication methods, often combining something the user knows (password), something the user has (security token), and something the user is (biometric verification). Used in high-security environments like government or military systems. |
+| Adaptive Authentication      | Uses a variety of factors to authenticate a user based on the current context, such as location, device, time, and behavior. The system might ask for additional proof of identity if the login attempt is made from a new location or device. |
+
+### More Detail
+
+1. `Two-Factor Authentication (2FA):` This is the most commonly implemented form of MFA. It requires users to provide two different types of authentication. For example, after entering a password, a user might also need to enter a code received via SMS or generated by an app on their mobile device. This method is widely used due to its strong security and relatively straightforward implementation.
+
+2. `Three-Factor Authentication:` For environments where security needs are higher, three-factor authentication adds another layer of security. This typically includes something the user knows (a password), something the user has (a hardware token or a phone app), and something the user is (biometric data, such as a fingerprint or retina scan). This method is less common due to higher costs and more complex implementation but is critical in areas requiring stringent security measures.
+
+3. `Adaptive Authentication:` This dynamic approach adjusts the authentication requirements based on the risk associated with a particular login attempt. Factors considered may include the user’s location, the device being used, the time of the login, and even behavior patterns. If the system detects an anomaly (e.g., a login from a foreign country), it might prompt for additional authentication factors. This method is increasingly popular among organizations that manage a large user base across various security contexts.
 
 
+
+
+## References
+
+Moon, S. (2023, January 4). 10 basic examples of linux netstat command - check ports and connections. BinaryTides. https://www.binarytides.com/linux-netstat-command-examples/ 
+
+NA. (2024). Buffer overflow. Buffer Overflow | OWASP Foundation. https://owasp.org/www-community/vulnerabilities/Buffer_Overflow 
+
+NA. (2024). Ethical hacking - TCP/IP hijacking. Tutorialspoint. https://www.tutorialspoint.com/ethical_hacking/ethical_hacking_tcp_ip_hijacking.htm 
+
+NA. (2024). More than a password: CISA. Cybersecurity and Infrastructure Security Agency CISA. (n.d.). https://www.cisa.gov/MFA 
+
+NA. (2024). Ubuntu documentation. User accounts. https://help.ubuntu.com/stable/ubuntu-help/user-accounts.html.en 
+
+NA. (2024). Logging cheat sheet¶. Logging - OWASP Cheat Sheet Series. https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html 
+
+Rosenblatt, S. (2015). The biggest cyberthreat to companies could come from the inside. CNET. https://www.cnet.com/news/privacy/the-biggest-cyber-threat-to-companies-could-come-from-the-inside/ 
